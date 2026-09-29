@@ -1,0 +1,285 @@
+{
+  "format": 1,
+  "files": [
+    {
+      "path": ".dockerignore",
+      "sha256": "06f76d3a1ce3c39c6cf2180d84198a55772505e09eddd0a9aab0cd3af062c9f5"
+    },
+    {
+      "path": ".editorconfig",
+      "sha256": "d24f384f2dab868b01cb5000f768d0bb535e235b1fa2b67e695a026cf77e9d57"
+    },
+    {
+      "path": ".env.example",
+      "sha256": "eb8ea0d632a0db1b151dc0428a14596ae9205a1c18367946c467a973d2f5a51f"
+    },
+    {
+      "path": ".eslintignore",
+      "sha256": "77b3d74f1d0741e42bb23137f17e08fe6eeda15f8e09f3df38e6bbc7a3694f6c"
+    },
+    {
+      "path": ".eslintrc.cjs",
+      "sha256": "896240d187e8873cc03a8a7b84d057245712041335956a65b5720ff18e39cfe8"
+    },
+    {
+      "path": ".gitattributes",
+      "sha256": "a55fb48326d8d008853e91595605ab7abb153ae83f27f34787979964d55f4f5b"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "8933602e9d7e315e336cf1a554aba23cf6d15ce1e214089acc6f4b8938c048a5"
+    },
+    {
+      "path": ".graphqlrc.ts",
+      "sha256": "0a812bdcbabfa057608ad67e7afa42b219114270dae0059091aea879c1cccdea"
+    },
+    {
+      "path": ".npmrc",
+      "sha256": "fb87dd1994205fe63724591e46c460ecfb06bbe60a3cea0209daf36a0d794568"
+    },
+    {
+      "path": ".prettierignore",
+      "sha256": "1e2bf840de6b5b2a378ad5caef2d4f4ed34cbac507c3d1b622b871b132e08549"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "c761c8e723a1db0b02018d1d8d967f6dfb698888381f35ba47f79bd444397418"
+    },
+    {
+      "path": "LICENSE.md",
+      "sha256": "9bf689aba74a7b5364436d7ff3c2838b0c63e7d502d470a1599841c0f41f0079"
+    },
+    {
+      "path": "README.md",
+      "sha256": "17d1db0a2cc8c55786254eeff08755e4704a620e3118de6a3aa28956794dc8e6"
+    },
+    {
+      "path": "app/auth.server.ts",
+      "sha256": "243722bf67136ca7ed15eb2f936c03d26eec59fe91fb890e0c126a54547014f2"
+    },
+    {
+      "path": "app/components/Foundation.tsx",
+      "sha256": "d67d8bcc863eb7104cd3be607dca559b12f4cb66a81bbc23d4286f93a70706b7"
+    },
+    {
+      "path": "app/components/foundation.css",
+      "sha256": "10f8692e4a8cd140f0158dc9d372b4196d1ff84b484033ac83eae8598b13a78d"
+    },
+    {
+      "path": "app/config.server.ts",
+      "sha256": "877fdcd3be8c2b3a0d6d01de785cdd22e31817f7c4fdc5be06bcef7ed24696b2"
+    },
+    {
+      "path": "app/db.server.ts",
+      "sha256": "b424dbe1ff5ea1e86acfc021022ec77c6841317f282ab473b98616d3517992a6"
+    },
+    {
+      "path": "app/entry.server.tsx",
+      "sha256": "9502486ea2672f15875f1b50ad5d23c8239e4fb7308ef9e99baee3d553e9f465"
+    },
+    {
+      "path": "app/globals.d.ts",
+      "sha256": "35d26ea66c86da9701e4f4b467913481ffeae910761cea34c775c5dacb7f8eaa"
+    },
+    {
+      "path": "app/root.tsx",
+      "sha256": "97779659a42fad0d75eaa5fe0123c685af6de573e05ae5e8bc28d640b88a02b9"
+    },
+    {
+      "path": "app/routes.ts",
+      "sha256": "99ea757f280f9132d6a6ffed1bd997693f67b347de98009a79696fc75765a66b"
+    },
+    {
+      "path": "app/routes/_index/route.tsx",
+      "sha256": "20dfc314cbd5088da2b77fd6eff1c7731b4655bb1587df60bf7b35e88824efca"
+    },
+    {
+      "path": "app/routes/_index/styles.module.css",
+      "sha256": "0473b0cf0b0f1275a01242f1ba186acc888e10b95a5786ac388bb1bb946bd0a5"
+    },
+    {
+      "path": "app/routes/api.workspace.$id.tsx",
+      "sha256": "fd90793263fb54099bd5d16895af78dbdbf0f09c2b8611dcd00d73aaa974000f"
+    },
+    {
+      "path": "app/routes/app._index.tsx",
+      "sha256": "fcb7b67a0124d750324c98af727eb109d12ac434cb6b6b14ab0cee32449a73ab"
+    },
+    {
+      "path": "app/routes/app.tsx",
+      "sha256": "c20a4a876490c93e605960d73d1ff14b3b58bfae44516688cfa8c324e22d8167"
+    },
+    {
+      "path": "app/routes/auth.$.tsx",
+      "sha256": "3f43729d2dacef9c2b32eea8da3d58c24052b50043ff68e7a0f224f6d4b73fae"
+    },
+    {
+      "path": "app/routes/auth.login/error.server.tsx",
+      "sha256": "ebb0a15a095d76c66ca9eab2dd4f2720862b0b784be7dfde9eae8fa28c286cd8"
+    },
+    {
+      "path": "app/routes/auth.login/route.tsx",
+      "sha256": "e119d75dcdfb5b8b6fe362a5fc467c6b66f59769fdeb2a54396e4a13f3c06d3b"
+    },
+    {
+      "path": "app/routes/healthz.ts",
+      "sha256": "7a68f0d1d853a6d45203d93dadf6c655d30d4813d6f47d92514eafa38098ff54"
+    },
+    {
+      "path": "app/routes/preview.tsx",
+      "sha256": "e7a31ff9a11c2f3455b98ee1f978422059076df03b103e5626ee03d7171af6f7"
+    },
+    {
+      "path": "app/routes/readyz.ts",
+      "sha256": "73f539bdbac2d3dab1b553ac07e44b63ef147e44584a608fa238508f1a24636d"
+    },
+    {
+      "path": "app/routes/webhooks.app.scopes_update.tsx",
+      "sha256": "aa31089b2cc4e2886d5b4423ee05022b99a2d33a388c1a66434652a50b6ea6e6"
+    },
+    {
+      "path": "app/routes/webhooks.app.uninstalled.tsx",
+      "sha256": "6ce4c8bdbf2bd2c42459cecabb830a55f22ba89f3d5176fb75d18b67c30a648f"
+    },
+    {
+      "path": "app/routes/webhooks.privacy.tsx",
+      "sha256": "1ba04d63d7cd00ed3a0fae7cf43d45bce290b179404105bdb6ded6023e4e1eb5"
+    },
+    {
+      "path": "app/session-storage.server.ts",
+      "sha256": "b143e0b47c45fb709cbda96030c6ec4e8619912707fba194b8f363805bacdb6f"
+    },
+    {
+      "path": "app/shopify.server.ts",
+      "sha256": "9612bcfe7de2159bd7352fa143df1d3374deccbc6da225fe6f76b6f2d2852a27"
+    },
+    {
+      "path": "app/storage.server.ts",
+      "sha256": "ec59380bea1be3d4d90789f3c19e90d96ec7ddf43b7891f1abf3f5d52e2d4b5e"
+    },
+    {
+      "path": "app/webhooks.server.ts",
+      "sha256": "7f09d2217cd8f0d93069a07b2103f781c059ff43add62a07eac5e4f204a29bd7"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "sha256": "06a5c0d3427911289502a4c4c08e69e9c8b0da4f8eec4730369f8d2bb92deb51"
+    },
+    {
+      "path": "docs/LOCAL-SETUP.md",
+      "sha256": "410d60e3e011e68067ada0d25f2867e62c3da8e7009e000bb99b33900642513f"
+    },
+    {
+      "path": "docs/NEXT.md",
+      "sha256": "4241fa9ba230f1f614e364980aa6980e1d1fe20567ab1dd1f4c00f9b6e695e1b"
+    },
+    {
+      "path": "docs/P03-ACCESS-PLAN.md",
+      "sha256": "dc562c85f499b40b136829b56a7725d0b60ad6580813e2831b5e4b9b82979a65"
+    },
+    {
+      "path": "docs/PLATFORM-SOURCES.md",
+      "sha256": "ad1d094654a4d61958ff8323b29eb1cfbca45e69a923e3c6e2010f8ff278c781"
+    },
+    {
+      "path": "docs/PRODUCT.md",
+      "sha256": "969f525b92a10e1fe1cafddd3d792501185a0a7870ca1563d02daff48f007401"
+    },
+    {
+      "path": "docs/PUBLIC-REVIEW.md",
+      "sha256": "76d0178dc1b6679655060d8960c35f0abec30b22cf08933a9afb272722370bb1"
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "sha256": "8928cca33af35299b15cdb11cec879d6bf62556d7068c498dcf50dd48f9b0650"
+    },
+    {
+      "path": "docs/RULES.md",
+      "sha256": "ada868f2b9ee900b5b57b6133b35ee2b9056a362bf49241880157eafc89f0535"
+    },
+    {
+      "path": "docs/STATUS.md",
+      "sha256": "062454a83b78fdaf797a922bc71a0591e9ff8da394f25cc5225739911f695a0e"
+    },
+    {
+      "path": "docs/p03/granted-scopes.graphql",
+      "sha256": "27a10751c1d93d3901ad192130bba6cbdfb63ddb8f1703af7b2c5e80ad9a4d5b"
+    },
+    {
+      "path": "docs/p03/order-access.graphql",
+      "sha256": "6d53f843656aec043ee5ca90539c11c4c8b6c1f1fe55ec236d7b68cf272e4c1d"
+    },
+    {
+      "path": "env.d.ts",
+      "sha256": "fa0328022a5d354e63e0dcd793c9fb9fd10e2e2fb91eb8a4ee5cce0525b5095a"
+    },
+    {
+      "path": "extensions/.gitkeep",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "ae04a85b3c6a0a9f998028c9cb5a2bab693eb12738cb69d94e597c65ad8cc180"
+    },
+    {
+      "path": "package.json",
+      "sha256": "0a694eba300a29c783979f9eb70673fea026a465bfd795e72bc083f1bc4552f8"
+    },
+    {
+      "path": "prisma/migrations/0001_foundation/migration.sql",
+      "sha256": "473ac9e2e8a20fa5453b24bbda98dc0a04dcf8d4c8d3ed352257a1e90abf10ab"
+    },
+    {
+      "path": "prisma/migrations/migration_lock.toml",
+      "sha256": "1db17a8d051aa136110736752c5e1f8b7ed92b6ea8e803112fbbe2497047c210"
+    },
+    {
+      "path": "prisma/schema.prisma",
+      "sha256": "1e356b46b022c46cc9e369c3e2bd4c4d38b371752e34cae316d2100f6ba8131c"
+    },
+    {
+      "path": "public/favicon.svg",
+      "sha256": "6dd23f1bca89eb39aabbc61d9326411d528da4d34206cdc464ab05ad60968083"
+    },
+    {
+      "path": "scripts/local-database.mjs",
+      "sha256": "fdb0c45cd8567884ee617653b2426b74509a2d31d302e4ceb4e8dbeb7fca4270"
+    },
+    {
+      "path": "scripts/local-preview.mjs",
+      "sha256": "f15d50c9a9a67c62f5e909693fd35d8697dd69414f09ae2aca233677b4bf191e"
+    },
+    {
+      "path": "scripts/postgres.mjs",
+      "sha256": "c0e84d4115d46c6660aedcaf8777d771b56f54b93dfda40e27f798c97080c250"
+    },
+    {
+      "path": "scripts/test.mjs",
+      "sha256": "9a295884e52e85ec8843841b0cd5fcbe7abf9c1323b4d4d2084eb3e4cc590296"
+    },
+    {
+      "path": "shopify.app.toml",
+      "sha256": "9e11fb26825df18cb5763a05e2a22f1f441b9d7c7597b3867597ef7371194af0"
+    },
+    {
+      "path": "shopify.web.toml",
+      "sha256": "447aac3f2de4ffd90894c66a0eae4dcd74d22a8bebb91a3f07423f428f375ff6"
+    },
+    {
+      "path": "tests/http.test.ts",
+      "sha256": "e45ade6075217c85fc187150a325900a1087a0b10d9b41db38bc0a55828b821e"
+    },
+    {
+      "path": "tests/storage.test.ts",
+      "sha256": "c25e7df59ba8b6f5a6dc94d082396c77f38f6ecc4927a69c30479002a1277005"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "dcc167e3022a342fd49ccafe0f1d41797383ce9cad635fb9b3a7e318466748cc"
+    },
+    {
+      "path": "vite.config.ts",
+      "sha256": "134bd3c12862c5be3c7866f19604ec5db09556ed95fc2b33fa32daa1433440a7"
+    }
+  ]
+}

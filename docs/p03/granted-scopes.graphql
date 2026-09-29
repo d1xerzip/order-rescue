@@ -1,0 +1,9 @@
+# Review artifact; execute server-side only after the access gate is confirmed.
+# Target Admin API 2026-07. Scope presence is not proof of PCD approval.
+query P03GrantedScopes {
+  currentAppInstallation {
+    accessScopes {
+      handle
+    }
+  }
+}

@@ -1,0 +1,4 @@
+# Preserve binary guides and evidence without newline conversion.
+*.pdf binary
+*.png binary
+*.ico binary

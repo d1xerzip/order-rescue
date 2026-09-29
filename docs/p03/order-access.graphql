@@ -1,0 +1,28 @@
+# Review artifact; no live request has been run.
+# Target Admin API 2026-07. Use one owner-selected synthetic order per dev shop.
+# Repeat with endCursor until hasNextPage=false, verifying a stable updatedAt.
+query P03OrderAccess($id: ID!, $after: String) {
+  order(id: $id) {
+    id
+    legacyResourceId
+    createdAt
+    updatedAt
+    cancelledAt
+    currentTotalPriceSet {
+      shopMoney {
+        amount
+        currencyCode
+      }
+    }
+    lineItems(first: 2, after: $after) {
+      nodes {
+        id
+        currentQuantity
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+
+model Session {
+  id String @id
+  shop String
+  state String
+  isOnline Boolean @default(false)
+  scope String?
+  expires DateTime?
+  accessToken String
+  userId BigInt?
+  firstName String?
+  lastName String?
+  email String?
+  accountOwner Boolean @default(false)
+  locale String?
+  collaborator Boolean? @default(false)
+  emailVerified Boolean? @default(false)
+  refreshToken String?
+  refreshTokenExpires DateTime?
+  @@index([shop])
+}
+
+model Shop {
+  id String @id @default(uuid())
+  domain String @unique
+  shopifyId String? @unique
+  active Boolean @default(true)
+  generation Int @default(1)
+  installedAt DateTime @default(now())
+  uninstalledAt DateTime?
+  jobsEnabled Boolean @default(true)
+  workspaceRecord WorkspaceRecord?
+}
+
+model WorkspaceRecord {
+  id String @id @default(uuid())
+  shopId String @unique
+  displayName String @default("Order Rescue")
+  updatedAt DateTime @updatedAt
+  shop Shop @relation(fields: [shopId], references: [id], onDelete: Cascade)
+}
+
+model LifecycleDelivery {
+  id String @id @default(uuid())
+  shopDomain String
+  deliveryId String
+  receivedAt DateTime @default(now())
+  triggeredAt DateTime?
+  @@unique([shopDomain, deliveryId])
+}
+
+model PrivacyReceipt {
+  id String @id @default(uuid())
+  shopDomain String
+  topic String
+  deliveryId String
+  payload Json
+  status String @default("pending")
+  receivedAt DateTime @default(now())
+  @@unique([shopDomain, topic, deliveryId])
+}

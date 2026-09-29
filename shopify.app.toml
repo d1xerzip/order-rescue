@@ -1,0 +1,22 @@
+# Local template only. Link to an owner-selected registration before using Shopify CLI dev.
+client_id = ""
+name = "Order Rescue"
+application_url = "https://example.invalid"
+embedded = true
+[build]
+automatically_update_urls_on_dev = true
+[access_scopes]
+scopes = "read_orders"
+[auth]
+redirect_urls = ["https://example.invalid/auth/callback"]
+[webhooks]
+api_version = "2026-07"
+[[webhooks.subscriptions]]
+topics = ["app/uninstalled"]
+uri = "/webhooks/app/uninstalled"
+[[webhooks.subscriptions]]
+topics = ["app/scopes_update"]
+uri = "/webhooks/app/scopes_update"
+[[webhooks.subscriptions]]
+compliance_topics = ["customers/data_request", "customers/redact", "shop/redact"]
+uri = "/webhooks/privacy"
