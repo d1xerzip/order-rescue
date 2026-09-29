@@ -17,3 +17,6 @@ Preserve existing explicit publication authorization within its scope. Publish o
 For ingestion recovery or synchronization, read docs/P04-SYNC.md; use docs/NEXT.md for the next slice. Do not reread all documentation or repeat passed installation checks without a relevant reason.
 
 After completion and verification, merge each update branch into main and create its version tag. Keep previous tags available; no separate approval is needed for the already authorized sanitized source-save workflow.
+
+
+For P05 contracts/fixtures read docs/P05-RULE-CONTRACT.md. Specifications are not executable rule evidence.

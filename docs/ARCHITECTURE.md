@@ -48,3 +48,6 @@ Propose daily TTL cleanup; expiry is also enforced on reads and ingest so deleti
 Deletion atomically blocks new work and cascades to all derived copies; workers check the deletion ledger before fetch and before commit. `shop/redact` purges the tenant, and late events without an active installation are rejected from ordinary processing. Export only to the authenticated merchant via an audited support workflow; no automatic external message.
 
 Propose encrypted backups with maximum 7-day retention. Restore remains offline until the separately preserved deletion ledger is applied, expired rows removed, and installation state reconciled. Ledger hashes are not anonymous; keep access limited and document their sole purpose. A retention exception needs documented justification; do not invent one. If provider/backup behavior cannot meet this design, block production data rather than claim compliance. P09 must test concurrent deletion, queued retries, expiry, reinstall and restore. These are design choices, not a legal approval or a statement of current controls.
+
+
+P05 adds contract/fixture artifacts only. No data fields, scopes, persistence or retention changes. P04 evidence and privacy limitations remain.

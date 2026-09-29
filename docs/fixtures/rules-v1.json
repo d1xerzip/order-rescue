@@ -1,0 +1,3019 @@
+{
+  "contractVersion": "1.0.0",
+  "synthetic": true,
+  "status": "expected specification; evaluator NOT IMPLEMENTED",
+  "cases": [
+    {
+      "id": "V_BELOW",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "99.99",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "not_matched",
+        "reasonCode": "AT_OR_BELOW_THRESHOLD",
+        "evidence": {
+          "kind": "value",
+          "field": "Order.currentTotalPriceSet.shopMoney",
+          "amount": "99.99",
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "V_EQUAL",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "not_matched",
+        "reasonCode": "AT_OR_BELOW_THRESHOLD",
+        "evidence": {
+          "kind": "value",
+          "field": "Order.currentTotalPriceSet.shopMoney",
+          "amount": "100.00",
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "V_ABOVE",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.01",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "matched",
+        "reasonCode": "ABOVE_THRESHOLD",
+        "evidence": {
+          "kind": "value",
+          "field": "Order.currentTotalPriceSet.shopMoney",
+          "amount": "100.01",
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "V_SCALE_EQUAL",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.0000",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "not_matched",
+        "reasonCode": "AT_OR_BELOW_THRESHOLD",
+        "evidence": {
+          "kind": "value",
+          "field": "Order.currentTotalPriceSet.shopMoney",
+          "amount": "100.0000",
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "V_EXACT_LARGE",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "9007199254740993.01",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "9007199254740993.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "matched",
+        "reasonCode": "ABOVE_THRESHOLD",
+        "evidence": {
+          "kind": "value",
+          "field": "Order.currentTotalPriceSet.shopMoney",
+          "amount": "9007199254740993.01",
+          "threshold": "9007199254740993.00",
+          "currencyCode": "CAD"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "V_ZERO",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "0.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "0",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "not_matched",
+        "reasonCode": "AT_OR_BELOW_THRESHOLD",
+        "evidence": {
+          "kind": "value",
+          "field": "Order.currentTotalPriceSet.shopMoney",
+          "amount": "0.00",
+          "threshold": "0",
+          "currencyCode": "CAD"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "V_SHOP_B_THRESHOLD",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-b",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-b",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.01",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-b",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-9",
+          "enabled": true,
+          "threshold": "200.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-9",
+        "outcome": "not_matched",
+        "reasonCode": "AT_OR_BELOW_THRESHOLD",
+        "evidence": {
+          "kind": "value",
+          "field": "Order.currentTotalPriceSet.shopMoney",
+          "amount": "100.01",
+          "threshold": "200.00",
+          "currencyCode": "CAD"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "V_DISCOUNT_OR_RETURN_CURRENT_TOTAL",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "90.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "not_matched",
+        "reasonCode": "AT_OR_BELOW_THRESHOLD",
+        "evidence": {
+          "kind": "value",
+          "field": "Order.currentTotalPriceSet.shopMoney",
+          "amount": "90.00",
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "V_CASH_REFUND_UNCHANGED_FIELD",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.01",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "matched",
+        "reasonCode": "ABOVE_THRESHOLD",
+        "evidence": {
+          "kind": "value",
+          "field": "Order.currentTotalPriceSet.shopMoney",
+          "amount": "100.01",
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "V_UNAVAILABLE",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": false,
+            "reason": "TOTAL_UNAVAILABLE"
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "unknown",
+        "reasonCode": "AMOUNT_UNAVAILABLE",
+        "evidence": {
+          "kind": "unavailable",
+          "field": "total"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "V_CURRENCY_MISMATCH",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "USD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "unknown",
+        "reasonCode": "CURRENCY_MISMATCH",
+        "evidence": {
+          "kind": "unavailable",
+          "field": "total.currencyCode",
+          "expectedCurrency": "CAD",
+          "observedCurrency": "USD"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "V_UNSUPPORTED_CURRENCY",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "ZZZ"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "unknown",
+        "reasonCode": "CURRENCY_UNSUPPORTED",
+        "evidence": {
+          "kind": "unavailable",
+          "field": "total.currencyCode"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "V_NEGATIVE",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "-1.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "unknown",
+        "reasonCode": "INVALID_DATA",
+        "evidence": {
+          "kind": "unavailable",
+          "field": "total.amount"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "V_EXPONENT",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "1e3",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "unknown",
+        "reasonCode": "INVALID_DATA",
+        "evidence": {
+          "kind": "unavailable",
+          "field": "total.amount"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "V_BINARY_NUMBER",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": 100.01,
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "unknown",
+        "reasonCode": "INVALID_DATA",
+        "evidence": {
+          "kind": "unavailable",
+          "field": "total.amount"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "V_INVALID_CONFIG",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "-100",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "unknown",
+        "reasonCode": "INVALID_CONFIGURATION",
+        "evidence": {
+          "kind": "configuration",
+          "field": "threshold"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "V_LINES_INDEPENDENT",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.01",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": false,
+            "reason": "LINES_UNAVAILABLE"
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "matched",
+        "reasonCode": "ABOVE_THRESHOLD",
+        "evidence": {
+          "kind": "value",
+          "field": "Order.currentTotalPriceSet.shopMoney",
+          "amount": "100.01",
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "Q_BELOW",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 4
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": 5
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "not_matched",
+        "reasonCode": "AT_OR_BELOW_THRESHOLD",
+        "evidence": {
+          "kind": "lines",
+          "threshold": 5,
+          "maxQuantity": 4
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "Q_EQUAL",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": 5
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "not_matched",
+        "reasonCode": "AT_OR_BELOW_THRESHOLD",
+        "evidence": {
+          "kind": "lines",
+          "threshold": 5,
+          "maxQuantity": 5
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "Q_ABOVE",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 6
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": 5
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "matched",
+        "reasonCode": "ABOVE_THRESHOLD",
+        "evidence": {
+          "kind": "lines",
+          "threshold": 5,
+          "matchingLines": [
+            {
+              "id": "gid://shopify/LineItem/201",
+              "currentQuantity": 6
+            }
+          ]
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "Q_NO_SUM",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 3
+              },
+              {
+                "id": "gid://shopify/LineItem/202",
+                "currentQuantity": 3
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": 5
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "not_matched",
+        "reasonCode": "AT_OR_BELOW_THRESHOLD",
+        "evidence": {
+          "kind": "lines",
+          "threshold": 5,
+          "maxQuantity": 3
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "Q_MULTI_MATCH",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 6
+              },
+              {
+                "id": "gid://shopify/LineItem/202",
+                "currentQuantity": 7
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": 5
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "matched",
+        "reasonCode": "ABOVE_THRESHOLD",
+        "evidence": {
+          "kind": "lines",
+          "threshold": 5,
+          "matchingLines": [
+            {
+              "id": "gid://shopify/LineItem/201",
+              "currentQuantity": 6
+            },
+            {
+              "id": "gid://shopify/LineItem/202",
+              "currentQuantity": 7
+            }
+          ]
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "Q_EMPTY",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": []
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": 5
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "not_matched",
+        "reasonCode": "EMPTY_LINES",
+        "evidence": {
+          "kind": "lines",
+          "threshold": 5,
+          "lineCount": 0
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "Q_ZERO",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 0
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": 5
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "not_matched",
+        "reasonCode": "AT_OR_BELOW_THRESHOLD",
+        "evidence": {
+          "kind": "lines",
+          "threshold": 5,
+          "maxQuantity": 0
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "Q_REFUND_BEFORE",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 6
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": 5
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "matched",
+        "reasonCode": "ABOVE_THRESHOLD",
+        "evidence": {
+          "kind": "lines",
+          "threshold": 5,
+          "matchingLines": [
+            {
+              "id": "gid://shopify/LineItem/201",
+              "currentQuantity": 6
+            }
+          ]
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "Q_REFUND_AFTER",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 4
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-after-refund"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": 5
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "not_matched",
+        "reasonCode": "AT_OR_BELOW_THRESHOLD",
+        "evidence": {
+          "kind": "lines",
+          "threshold": 5,
+          "maxQuantity": 4
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-after-refund"
+      }
+    },
+    {
+      "id": "Q_PARTIAL_FULFILLMENT",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 6
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-after-partial-fulfillment"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": 5
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "matched",
+        "reasonCode": "ABOVE_THRESHOLD",
+        "evidence": {
+          "kind": "lines",
+          "threshold": 5,
+          "matchingLines": [
+            {
+              "id": "gid://shopify/LineItem/201",
+              "currentQuantity": 6
+            }
+          ]
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-after-partial-fulfillment"
+      }
+    },
+    {
+      "id": "Q_TOTAL_INDEPENDENT",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": false,
+            "reason": "TOTAL_UNAVAILABLE"
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 6
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": 5
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "matched",
+        "reasonCode": "ABOVE_THRESHOLD",
+        "evidence": {
+          "kind": "lines",
+          "threshold": 5,
+          "matchingLines": [
+            {
+              "id": "gid://shopify/LineItem/201",
+              "currentQuantity": 6
+            }
+          ]
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "Q_INCOMPLETE_PAGES",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": false,
+            "reason": "LINES_UNAVAILABLE"
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": 5
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "unknown",
+        "reasonCode": "LINES_UNAVAILABLE",
+        "evidence": {
+          "kind": "unavailable",
+          "field": "lines"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "Q_FRACTIONAL",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5.5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": 5
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "unknown",
+        "reasonCode": "INVALID_DATA",
+        "evidence": {
+          "kind": "unavailable",
+          "field": "lines.currentQuantity"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "Q_INVALID_CONFIG",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": 0
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "unknown",
+        "reasonCode": "INVALID_CONFIGURATION",
+        "evidence": {
+          "kind": "configuration",
+          "field": "threshold"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "high_order_value_CANCELLED",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": "2026-01-02T18:00:00Z"
+          },
+          "total": {
+            "available": false,
+            "reason": "TOTAL_UNAVAILABLE"
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "not_applicable",
+        "reasonCode": "ORDER_CANCELLED",
+        "evidence": {
+          "kind": "applicability",
+          "gate": "cancellation"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "high_order_value_UNKNOWN_ELIGIBILITY",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": false,
+            "reason": "CANCELLATION_UNAVAILABLE"
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "unknown",
+        "reasonCode": "ELIGIBILITY_UNAVAILABLE",
+        "evidence": {
+          "kind": "unavailable",
+          "field": "cancelledAt"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "high_order_value_DISABLED",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": false,
+          "threshold": -1,
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "not_applicable",
+        "reasonCode": "RULE_DISABLED",
+        "evidence": {
+          "kind": "applicability",
+          "gate": "enabled"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "high_order_value_NOT_CONFIGURED",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": null
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": null,
+        "outcome": "not_applicable",
+        "reasonCode": "NOT_CONFIGURED",
+        "evidence": {
+          "kind": "configuration",
+          "field": "settings"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "high_order_value_EXPIRED",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-02-01T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "not_applicable",
+        "reasonCode": "OUTSIDE_MONITORING_WINDOW",
+        "evidence": {
+          "kind": "applicability",
+          "gate": "retention"
+        },
+        "evaluatedAt": "2026-02-01T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "high_order_value_OLD_GENERATION",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 0,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "not_applicable",
+        "reasonCode": "INACTIVE_INSTALLATION",
+        "evidence": {
+          "kind": "applicability",
+          "gate": "generation"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "high_line_quantity_CANCELLED",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": "2026-01-02T18:00:00Z"
+          },
+          "total": {
+            "available": false,
+            "reason": "TOTAL_UNAVAILABLE"
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": 5
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "not_applicable",
+        "reasonCode": "ORDER_CANCELLED",
+        "evidence": {
+          "kind": "applicability",
+          "gate": "cancellation"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "high_line_quantity_UNKNOWN_ELIGIBILITY",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": false,
+            "reason": "CANCELLATION_UNAVAILABLE"
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": 5
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "unknown",
+        "reasonCode": "ELIGIBILITY_UNAVAILABLE",
+        "evidence": {
+          "kind": "unavailable",
+          "field": "cancelledAt"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "high_line_quantity_DISABLED",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-1",
+          "enabled": false,
+          "threshold": -1
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "not_applicable",
+        "reasonCode": "RULE_DISABLED",
+        "evidence": {
+          "kind": "applicability",
+          "gate": "enabled"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "high_line_quantity_NOT_CONFIGURED",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": null
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": null,
+        "outcome": "not_applicable",
+        "reasonCode": "NOT_CONFIGURED",
+        "evidence": {
+          "kind": "configuration",
+          "field": "settings"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "high_line_quantity_EXPIRED",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-02-01T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": 5
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "not_applicable",
+        "reasonCode": "OUTSIDE_MONITORING_WINDOW",
+        "evidence": {
+          "kind": "applicability",
+          "gate": "retention"
+        },
+        "evaluatedAt": "2026-02-01T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "high_line_quantity_OLD_GENERATION",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 0,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": 5
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "not_applicable",
+        "reasonCode": "INACTIVE_INSTALLATION",
+        "evidence": {
+          "kind": "applicability",
+          "gate": "generation"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "V_AT_MONITORING_START",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-02T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.01",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "matched",
+        "reasonCode": "ABOVE_THRESHOLD",
+        "evidence": {
+          "kind": "value",
+          "field": "Order.currentTotalPriceSet.shopMoney",
+          "amount": "100.01",
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "V_BEFORE_MONITORING",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-02T00:00:01Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": "settings-1",
+          "enabled": true,
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "not_applicable",
+        "reasonCode": "OUTSIDE_MONITORING_WINDOW",
+        "evidence": {
+          "kind": "applicability",
+          "gate": "monitoring"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "Q_SHOP_B_THRESHOLD",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-b",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-b",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 6
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-b",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-9",
+          "enabled": true,
+          "threshold": 10
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-9",
+        "outcome": "not_matched",
+        "reasonCode": "AT_OR_BELOW_THRESHOLD",
+        "evidence": {
+          "kind": "lines",
+          "threshold": 10,
+          "maxQuantity": 6
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "V_INVALID_SETTINGS_VERSION",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_order_value",
+          "settingsVersion": 7,
+          "enabled": true,
+          "threshold": "100.00",
+          "currencyCode": "CAD"
+        }
+      },
+      "expected": {
+        "ruleKey": "high_order_value",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": null,
+        "outcome": "unknown",
+        "reasonCode": "INVALID_CONFIGURATION",
+        "evidence": {
+          "kind": "configuration",
+          "field": "settingsVersion"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    },
+    {
+      "id": "Q_INVALID_ENABLED",
+      "input": {
+        "context": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "active": true,
+          "monitoringStartedAt": "2026-01-01T00:00:00Z",
+          "evaluatedAt": "2026-01-03T00:00:00Z"
+        },
+        "order": {
+          "shopId": "synthetic-shop-a",
+          "generation": 1,
+          "id": "gid://shopify/Order/101",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "updatedAt": "2026-01-02T12:00:00Z",
+          "cancelledAt": {
+            "available": true,
+            "value": null
+          },
+          "total": {
+            "available": true,
+            "value": {
+              "amount": "100.00",
+              "currencyCode": "CAD"
+            }
+          },
+          "lines": {
+            "available": true,
+            "value": [
+              {
+                "id": "gid://shopify/LineItem/201",
+                "currentQuantity": 5
+              }
+            ]
+          },
+          "sourceSnapshotVersion": "synthetic-snapshot-1"
+        },
+        "settings": {
+          "shopId": "synthetic-shop-a",
+          "ruleKey": "high_line_quantity",
+          "settingsVersion": "settings-1",
+          "enabled": "yes",
+          "threshold": 5
+        }
+      },
+      "expected": {
+        "ruleKey": "high_line_quantity",
+        "ruleVersion": "1.0.0",
+        "settingsVersion": "settings-1",
+        "outcome": "unknown",
+        "reasonCode": "INVALID_CONFIGURATION",
+        "evidence": {
+          "kind": "configuration",
+          "field": "enabled"
+        },
+        "evaluatedAt": "2026-01-03T00:00:00Z",
+        "sourceUpdatedAt": "2026-01-02T12:00:00Z",
+        "sourceSnapshotVersion": "synthetic-snapshot-1"
+      }
+    }
+  ],
+  "boundaryCases": [
+    {
+      "id": "FOREIGN_SETTINGS",
+      "input": {
+        "verifiedShopId": "synthetic-shop-a",
+        "settingsShopId": "synthetic-shop-b"
+      },
+      "expected": {
+        "request": "rejected",
+        "result": null,
+        "evidence": null
+      }
+    }
+  ]
+}

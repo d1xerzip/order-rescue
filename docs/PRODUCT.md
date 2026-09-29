@@ -32,3 +32,6 @@ AI, customer communications, Shopify order mutations, address validation, duplic
 3. Resolve persists across reload while Shopify order data is unchanged; duplicate delivery does not reopen it.
 4. Missing access shows “unable to check”, including the affected rule and last successful sync; not a success/empty state.
 5. Open in Shopify uses the authenticated shop and stored order identity; a caller cannot navigate via a foreign tenant's record.
+
+
+P05 specifies exactly two existing rules without implementing them; current authoritative cards are in P05-RULE-CONTRACT.md.
