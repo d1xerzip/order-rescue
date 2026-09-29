@@ -1,3 +1,5 @@
+import { OrderApiError, type OrderApiGraphql } from "./order-api.server";
+import { orderReader } from "./order-reader.server";
 // Admin API 2026-07. Only the inventory in docs/ARCHITECTURE.md is selected.
 export type Availability<T> =
   { available: true; value: T } | { available: false; reason: string };
@@ -11,13 +13,10 @@ export type OrderSnapshot = {
   total: Availability<{ amount: string; currencyCode: string }>;
   lines: Availability<Array<{ id: string; currentQuantity: number }>>;
 };
-export type OrderGraphql = (
-  query: string,
-  options?: { variables?: Record<string, unknown> },
-) => Promise<Response>;
+export type OrderGraphql = OrderApiGraphql;
 
 export class SnapshotError extends Error {
-  constructor(public readonly code: string) {
+  constructor(public readonly code: string, public readonly retryAfterMs?: number) {
     super(code);
     this.name = "SnapshotError";
   }
@@ -68,32 +67,10 @@ async function request(
   variables?: Record<string, unknown>,
 ): Promise<ObjectValue> {
   try {
-    const response = await graphql(query, { variables });
-    if (!response.ok) throw new SnapshotError("API_UNAVAILABLE");
-    const body = object(await response.json());
-    // React Router SDK wraps the API result in a fresh Response and retains
-    // upstream headers in body.headers (not Response.headers).
-    const sdkHeaders = object(body.headers);
-    const sdkVersion = Object.entries(sdkHeaders).find(
-      ([name]) => name.toLowerCase() === "x-shopify-api-version",
-    )?.[1];
-    const version =
-      response.headers.get("X-Shopify-API-Version") ??
-      (Array.isArray(sdkVersion) && sdkVersion.length === 1
-        ? sdkVersion[0]
-        : sdkVersion);
-    if (version !== "2026-07")
-      throw new SnapshotError("API_VERSION_UNVERIFIED");
-    if (
-      body.errors !== undefined &&
-      (!Array.isArray(body.errors) || body.errors.length)
-    )
-      throw new SnapshotError("GRAPHQL_UNAVAILABLE");
-    if (!body.data) throw new SnapshotError("API_UNAVAILABLE");
-    return object(body.data);
+    return await orderReader(graphql).request(query, variables);
   } catch (error) {
-    if (error instanceof SnapshotError) throw error;
-    // Do not retain SDK errors, request details, raw responses or token-bearing causes.
+    if (error instanceof OrderApiError)
+      throw new SnapshotError(error.code === "API_QUERY_FAILED" ? "GRAPHQL_UNAVAILABLE" : error.code, error.retryAfterMs);
     throw new SnapshotError("API_UNAVAILABLE");
   }
 }
@@ -186,7 +163,7 @@ async function snapshotAttempt(
         throw new SnapshotError("REVISION_CHANGED");
       result.lines = linesInvalid
         ? unavailable("LINES_UNAVAILABLE")
-        : { available: true, value: lines };
+        : { available: true, value: lines.sort((a, b) => a.id.localeCompare(b.id)) };
       return result;
     }
     if (
@@ -208,6 +185,31 @@ export async function fetchOrderSnapshot(
 ): Promise<OrderSnapshot> {
   if (!/^gid:\/\/shopify\/Order\/[1-9]\d*$/.test(orderId))
     throw new SnapshotError("INVALID_ORDER_ID");
+  await verifyOrderAuthority(graphql, expectedShop);
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const first = await snapshotAttempt(graphql, orderId);
+      const second = await snapshotAttempt(graphql, orderId);
+      // updatedAt is not a unique revision. Compare every approved field,
+      // including all line pages, even when both timestamps are identical.
+      if (JSON.stringify(first) !== JSON.stringify(second))
+        throw new SnapshotError("REVISION_CHANGED");
+      return second;
+    } catch (error) {
+      if (
+        !(error instanceof SnapshotError) ||
+        error.code !== "REVISION_CHANGED"
+      )
+        throw error;
+    }
+  }
+  throw new SnapshotError("REVISION_UNSTABLE");
+}
+
+export async function verifyOrderAuthority(
+  graphql: OrderGraphql,
+  expectedShop: { shopifyId: string; domain: string },
+): Promise<void> {
   const authority = await request(graphql, IDENTITY_QUERY);
   const shop = object(authority.shop);
   if (
@@ -221,16 +223,52 @@ export async function fetchOrderSnapshot(
     !scopes.some((scope) => object(scope).handle === "read_orders")
   )
     throw new SnapshotError("ORDER_SCOPE_MISSING");
-  for (let attempt = 0; attempt < 3; attempt++) {
-    try {
-      return await snapshotAttempt(graphql, orderId);
-    } catch (error) {
-      if (
-        !(error instanceof SnapshotError) ||
-        error.code !== "REVISION_CHANGED"
-      )
-        throw error;
+}
+
+const DISCOVERY_QUERY = `#graphql
+  query P04OrderDiscovery($filter: String!, $after: String) {
+    orders(first: 50, after: $after, sortKey: CREATED_AT, query: $filter) {
+      nodes { id createdAt updatedAt }
+      pageInfo { hasNextPage endCursor }
     }
+  }`;
+export async function fetchOrderPage(
+  graphql: OrderGraphql,
+  expectedShop: { shopifyId: string; domain: string },
+  window: { from: Date; to: Date; after?: string | null },
+): Promise<{
+  orders: Array<{ id: string; createdAt: string; updatedAt: string }>;
+  hasNextPage: boolean;
+  endCursor: string | null;
+}> {
+  const from = window.from.getTime(), to = window.to.getTime();
+  if (!Number.isFinite(from) || !Number.isFinite(to) || from > to)
+    throw new SnapshotError("INVALID_SYNC_WINDOW");
+  await verifyOrderAuthority(graphql, expectedShop);
+  // Broaden search to whole seconds; apply exact inclusive bounds locally.
+  // Retain server pageInfo even when every node on this page is filtered out.
+  const lower = new Date(Math.floor(from / 1000) * 1000).toISOString();
+  const upper = new Date(Math.ceil(to / 1000) * 1000).toISOString();
+  const data = await request(graphql, DISCOVERY_QUERY, {
+    filter: `created_at:>='${lower}' created_at:<='${upper}'`,
+    after: window.after ?? null,
+  });
+  const connection = object(data.orders), page = object(connection.pageInfo);
+  if (!Array.isArray(connection.nodes) || typeof page.hasNextPage !== "boolean" ||
+      !(page.endCursor === null || typeof page.endCursor === "string") ||
+      (page.hasNextPage && (!page.endCursor || page.endCursor === window.after)))
+    throw new SnapshotError("PAGINATION_INCOMPLETE");
+  const orders: Array<{ id: string; createdAt: string; updatedAt: string }> = [];
+  const ids = new Set<string>();
+  for (const node of connection.nodes) {
+    const order = object(node);
+    if (typeof order.id !== "string" || !/^gid:\/\/shopify\/Order\/[1-9]\d*$/.test(order.id) ||
+        !timestamp(order.createdAt) || !timestamp(order.updatedAt) || ids.has(order.id))
+      throw new SnapshotError("ORDER_IDENTITY_UNAVAILABLE");
+    ids.add(order.id);
+    const created = Date.parse(order.createdAt);
+    if (created >= from && created <= to)
+      orders.push({ id: order.id, createdAt: order.createdAt, updatedAt: order.updatedAt });
   }
-  throw new SnapshotError("REVISION_UNSTABLE");
+  return { orders, hasNextPage: page.hasNextPage, endCursor: page.endCursor as string | null };
 }

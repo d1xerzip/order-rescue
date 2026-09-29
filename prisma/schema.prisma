@@ -40,6 +40,40 @@ model Shop {
   workspaceRecord WorkspaceRecord?
   orderJobs OrderJob[]
   orderSnapshots OrderSnapshot[]
+  orderSync OrderSyncState?
+  orderReadLocks OrderReadLock[]
+}
+
+model OrderReadLock {
+  shopId String
+  generation Int
+  orderId String
+  token String
+  expiresAt DateTime
+  shop Shop @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  @@id([shopId, generation, orderId])
+  @@index([expiresAt])
+}
+
+model OrderSyncState {
+  shopId String @id
+  generation Int
+  phase String @default("idle")
+  runId String?
+  windowStart DateTime?
+  windowEnd DateTime?
+  cursor String?
+  pageNo Int @default(0)
+  pendingCursor String?
+  pendingHasNextPage Boolean @default(false)
+  pendingJobIds Json @default("[]")
+  lastSuccessAt DateTime?
+  nextRunAt DateTime
+  lastError String?
+  attempts Int @default(0)
+  leaseToken String?
+  leaseUntil DateTime?
+  shop Shop @relation(fields: [shopId], references: [id], onDelete: Cascade)
 }
 
 enum OrderJobStatus {
@@ -56,6 +90,7 @@ model OrderJob {
   generation Int
   deliveryId String
   orderId String
+  minimumUpdatedAt DateTime?
   status OrderJobStatus @default(pending)
   attempts Int @default(0)
   leaseToken String?

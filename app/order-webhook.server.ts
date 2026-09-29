@@ -2,7 +2,7 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 import { acceptOrderJob } from "./order-jobs.server";
 
 // No JSON parsing, database access or logging until the original bytes authenticate.
-export async function receiveOrderCreated(request: Request) {
+export async function receiveOrderCreated(request: Request, expectedTopic = "orders/create") {
   if (request.method !== "POST") return new Response(null, { status: 405 });
   if (process.env.ORDER_INGESTION_ENABLED !== "1")
     return new Response(null, { status: 503 });
@@ -37,7 +37,8 @@ export async function receiveOrderCreated(request: Request) {
   const domain = request.headers.get("x-shopify-shop-domain") || "";
   const deliveryId = request.headers.get("x-shopify-webhook-id") || "";
   if (
-    request.headers.get("x-shopify-topic") !== "orders/create" ||
+    !["orders/create", "orders/updated", "orders/cancelled"].includes(expectedTopic) ||
+    request.headers.get("x-shopify-topic") !== expectedTopic ||
     !/^[a-z0-9][a-z0-9-]*\.myshopify\.com$/.test(domain) ||
     !/^[A-Za-z0-9-]{1,200}$/.test(deliveryId)
   )

@@ -7,3 +7,13 @@ Derive tenant identity from verified server authentication. Keep Shopify credent
 Keep official platform documentation and implementation evidence distinct. A mock, syntax check, preview or build does not prove live Shopify access. Run proportionate checks; document failures and unexecuted checks. Never store raw customer payloads in diagnostics.
 
 Production deployment, public publication, external messages, account changes and real charges require specific authorization. See docs/LOCAL-SETUP.md for commands, docs/ARCHITECTURE.md for security/data, docs/RULES.md for semantics and docs/P03-ACCESS-PLAN.md for development access.
+
+## Milestone versions and publication
+
+Use `codex/` for new working branches unless the owner requests another name. After an accepted milestone, record the version, changes, executed checks and remaining limitations in CHANGELOG.md and docs/STATUS.md. Use minor versions for completed milestones and patch versions for fixes; mark unfinished work WIP rather than tagging it complete.
+
+Preserve existing explicit publication authorization within its scope. Publish only the reviewed sanitized source edition, never private history, credentials, machine paths, account/store identities or operational receipts. Keep local checkpoints separate from public history; do not rewrite unrelated commits. Tag the published version and verify the remote result. Source publication does not authorize deployment, account changes or App Store review submission.
+
+For ingestion recovery or synchronization, read docs/P04-SYNC.md; use docs/NEXT.md for the next slice. Do not reread all documentation or repeat passed installation checks without a relevant reason.
+
+After completion and verification, merge each update branch into main and create its version tag. Keep previous tags available; no separate approval is needed for the already authorized sanitized source-save workflow.
