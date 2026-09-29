@@ -1,5 +1,3 @@
-# Next task
+# Next slice
 
-Read STATUS.md, P03-ACCESS-PLAN.md and ARCHITECTURE.md. Establish account-specific development prerequisites using the account owner's explicit authorization. Then verify minimal read-only synthetic order access independently in two dev stores, checking errors, version and all line pages. Do not infer PCD approval from scopes.
-
-No account, credentials, real dataset or production approval is part of this edition. No publication/deployment/billing/order-mutation action is authorized by this document.
+P04: implement bounded recovery using existing tenant/generation guards and durable jobs. Verify current official order-query/pagination guidance. Recover eligible missed orders only after monitoring starts and within 30 days; no read_all_orders or historic backfill. Advance durable cursors only after persistence; retain coverage gaps on denied access or incomplete pagination. Test stale revisions, retry and interrupted pages with disposable fixtures. Do not add rules, UI or order mutations. No account settings, deployment or review submission is authorized by this document.

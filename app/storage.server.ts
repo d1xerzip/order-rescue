@@ -51,7 +51,9 @@ export async function activateShop(shopDomain: string, shopifyId?: string) {
               ...(shopifyId ? { shopifyId } : {}),
             },
           })
-        : await tx.shop.create({ data: { domain: shopDomain, shopifyId } });
+        : await tx.shop.create({
+            data: { domain: shopDomain, shopifyId, installedAt: new Date() },
+          });
     await tx.workspaceRecord.upsert({
       where: { shopId: shop.id },
       update: {},

@@ -1,8 +1,10 @@
 # Architecture and data inventory
 
+P03 update: order-created ingestion is now implemented; P03-INGESTION.md and STATUS.md supersede earlier statements below that order persistence/workers are only planned. Account-specific access must still be independently configured by each operator.
+
 Implemented stack: React Router/TypeScript server and UI, PostgreSQL/Prisma. Authenticate via the official Shopify SDK; bind tenant access to verified session context. Session credentials are encrypted server-side. Tenant records are queried and mutated with server-derived shop constraints.
 
-Installed-state/generation guards disable ordinary work after uninstall. Privacy webhook intake is independent of active API credentials. It stores minimal pending receipts; export/redaction/retention/restore are not implemented. No order workers exist. Future workers must reconcile current granted scopes rather than trusting reordered scope webhook payloads, and recheck generation before committing.
+Installed-state/generation guards disable ordinary work after uninstall. Privacy webhook intake is independent of active API credentials. It stores minimal pending receipts; export/redaction/retention/restore are not implemented. P03 now implements order-created jobs and snapshots; see P03-INGESTION.md. Future workers must reconcile current granted scopes rather than trusting reordered scope webhook payloads, and recheck generation before committing.
 
 The following ingestion/retention mechanisms are proposals, not deployed behavior.
 
@@ -38,7 +40,7 @@ Retention `R`: expire order-derived rows at `createdAt + 30 days`, regardless of
 
 No customer names, address, phone, email, `Customer.id`, notes, tags, IP, product titles, SKU, payment details, transaction or fulfillment data are selected or persisted. Display stable order/line identifiers instead of collecting descriptive customer fields. Privacy payloads may contain PII: authenticate in memory, extract only allowlisted routing fields and discard the rest. Missing/redacted API fields retain an explicit unavailable reason; do not replace them with empty values.
 
-Pagination completeness governs the quantity rule; an incomplete line page does not invalidate independently available value data (R14). Preserve exact decimal strings and identifiers. Encryption of stored tokens does not establish encryption of future order snapshots. No order persistence or TTL/deletion pipeline is implemented.
+Pagination completeness governs the quantity rule; an incomplete line page does not invalidate independently available value data (R14). Preserve exact decimal strings and identifiers. Encryption of stored tokens does not establish encryption of future order snapshots. Order persistence and order/job TTL are implemented in P03; complete privacy deletion remains incomplete.
 
 ## Retention/deletion design and tests
 Propose daily TTL cleanup; expiry is also enforced on reads and ingest so deletion lag cannot extend coverage. A request on `customers/data_request` looks up only the verified shop's `orders_requested`; redact uses `orders_to_redact`. No customer identity table is needed for this allowlist. Unexpected/malformed ID lists are unresolved privacy work, never a fabricated “no data” result. See official payload evidence in [PLATFORM-SOURCES.md](PLATFORM-SOURCES.md).

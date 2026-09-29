@@ -1,6 +1,6 @@
 # Roadmap
 
-Only the foundation is implemented. Each milestone needs its own executed evidence.
+The foundation and order-created ingestion are implemented. Recovery is the next slice. Each milestone needs its own executed evidence.
 
 | Milestone | Dependency | Acceptance |
 |---|---|---|

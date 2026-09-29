@@ -31,3 +31,6 @@ Tests use a unique disposable PostgreSQL database with mocked Shopify transport;
 GET /healthz checks the process. GET /readyz checks configuration/database and can return 503 without Shopify configuration. A 200 readiness result does not establish live API access. Production preview is disabled.
 
 For real development installation, use an independently configured registration and the official Shopify CLI authentication flow under the account owner's access. shopify.app.toml is an unlinked template. Keep credentials in ignored environment files or a secret manager. See [access preparation](P03-ACCESS-PLAN.md); no order access is assumed.
+
+## P03 worker
+See [P03-INGESTION.md](P03-INGESTION.md) for gated subscription/worker setup and targeted tests. Use migration 0002_order_ingestion after 0001_foundation. Never apply this edition migration history to a private deployment with differently named migrations.

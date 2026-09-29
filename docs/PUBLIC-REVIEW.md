@@ -8,10 +8,13 @@ The initial migration directory uses an edition-local neutral name; use a fresh 
 
 No absolute anonymity guarantee is made. The project name and code can be correlated with other copies. Hosting under a personal account, signed commits, author emails, subsequent workflows/artifacts and server/operator records can identify a publisher. A fresh clean history and an appropriately chosen publishing identity are separate decisions. Never publish the original private history or turn a private operational repository public to distribute this edition.
 
-Publication is pending explicit owner approval of this prepared edition and destination. This directory is an artifact, not a publication.
+This portable edition is published through an explicitly authorized source-only workflow. Private operational history is excluded.
 
 ## Verification
 
 One local run of this source edition completed: `npm test` 22/22 PASS with disposable PostgreSQL and mocked Shopify transport; `npm run typecheck`, `npm run lint`, `npm run build` PASS. The build reports framework future-option warnings and expected empty server-route chunks; no build failure. Dependencies were reused locally for validation; no dependency directory or generated output is distributed. A clean-machine `npm ci` was not rerun. No live Shopify checks, visual UI recheck or production tests are claimed.
 
 Independent read-only content review found no known owner/account/machine markers or broken relative Markdown links. This is a bounded content review, not an absolute anonymity guarantee. The source archive uses only selected source files, normalized file-entry timestamps and no original filesystem ownership metadata. Checksums identify archive contents, not a publisher.
+
+## P03 update
+New application/test source is copied from the verified working implementation; migration is renamed only for this edition. The ten ingestion tests and seven snapshot tests were verified in the implementation workspace, not rerun in this publication checkout. Two-store live evidence is reported separately in STATUS.md without exposing identities. Publication validation checks file content/manifest and excludes runtime data; it does not claim a new clean-machine install or production review.

@@ -1,11 +1,7 @@
 # Public source status
 
-Version 0.1.0; portable source edition with no connected account or original commit history.
+Version 0.1.0, P03 source update. Implemented: embedded authentication, encrypted sessions, tenant records/lifecycle, minimal privacy intake, authenticated orders/create receipt, PostgreSQL durable jobs, retry/crash recovery and minimal encrypted order snapshots. See [ingestion](P03-INGESTION.md).
 
-Implemented: embedded foundation, official server authentication, encrypted session storage, tenant-scoped record API, lifecycle guards, minimal privacy receipt intake, synthetic preview and health/readiness routes.
+Implementation verification: ten ingestion integration tests and seven snapshot tests passed across targeted runs; typecheck/lint passed. Earlier foundation checks remain recorded in PUBLIC-REVIEW.md. The private development workflow also verified genuine delivery and matching snapshots in two development stores after repairing SDK response-header handling. Private identities, raw data and operational receipts are excluded; this public checkout is not independently connected or live-verified. No tests were repeated solely for publication.
 
-Not implemented: order ingestion/recovery, business rules, exception inbox, complete privacy processing, billing, hosting and listing. Development/production account permissions are not provided or claimed.
-
-Local verification for this prepared edition is recorded in PUBLIC-REVIEW.md. Original private live-install evidence is deliberately excluded; the public copy cannot independently establish those observations. Mocks and builds do not prove Shopify integration.
-
-Next: independently authorize/configure minimal development access, then perform the bounded synthetic read in P03-ACCESS-PLAN.md. Do not treat this source as production ready.
+Missing: bounded missed-order recovery, business rules, exceptions/UI, full privacy processing, production infrastructure/access approval and listing. Not production ready. Next: P04 bounded recovery; see NEXT.md.

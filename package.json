@@ -21,7 +21,8 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate deploy",
     "db:local": "node scripts/local-database.mjs",
-    "preview:local": "node scripts/local-preview.mjs"
+    "preview:local": "node scripts/local-preview.mjs",
+    "worker:orders": "node --env-file=.env.local --import tsx scripts/order-worker.ts"
   },
   "type": "module",
   "engines": {

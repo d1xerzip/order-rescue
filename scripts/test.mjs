@@ -4,6 +4,12 @@ import { randomBytes } from "node:crypto";
 import { readdirSync } from "node:fs";
 const { pg, url } = await localPostgres({ testing: true });
 const name = `rescue_test_${Date.now()}`;
+const selected = process.argv.slice(2);
+const files = readdirSync("tests")
+  .filter((n) => n.endsWith(".test.ts"))
+  .map((n) => `tests/${n}`);
+if (selected.some((file) => !files.includes(file)))
+  throw new Error("UNKNOWN_TEST_FILE");
 const run = (args, env) =>
   new Promise((resolve, reject) => {
     const p = spawn(process.execPath, args, {
@@ -35,9 +41,7 @@ try {
       "node_modules/tsx/dist/cli.mjs",
       "--test",
       "--test-concurrency=1",
-      ...readdirSync("tests")
-        .filter((n) => n.endsWith(".test.ts"))
-        .map((n) => `tests/${n}`),
+      ...(selected.length ? selected : files),
     ],
     env,
   );

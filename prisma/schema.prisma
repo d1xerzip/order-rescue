@@ -38,6 +38,50 @@ model Shop {
   uninstalledAt DateTime?
   jobsEnabled Boolean @default(true)
   workspaceRecord WorkspaceRecord?
+  orderJobs OrderJob[]
+  orderSnapshots OrderSnapshot[]
+}
+
+enum OrderJobStatus {
+  pending
+  processing
+  completed
+  retry
+  failed
+}
+
+model OrderJob {
+  id String @id @default(uuid())
+  shopId String
+  generation Int
+  deliveryId String
+  orderId String
+  status OrderJobStatus @default(pending)
+  attempts Int @default(0)
+  leaseToken String?
+  leaseUntil DateTime?
+  availableAt DateTime @default(dbgenerated("(CURRENT_TIMESTAMP AT TIME ZONE 'UTC')"))
+  receivedAt DateTime @default(dbgenerated("(CURRENT_TIMESTAMP AT TIME ZONE 'UTC')"))
+  expiresAt DateTime
+  errorCode String?
+  shop Shop @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  @@unique([shopId, generation, deliveryId])
+  @@index([status, availableAt, leaseUntil])
+  @@index([expiresAt])
+}
+
+model OrderSnapshot {
+  id String @id @default(uuid())
+  shopId String
+  generation Int
+  orderId String
+  encryptedSnapshot String
+  orderCreatedAt DateTime
+  orderUpdatedAt DateTime
+  expiresAt DateTime
+  shop Shop @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  @@unique([shopId, generation, orderId])
+  @@index([expiresAt])
 }
 
 model WorkspaceRecord {

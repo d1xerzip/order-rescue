@@ -1,0 +1,6 @@
+# Review fragment only. Apply to linked dev configurations AFTER saved PCD confirmation.
+# API version remains 2026-07. No new scopes.
+[[webhooks.subscriptions]]
+topics = ["orders/create"]
+uri = "/webhooks/orders/create"
+include_fields = ["admin_graphql_api_id", "created_at", "updated_at"]

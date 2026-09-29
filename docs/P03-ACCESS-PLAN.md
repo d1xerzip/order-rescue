@@ -1,5 +1,7 @@
 # Development order-access proposal
 
+P03 update: order-created ingestion is now implemented; P03-INGESTION.md and STATUS.md supersede earlier statements below that order persistence/workers are only planned. Account-specific access must still be independently configured by each operator.
+
 No account setting or access approval is supplied with this source edition. For an App Store goal, propose Public distribution. Review the current official [distribution guidance](https://shopify.dev/docs/apps/launch/distribution/select-distribution-method) before selecting it; the selection cannot simply be switched afterward. Custom distribution is not a shortcut for unrelated merchants.
 
 Proposed Dashboard path: app Home > Distribution > Select distribution method > Public distribution. Then API access requests > Protected customer data access > Request access: select Protected customer data and explain the order-review purpose. Leave Name, Address, Email and Phone unchecked. Preserve read_orders only; no read_all_orders or Direct API Access is needed by these rules. Account UI may differ from the documentation; verify actual labels before acting.

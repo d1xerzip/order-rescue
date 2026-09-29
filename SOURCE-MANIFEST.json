@@ -11,7 +11,7 @@
     },
     {
       "path": ".env.example",
-      "sha256": "eb8ea0d632a0db1b151dc0428a14596ae9205a1c18367946c467a973d2f5a51f"
+      "sha256": "04b649ed5c46565defd674bb8445b472fd2ab208af6a2dfe6dd352b46b6f70e6"
     },
     {
       "path": ".eslintignore",
@@ -51,7 +51,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "17d1db0a2cc8c55786254eeff08755e4704a620e3118de6a3aa28956794dc8e6"
+      "sha256": "5ad71ca8df43ac75d7dd704cd81f63c6f9b85e078d5ccdbf332a7e0e12a1cefd"
     },
     {
       "path": "app/auth.server.ts",
@@ -80,6 +80,22 @@
     {
       "path": "app/globals.d.ts",
       "sha256": "35d26ea66c86da9701e4f4b467913481ffeae910761cea34c775c5dacb7f8eaa"
+    },
+    {
+      "path": "app/order-crypto.server.ts",
+      "sha256": "5f5371e4d733dada346efd9cc7ee6cde28ec9294804adbe26951cc04d4b2b8bd"
+    },
+    {
+      "path": "app/order-jobs.server.ts",
+      "sha256": "81b6e23950ce10f26bc6a1b724e922dc868063a0aa5fa32a9a2617adf5578ebb"
+    },
+    {
+      "path": "app/order-snapshot.server.ts",
+      "sha256": "25611ae2580b97d00d7ec813686f4d77cbda507ac23e8006e5e89528901a1273"
+    },
+    {
+      "path": "app/order-webhook.server.ts",
+      "sha256": "0c836fc92d197b5b225cf227a8f4771fbe9be00a10fd9922b0ca77edd581da40"
     },
     {
       "path": "app/root.tsx",
@@ -142,6 +158,10 @@
       "sha256": "6ce4c8bdbf2bd2c42459cecabb830a55f22ba89f3d5176fb75d18b67c30a648f"
     },
     {
+      "path": "app/routes/webhooks.orders.create.ts",
+      "sha256": "d5879254840d3f06710d4981403b4252a43d3a3b4378f8268034016d8dec885f"
+    },
+    {
       "path": "app/routes/webhooks.privacy.tsx",
       "sha256": "1ba04d63d7cd00ed3a0fae7cf43d45bce290b179404105bdb6ded6023e4e1eb5"
     },
@@ -155,7 +175,7 @@
     },
     {
       "path": "app/storage.server.ts",
-      "sha256": "ec59380bea1be3d4d90789f3c19e90d96ec7ddf43b7891f1abf3f5d52e2d4b5e"
+      "sha256": "fbc9582578001e08cc7b6f509adc085e1b786b1318d18dfd41f2811fd81d8fb0"
     },
     {
       "path": "app/webhooks.server.ts",
@@ -163,19 +183,23 @@
     },
     {
       "path": "docs/ARCHITECTURE.md",
-      "sha256": "06a5c0d3427911289502a4c4c08e69e9c8b0da4f8eec4730369f8d2bb92deb51"
+      "sha256": "bac1ae3d073a018743472e684f9decb64c2e569960937fcbc881b5d909d0fe0c"
     },
     {
       "path": "docs/LOCAL-SETUP.md",
-      "sha256": "410d60e3e011e68067ada0d25f2867e62c3da8e7009e000bb99b33900642513f"
+      "sha256": "eed767ea7e932e04911ba1aa69f1b55f8bccabcfaa80a231d06b4ee079c87dea"
     },
     {
       "path": "docs/NEXT.md",
-      "sha256": "4241fa9ba230f1f614e364980aa6980e1d1fe20567ab1dd1f4c00f9b6e695e1b"
+      "sha256": "e1883ec6d1ce5585dfc7bc9c8b7ea6f0d38055bd52112ed547171426ea4cda4d"
     },
     {
       "path": "docs/P03-ACCESS-PLAN.md",
-      "sha256": "dc562c85f499b40b136829b56a7725d0b60ad6580813e2831b5e4b9b82979a65"
+      "sha256": "b14d1e35f61cb9ad0f8e2d918d34aa667d8ae4bcdfb34e5f88a411bc01f767d8"
+    },
+    {
+      "path": "docs/P03-INGESTION.md",
+      "sha256": "f3b9541a8916f822ae808b8f1e689547529890209a63593c2690dc9a823b170d"
     },
     {
       "path": "docs/PLATFORM-SOURCES.md",
@@ -187,11 +211,11 @@
     },
     {
       "path": "docs/PUBLIC-REVIEW.md",
-      "sha256": "76d0178dc1b6679655060d8960c35f0abec30b22cf08933a9afb272722370bb1"
+      "sha256": "e098e9281c23602036f30564933b99b59d594d5f082feb8bd90d7c59800be67b"
     },
     {
       "path": "docs/ROADMAP.md",
-      "sha256": "8928cca33af35299b15cdb11cec879d6bf62556d7068c498dcf50dd48f9b0650"
+      "sha256": "18bf4780f44ec92f6b5528d95fbe0f06f836388b9504f6fa69c29864d62c0ce4"
     },
     {
       "path": "docs/RULES.md",
@@ -199,7 +223,7 @@
     },
     {
       "path": "docs/STATUS.md",
-      "sha256": "062454a83b78fdaf797a922bc71a0591e9ff8da394f25cc5225739911f695a0e"
+      "sha256": "db1e9b34b2d2b4b0d1b8504325fcf230d6c74386b5f1c15c8b915a0637ae1563"
     },
     {
       "path": "docs/p03/granted-scopes.graphql",
@@ -208,6 +232,10 @@
     {
       "path": "docs/p03/order-access.graphql",
       "sha256": "6d53f843656aec043ee5ca90539c11c4c8b6c1f1fe55ec236d7b68cf272e4c1d"
+    },
+    {
+      "path": "docs/p03/orders-create.subscription.toml",
+      "sha256": "09392e1fc4288d7be0341ac329d1159d1d8b89c820493bcb5694c6924c38267f"
     },
     {
       "path": "env.d.ts",
@@ -223,11 +251,15 @@
     },
     {
       "path": "package.json",
-      "sha256": "0a694eba300a29c783979f9eb70673fea026a465bfd795e72bc083f1bc4552f8"
+      "sha256": "5c50b14e894ebd5ed9bf5201dc622de1f5efbf2db81a3e118a7c3f307fd4353f"
     },
     {
       "path": "prisma/migrations/0001_foundation/migration.sql",
       "sha256": "473ac9e2e8a20fa5453b24bbda98dc0a04dcf8d4c8d3ed352257a1e90abf10ab"
+    },
+    {
+      "path": "prisma/migrations/0002_order_ingestion/migration.sql",
+      "sha256": "521b5c9eb55f807607c91f52a78c24eceba450c681f48d7d233be28655b2b17a"
     },
     {
       "path": "prisma/migrations/migration_lock.toml",
@@ -235,7 +267,7 @@
     },
     {
       "path": "prisma/schema.prisma",
-      "sha256": "1e356b46b022c46cc9e369c3e2bd4c4d38b371752e34cae316d2100f6ba8131c"
+      "sha256": "0f1ae3d12c9456c6f96814c7c5a3ff82de94dde4054a73c6397c29e30e3dd958"
     },
     {
       "path": "public/favicon.svg",
@@ -250,12 +282,20 @@
       "sha256": "f15d50c9a9a67c62f5e909693fd35d8697dd69414f09ae2aca233677b4bf191e"
     },
     {
+      "path": "scripts/order-ingestion-status.ts",
+      "sha256": "4c2b239dde338cf1aedbbeafe90a5276a31f3dde022de28d83106e56a4073d73"
+    },
+    {
+      "path": "scripts/order-worker.ts",
+      "sha256": "c215cb1360ed1ea73b6be810f8b14fabbe108a07824cd366e3d81c022afd14ad"
+    },
+    {
       "path": "scripts/postgres.mjs",
       "sha256": "c0e84d4115d46c6660aedcaf8777d771b56f54b93dfda40e27f798c97080c250"
     },
     {
       "path": "scripts/test.mjs",
-      "sha256": "9a295884e52e85ec8843841b0cd5fcbe7abf9c1323b4d4d2084eb3e4cc590296"
+      "sha256": "48ba572d1a4d99ae8d870b001b111c1b43fe430a6e68b81c5400c939fcb575b9"
     },
     {
       "path": "shopify.app.toml",
@@ -268,6 +308,14 @@
     {
       "path": "tests/http.test.ts",
       "sha256": "e45ade6075217c85fc187150a325900a1087a0b10d9b41db38bc0a55828b821e"
+    },
+    {
+      "path": "tests/order-ingestion.test.ts",
+      "sha256": "b2aa10fb1d15967fe7d9a1d1fea0b4e88ec29f73bfefe43dbbb539222ef8acf6"
+    },
+    {
+      "path": "tests/order-snapshot.test.ts",
+      "sha256": "eeb27bd7ecf43d2a6fa3efb1e606892622b877ccd39a8ce4418f063f4153381e"
     },
     {
       "path": "tests/storage.test.ts",
