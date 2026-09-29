@@ -36,7 +36,8 @@ function response(data: unknown, status = 200, version = "2026-07") {
     headers: { "X-Shopify-API-Version": version },
   });
 }
-function scripted(responses: Response[]) {
+function scripted(responses: Response[], repeatStable = false) {
+  if (repeatStable) responses.push(...responses.slice(1).map(value => value.clone()));
   const calls: Array<{ query: string; variables?: Record<string, unknown> }> =
     [];
   const graphql: OrderGraphql = async (query, options) => {
@@ -75,7 +76,7 @@ test("snapshot preserves exact IDs, money and complete multi-page line quantitie
       },
     }),
     revisionResponse(),
-  ]);
+  ], true);
   const result = await fetchOrderSnapshot(graphql, id, shop);
   assert.equal(result.legacyResourceId, legacy);
   assert.deepEqual(result.total, {
@@ -92,7 +93,7 @@ test("missing fields stay unavailable while empty lines and null cancellation ar
     authResponse(),
     response({ data: { order: order() } }),
     revisionResponse(),
-  ]);
+  ], true);
   assert.deepEqual(
     (await fetchOrderSnapshot(complete.graphql, id, shop)).lines,
     { available: true, value: [] },
@@ -109,7 +110,7 @@ test("missing fields stay unavailable while empty lines and null cancellation ar
       },
     }),
     revisionResponse(),
-  ]);
+  ], true);
   const result = await fetchOrderSnapshot(missing.graphql, id, shop);
   assert.equal(result.cancelledAt.available, false);
   assert.equal(result.total.available, false);
@@ -134,7 +135,7 @@ test("authority, scope, API version, HTTP and GraphQL failures never fetch an or
       "ORDER_SCOPE_MISSING",
     ],
     [response({ data: authority }, 200, "2026-10"), "API_VERSION_UNVERIFIED"],
-    [response({}, 503), "API_UNAVAILABLE"],
+    [response({}, 403), "API_UNAVAILABLE"],
     [
       response({ data: authority, errors: [{ message: "synthetic denied" }] }),
       "GRAPHQL_UNAVAILABLE",
@@ -174,6 +175,8 @@ test("changed revisions retry from first page and stop after three attempts", as
     authResponse(),
     response({ data: { order: order() } }),
     unstable(),
+    response({ data: { order: order() } }),
+    revisionResponse(),
     response({ data: { order: order() } }),
     revisionResponse(),
   ]);
@@ -218,7 +221,7 @@ test("SDK-wrapped upstream version is verified without inventing a missing versi
       { order: { id, updatedAt: revision } },
       { "X-Shopify-API-Version": "2026-07" },
     ),
-  ]);
+  ], true);
   assert.equal((await fetchOrderSnapshot(mock.graphql, id, shop)).id, id);
   for (const headers of [{}, { "x-shopify-api-version": "2026-04" }]) {
     const missing = scripted([sdk(authority, headers)]);
@@ -226,4 +229,49 @@ test("SDK-wrapped upstream version is verified without inventing a missing versi
       message: "API_VERSION_UNVERIFIED",
     });
   }
+});
+
+test("equal timestamps require identical full snapshots and retry changed fields", async () => {
+  const altered = order({ cancelledAt: revision, currentTotalPriceSet: { shopMoney: { amount: "21.00", currencyCode: "CAD" } } });
+  const mock = scripted([
+    authResponse(),
+    response({ data: { order: order() } }), revisionResponse(),
+    response({ data: { order: altered } }), revisionResponse(),
+    response({ data: { order: altered } }), revisionResponse(),
+    response({ data: { order: altered } }), revisionResponse(),
+  ]);
+  const result = await fetchOrderSnapshot(mock.graphql, id, shop);
+  assert.deepEqual(result.total, { available: true, value: { amount: "21.00", currencyCode: "CAD" } });
+  assert.deepEqual(result.cancelledAt, { available: true, value: revision });
+  assert.equal(mock.calls.length, 9);
+});
+
+test("partial fulfillment does not reduce currentQuantity or add fulfillment data", async () => {
+  const results = [];
+  for (const [displayFulfillmentStatus, unfulfilledQuantity] of [
+    ["UNFULFILLED", 2], ["PARTIALLY_FULFILLED", 1], ["FULFILLED", 0],
+  ] as const) {
+    // These extra upstream fixture fields deliberately are not in our query or
+    // approved snapshot. currentQuantity excludes removals/refunds, not fulfilled units.
+    const upstream = order({
+      displayFulfillmentStatus,
+      fulfillments: [{ status: "SUCCESS" }],
+      lineItems: {
+        nodes: [{ id: "gid://shopify/LineItem/1", currentQuantity: 2, unfulfilledQuantity }],
+        pageInfo: { hasNextPage: false, endCursor: null },
+      },
+    });
+    const mock = scripted([
+      authResponse(), response({ data: { order: upstream } }), revisionResponse(),
+    ], true);
+    const snapshot = await fetchOrderSnapshot(mock.graphql, id, shop);
+    assert.deepEqual(snapshot.lines, {
+      available: true, value: [{ id: "gid://shopify/LineItem/1", currentQuantity: 2 }],
+    });
+    assert.doesNotMatch(JSON.stringify(snapshot), /fulfillment|unfulfilledQuantity/i);
+    for (const call of mock.calls) assert.doesNotMatch(call.query, /fulfillment|unfulfilledQuantity/i);
+    results.push(snapshot);
+  }
+  assert.deepEqual(results[0], results[1]);
+  assert.deepEqual(results[1], results[2]);
 });

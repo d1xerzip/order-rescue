@@ -1,11 +1,12 @@
 import { setTimeout as delay } from "node:timers/promises";
 import prisma, { authLockDb } from "../app/db.server";
-import { authenticatedBackground } from "../app/auth.server";
+import { shopOrderGraphql } from "../app/order-runtime.server";
+import { advanceOrderSync } from "../app/order-sync.server";
 import {
   processOneOrderJob,
   purgeExpiredOrders,
 } from "../app/order-jobs.server";
-import { fetchOrderSnapshot } from "../app/order-snapshot.server";
+import { fetchOrderSnapshot, fetchOrderPage } from "../app/order-snapshot.server";
 
 if (process.env.ORDER_INGESTION_ENABLED !== "1")
   throw new Error("ORDER_INGESTION_DISABLED");
@@ -17,6 +18,7 @@ process.once("SIGTERM", () => {
   stopped = true;
 });
 let lastPurge = 0;
+let nextShop = 0;
 try {
   do {
     try {
@@ -24,14 +26,20 @@ try {
         await purgeExpiredOrders();
         lastPurge = Date.now();
       }
+      const shops = await prisma.shop.findMany({ where: { active: true, jobsEnabled: true }, orderBy: { id: "asc" } });
+      if (shops.length) {
+        const target = shops[nextShop++ % shops.length];
+        await advanceOrderSync(target.id, async ({ shop, windowStart, windowEnd, cursor }) => {
+          if (!shop.shopifyId) throw new Error("SHOP_IDENTITY_UNAVAILABLE");
+          return fetchOrderPage(shopOrderGraphql(shop.domain, shop.generation),
+            { shopifyId: shop.shopifyId, domain: shop.domain },
+            { from: windowStart, to: windowEnd, after: cursor });
+        });
+      }
       const result = await processOneOrderJob(async (job, shop) => {
         if (!shop.shopifyId) throw new Error("SHOP_IDENTITY_UNAVAILABLE");
-        const { admin } = await authenticatedBackground(
-          shop.domain,
-          job.generation,
-        );
         return fetchOrderSnapshot(
-          (query, options) => admin.graphql(query, options),
+          shopOrderGraphql(shop.domain, job.generation),
           job.orderId,
           { shopifyId: shop.shopifyId, domain: shop.domain },
         );

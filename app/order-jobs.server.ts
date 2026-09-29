@@ -1,8 +1,9 @@
 import { randomUUID } from "node:crypto";
 import type { OrderJob, Prisma, Shop } from "@prisma/client";
 import prisma from "./db.server";
-import { sealOrder } from "./order-crypto.server";
+import { openOrder, sealOrder } from "./order-crypto.server";
 import { validateShopDomain } from "./storage.server";
+import { SnapshotError } from "./order-snapshot.server";
 
 const DAY = 86_400_000;
 const MAX_ATTEMPTS = 5;
@@ -96,7 +97,17 @@ export async function processOneOrderJob(
   const job = await claimOrderJob(now);
   if (!job) return { processed: false };
   const clock = () => options.now ?? new Date();
+  const readKey = { shopId: job.shopId, generation: job.generation, orderId: job.orderId };
+  const releaseRead = () => prisma.orderReadLock.deleteMany({where: {...readKey, token: job.leaseToken!}});
   try {
+    const acquired = await prisma.$transaction(async tx => {
+      await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtextextended(${`${job.shopId}:${job.generation}:${job.orderId}`}, 2))`;
+      const existing = await tx.orderReadLock.findUnique({where:{shopId_generation_orderId:readKey}});
+      if (existing && existing.expiresAt > clock()) return false;
+      await tx.orderReadLock.upsert({where:{shopId_generation_orderId:readKey},create:{...readKey,token:job.leaseToken!,expiresAt:job.leaseUntil!},update:{token:job.leaseToken!,expiresAt:job.leaseUntil!}});
+      return true;
+    });
+    if (!acquired) throw new Error("ORDER_BUSY");
     const shop = await prisma.shop.findUniqueOrThrow({
       where: { id: job.shopId },
     });
@@ -105,6 +116,8 @@ export async function processOneOrderJob(
     const snapshot = await loadSnapshot(job, shop);
     const createdAt = new Date(snapshot.createdAt);
     const updatedAt = new Date(snapshot.updatedAt);
+    if (job.minimumUpdatedAt && updatedAt < job.minimumUpdatedAt)
+      throw new Error("SNAPSHOT_BEHIND_DISCOVERY");
     if (
       snapshot.id !== job.orderId ||
       !Number.isFinite(createdAt.getTime()) ||
@@ -136,6 +149,11 @@ export async function processOneOrderJob(
         },
       });
       if (!claimed) throw new Error("LEASE_LOST");
+      if (claimed.minimumUpdatedAt && updatedAt < claimed.minimumUpdatedAt)
+        throw new Error("SNAPSHOT_BEHIND_DISCOVERY");
+      await tx.$queryRaw`SELECT "token" FROM "OrderReadLock" WHERE "shopId"=${job.shopId} AND "generation"=${job.generation} AND "orderId"=${job.orderId} FOR UPDATE`;
+      const readLock = await tx.orderReadLock.findUnique({where:{shopId_generation_orderId:readKey}});
+      if (!readLock || readLock.token !== job.leaseToken || readLock.expiresAt <= clock()) throw new Error("LEASE_LOST");
       if (
         !current.active ||
         !current.jobsEnabled ||
@@ -183,7 +201,10 @@ export async function processOneOrderJob(
             expiresAt,
           },
         });
-      else if (existing.orderUpdatedAt < updatedAt)
+      // All sources reread under the same durable per-order fence. A matching
+      // timestamp is not a revision ID: a later stable authoritative read may
+      // repair different fields at equal time. Identical replays remain no-ops.
+      else if (existing.orderUpdatedAt <= updatedAt && openOrder(existing.encryptedSnapshot, `${job.shopId}:${job.generation}:${job.orderId}`) !== JSON.stringify(snapshot))
         await tx.orderSnapshot.update({
           where: { id: existing.id },
           data: { encryptedSnapshot, orderUpdatedAt: updatedAt, expiresAt },
@@ -204,9 +225,13 @@ export async function processOneOrderJob(
       "INACTIVE_INSTALLATION",
       "OUTSIDE_MONITORING_WINDOW",
       "PRIVACY_PENDING",
+      "ORDER_BUSY",
+      "SNAPSHOT_BEHIND_DISCOVERY",
     ]);
     const code =
-      error instanceof Error && safeCodes.has(error.message)
+      error instanceof SnapshotError && error.code === "API_THROTTLED"
+        ? "API_THROTTLED"
+        : error instanceof Error && safeCodes.has(error.message)
         ? error.message
         : "ORDER_FETCH_FAILED";
     const terminal =
@@ -228,10 +253,13 @@ export async function processOneOrderJob(
         leaseUntil: null,
         availableAt: new Date(
           clock().getTime() +
-            Math.min(60_000 * 2 ** (job.attempts - 1), 900_000),
+            Math.max(Math.min(60_000 * 2 ** (job.attempts - 1), 900_000),
+              error instanceof SnapshotError && Number.isFinite(error.retryAfterMs)
+                ? Math.max(0, error.retryAfterMs!) : 0),
         ),
       },
     });
+    await releaseRead();
     return {
       processed: true,
       status: result.count ? (terminal ? "failed" : "retry") : "lease_lost",
@@ -255,6 +283,7 @@ export async function processOneOrderJob(
       errorCode: null,
     },
   });
+  await releaseRead();
   return {
     processed: true,
     status: result.count ? "completed" : "lease_lost",
@@ -264,6 +293,7 @@ export async function processOneOrderJob(
 
 export async function purgeExpiredOrders(now = new Date()) {
   return prisma.$transaction(async (tx) => {
+    await tx.orderReadLock.deleteMany({ where: { expiresAt: { lte: now } } });
     await tx.$executeRaw`
       UPDATE "OrderJob" j SET "status" = 'failed', "errorCode" = 'INACTIVE_INSTALLATION',
         "leaseToken" = NULL, "leaseUntil" = NULL
