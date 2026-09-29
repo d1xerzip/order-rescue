@@ -69,3 +69,6 @@ Existing `read_orders` and protected order-data access cover these selected fiel
 Currency recognition uses the pinned2026-07 [CurrencyCode enum](https://shopify.dev/docs/api/admin-graphql/latest/enums/CurrencyCode), not an invented CAD-only list. A well-formed but absent enum code is unsupported; a configured invalid currency is INVALID_CONFIGURATION. No runtime enum fetch or new API query is implemented here.
 
 Integration limit: P04 normalization currently accepts three-letter currency codes. Enum membership alone does not prove a field is available to the rule: for example a four-letter code is currently normalized as unavailable. Preserve that unknown result; this documentation does not expand normalization support. The enum's no-currency placeholder is not a merchant currency for numeric comparison. No silent conversion is allowed in either case.
+
+
+P06A reconciliation: only high_order_value is now implemented, preserving P05 semantics. Earlier no-rule statements describe prior milestones. See [implementation/evidence](P06A-HIGH-ORDER-VALUE.md); merchant settings/evaluation persistence remains absent, results are internal/transient. Next P06B; P04 live limitations remain.

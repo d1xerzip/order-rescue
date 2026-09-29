@@ -51,3 +51,6 @@ Propose encrypted backups with maximum 7-day retention. Restore remains offline 
 
 
 P05 adds contract/fixture artifacts only. No data fields, scopes, persistence or retention changes. P04 evidence and privacy limitations remain.
+
+
+P06A reconciliation: only high_order_value is now implemented, preserving P05 semantics. Earlier no-rule statements describe prior milestones. See [implementation/evidence](P06A-HIGH-ORDER-VALUE.md); merchant settings/evaluation persistence remains absent, results are internal/transient. Next P06B; P04 live limitations remain.

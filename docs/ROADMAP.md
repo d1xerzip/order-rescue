@@ -17,3 +17,6 @@ Free first release. AI, customer messaging, order mutations, address validation 
 
 
 P05 is complete as contracts and fixtures only. Next is P06A value-rule implementation after explicit start; runtime rule evaluation remains unimplemented.
+
+
+P06A reconciliation: only high_order_value is now implemented, preserving P05 semantics. Earlier no-rule statements describe prior milestones. See [implementation/evidence](P06A-HIGH-ORDER-VALUE.md); merchant settings/evaluation persistence remains absent, results are internal/transient. Next P06B; P04 live limitations remain.

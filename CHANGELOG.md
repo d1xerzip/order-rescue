@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.0 — P06A high order value
+
+- Implement pure high_order_value with exact BigInt decimals, accepted lifecycle/currency policy and tenant-bound configuration validation.
+- Connect to existing order-job transaction and selected snapshot; canonical content version, completion-fenced transient result.
+- Verify53 pure,8 integration and20 affected regression tests across targeted runs; typecheck/lint/build pass.
+- Merchant settings persistence/UI, quantity rule and exceptions remain pending. No new Shopify fields/scopes or pipeline.
+
 ## 0.3.0 — P05 contracts and fixtures
 
 - Exactly two rule cards, four outcomes, applicability, evidence and immutable rule/settings versions.

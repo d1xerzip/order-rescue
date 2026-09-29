@@ -1,6 +1,6 @@
 # Order Rescue — V1 rule contract
 
-P05 contract revision **1.0.0**, source version **0.3.0**. This milestone contains specification and synthetic expected examples only; the rule evaluator is not implemented.
+P05 contract revision **1.0.0**, source version **0.3.0**. This milestone contains specification and synthetic expected examples only; high_order_value is now implemented in P06A; high_line_quantity remains specification-only.
 
 | Rule | Approved measurement | Match condition |
 |---|---|---|
@@ -12,3 +12,6 @@ Read [the two rule cards and shared contract](P05-RULE-CONTRACT.md) for applicab
 Canonical outcomes are `matched`, `not_matched`, `not_applicable`, `unknown`. Earlier `match`/`no_match` and config_version labels are superseded by the owner's requested contract names; numeric semantics are unchanged. Thresholds CAD100.00/quantity5 are fixtures, never universal defaults.
 
 [Preserved earlier draft](RULES.pre-P05.md) retains historical alert lifecycle proposals and R01-R14 examples. Those examples are specifications, not passed runtime tests. Alert persistence, decisions and UI remain later milestones; no additional rule is introduced.
+
+
+P06A reconciliation: only high_order_value is now implemented, preserving P05 semantics. Earlier no-rule statements describe prior milestones. See [implementation/evidence](P06A-HIGH-ORDER-VALUE.md); merchant settings/evaluation persistence remains absent, results are internal/transient. Next P06B; P04 live limitations remain.

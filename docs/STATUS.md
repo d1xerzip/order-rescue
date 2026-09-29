@@ -1,15 +1,15 @@
-# Current status — P05
+# Current status — P06A
 
-Version **0.3.0**, branch `codex/p05-rule-contract`. P05 is complete as **contract and fixture specification only**. No rule evaluator, settings persistence, alerts or UI implemented.
+Version **0.4.0**, branch `codex/p06a-high-order-value`. Only the accepted high_order_value rule is implemented; rule/contract version1.0.0.
 
 ## Changed
-Exactly two cards, shared four-outcome contract, applicability precedence, exact decimal/per-line semantics, evidence and source/rule/settings versions. Earlier outcome spellings are explicitly reconciled. Fields/scopes/retention unchanged. See [contract](P05-RULE-CONTRACT.md).
+Pure exact-decimal evaluation with explicit state, configuration validation, four outcomes and versioned evidence. Connected to the existing fenced order-job path; evaluates the stored winning snapshot, returns evidence only after successful completion. No second pipeline, schema migration, extra Shopify fields/scopes, quantity evaluator or exceptions UI.
 
 ## Verified
-`node scripts/check-rule-fixtures.mjs`: PASS, 48 synthetic expected records and one authorization boundary record. This validates artifacts, not evaluation behavior. Targeted ESLint PASS. Independent semantic review findings about invalid settings versions and isolated fixtures were reconciled. Current official Shopify sources and verification date recorded in the contract.
+53 pure tests (all26 accepted P05 value examples plus defensive/precision/lifecycle cases);8 disposable PostgreSQL integration tests;20 affected ingestion/sync/update regression tests.81 distinct tests across targeted runs, not one combined81-test command. Typecheck, lint and build PASS. Details, changed files, exact commands and initial type-inference repair: [P06A-HIGH-ORDER-VALUE.md](P06A-HIGH-ORDER-VALUE.md).
 
 ## Not run / blockers
-Rule execution tests and live rule behavior: NOT RUN / NOT IMPLEMENTED by scope. P04 genuine update/cancel delivery and live multi-page sync remain NOT RUN; earlier two-store ingestion and small real API sync evidence are preserved. Installation checks, app build and database migrations were not repeated for this documentation-only milestone. Production data approval, full privacy processing and hosting gates remain open. No product-decision blocker for these two preserved contracts.
+Live configured rule execution: NOT RUN. There is no persisted merchant settings/evaluation model or settings UI yet: explicit tenant-bound settings are accepted internally, results are transient, normal worker settings remain null/NOT_CONFIGURED. No merchant default threshold installed. P04 actual update/cancel deliveries and live multi-page sync remain NOT RUN; prior small two-store live sync/ingestion evidence preserved. P02 install cycles not repeated. Production approval/privacy/hosting gates remain open.
 
-## Next step
-P06A, only after explicit start: implement high_order_value from the contract and turn the value examples into executable acceptance tests. No quantity evaluation, alerts or UI in that slice. Source version is not a production deployment.
+## Next
+P06B quantity-rule implementation only after explicit start; preserve the accepted per-line semantics and shared result contract. Source publication is not deployment.
