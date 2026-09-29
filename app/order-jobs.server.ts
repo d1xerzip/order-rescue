@@ -4,6 +4,9 @@ import prisma from "./db.server";
 import { openOrder, sealOrder } from "./order-crypto.server";
 import { validateShopDomain } from "./storage.server";
 import { SnapshotError } from "./order-snapshot.server";
+import { evaluateStoredOrderValue } from "./order-evaluation.server";
+import { validateHighOrderValueSettings } from "./rules/high-order-value";
+import type { HighOrderValueSettings, RuleResult } from "./rules/contracts";
 
 const DAY = 86_400_000;
 const MAX_ATTEMPTS = 5;
@@ -91,8 +94,13 @@ export type SnapshotLoader = (
 
 export async function processOneOrderJob(
   loadSnapshot: SnapshotLoader,
-  options: { now?: Date; afterWrite?: () => Promise<void> | void } = {},
-) {
+  options: { now?: Date; afterWrite?: () => Promise<void> | void;
+    valueSettings?: HighOrderValueSettings | null } = {},
+): Promise<{ processed: boolean; status?: string; jobId?: string; evaluation?: RuleResult }> {
+  // Capture an immutable input before asynchronous work. No configured merchant
+  // threshold is invented when settings storage has not yet been implemented.
+  const valueSettings = structuredClone(options.valueSettings ?? null);
+  let evaluation: RuleResult | undefined;
   const now = options.now ?? new Date();
   const job = await claimOrderJob(now);
   if (!job) return { processed: false };
@@ -113,6 +121,7 @@ export async function processOneOrderJob(
     });
     if (!shop.active || !shop.jobsEnabled || shop.generation !== job.generation)
       throw new Error("INACTIVE_INSTALLATION");
+    if (valueSettings) validateHighOrderValueSettings(shop.id, valueSettings);
     const snapshot = await loadSnapshot(job, shop);
     const createdAt = new Date(snapshot.createdAt);
     const updatedAt = new Date(snapshot.updatedAt);
@@ -209,6 +218,15 @@ export async function processOneOrderJob(
           where: { id: existing.id },
           data: { encryptedSnapshot, orderUpdatedAt: updatedAt, expiresAt },
         });
+      const selected = existing && existing.orderUpdatedAt > updatedAt
+        ? JSON.parse(openOrder(existing.encryptedSnapshot, `${job.shopId}:${job.generation}:${job.orderId}`))
+        : snapshot;
+      evaluation = evaluateStoredOrderValue(selected, {
+        shopId: current.id, generation: current.generation,
+        active: current.active && current.jobsEnabled,
+        monitoringStartedAt: current.installedAt.toISOString(),
+        evaluatedAt: clock().toISOString(),
+      }, valueSettings);
       await tx.orderJob.update({
         where: { id: job.id },
         data: {
@@ -227,6 +245,8 @@ export async function processOneOrderJob(
       "PRIVACY_PENDING",
       "ORDER_BUSY",
       "SNAPSHOT_BEHIND_DISCOVERY",
+      "INVALID_CONFIGURATION",
+      "RULE_TENANT_MISMATCH",
     ]);
     const code =
       error instanceof SnapshotError && error.code === "API_THROTTLED"
@@ -238,6 +258,8 @@ export async function processOneOrderJob(
       code === "INACTIVE_INSTALLATION" ||
       code === "OUTSIDE_MONITORING_WINDOW" ||
       code === "PRIVACY_PENDING" ||
+      code === "INVALID_CONFIGURATION" ||
+      code === "RULE_TENANT_MISMATCH" ||
       job.attempts >= MAX_ATTEMPTS;
     const result = await prisma.orderJob.updateMany({
       where: {
@@ -288,6 +310,9 @@ export async function processOneOrderJob(
     processed: true,
     status: result.count ? "completed" : "lease_lost",
     jobId: job.id,
+    // Never expose evidence on failure, lost lease or afterWrite crash. This is
+    // an internal result only; worker logs continue to select operation/status.
+    ...(result.count ? { evaluation } : {}),
   };
 }
 

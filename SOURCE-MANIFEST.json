@@ -47,7 +47,7 @@
     },
     {
       "path": "CHANGELOG.md",
-      "sha256": "df00de2ed7c7b48f1514d5da887d1625a0e322f3b5df710a7a39d50ab98618c7"
+      "sha256": "cda13ad4e7608628dc0a7bfa575a4ebe57ddaa413522195b4534387bc107db31"
     },
     {
       "path": "LICENSE.md",
@@ -55,7 +55,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "aa7ce76616b78220448590a8e6f82bc3ab916fbd7ac18024050dc1d4a253fd5d"
+      "sha256": "a7d18cb0a818acb248247fbbe84bddee24647e45375f10a7ce991ed6dc7ec83b"
     },
     {
       "path": "app/auth.server.ts",
@@ -94,8 +94,12 @@
       "sha256": "5f5371e4d733dada346efd9cc7ee6cde28ec9294804adbe26951cc04d4b2b8bd"
     },
     {
+      "path": "app/order-evaluation.server.ts",
+      "sha256": "eccd65aa2f1919d5727cb684ec16f2865d6ca2bf2b7bb8b29671157174c8c2dd"
+    },
+    {
       "path": "app/order-jobs.server.ts",
-      "sha256": "7437b79d85aa76184dd2df4e70d92f312e4fcf25634d1fde31cdf310aa8c54e7"
+      "sha256": "12ecbf90d4788ed1bdd912a69906fd4c1bd15b2c9fb7ea9e9a472d2adc77b710"
     },
     {
       "path": "app/order-reader.server.ts",
@@ -198,6 +202,18 @@
       "sha256": "1ba04d63d7cd00ed3a0fae7cf43d45bce290b179404105bdb6ded6023e4e1eb5"
     },
     {
+      "path": "app/rules/contracts.ts",
+      "sha256": "eee580da83b45f7ca39e959003dbf3f04a5a9b87819167abf64575e48c6081b4"
+    },
+    {
+      "path": "app/rules/currencies.ts",
+      "sha256": "8dfa0ee254590aa5b1616d6ef7a3189370f80a4fe32d6dd16e72b4fe7ce4eaf5"
+    },
+    {
+      "path": "app/rules/high-order-value.ts",
+      "sha256": "210b95af9a72b99419c125bee618107416cfefdc5ccabca08991652865550a3a"
+    },
+    {
       "path": "app/session-storage.server.ts",
       "sha256": "b143e0b47c45fb709cbda96030c6ec4e8619912707fba194b8f363805bacdb6f"
     },
@@ -215,7 +231,7 @@
     },
     {
       "path": "docs/ARCHITECTURE.md",
-      "sha256": "81bd67670efadda5b6ddd9e15d159f6099aa061447fa039a07930b01250d1d9c"
+      "sha256": "c9b0d77eff5fc9f13270173c7ad0ff5b3fa538eb8e6e9d1279e52abd2661d4b2"
     },
     {
       "path": "docs/LOCAL-SETUP.md",
@@ -223,11 +239,15 @@
     },
     {
       "path": "docs/NEXT.md",
-      "sha256": "1f0d6d95482d662ccf08e8ee6be492ad5de2ce91fe661f2f4360b69fd3648976"
+      "sha256": "cf4090e791c5cf94788e9f76e1f29ad12eff70154c7923d0a2490749da603d5e"
     },
     {
       "path": "docs/NEXT.pre-P05.md",
       "sha256": "03b1a0ebd4296a37bc2ee2ed700fca56906ae53a79f39055f23bf89e9f437db3"
+    },
+    {
+      "path": "docs/NEXT.pre-P06A.md",
+      "sha256": "1f0d6d95482d662ccf08e8ee6be492ad5de2ce91fe661f2f4360b69fd3648976"
     },
     {
       "path": "docs/P03-ACCESS-PLAN.md",
@@ -243,7 +263,11 @@
     },
     {
       "path": "docs/P05-RULE-CONTRACT.md",
-      "sha256": "3d369c3de4325498983d278dd2ad2116f747a6190cdbd58f0836b2fd9dcc04ba"
+      "sha256": "6851789707b55e862b71b588ebb0b13d32643d95d3e465211e30375bd4983199"
+    },
+    {
+      "path": "docs/P06A-HIGH-ORDER-VALUE.md",
+      "sha256": "0fb03c05e55efc0e6fe8270bddc9c62b6936c904d68e2a5fa5452492783e7d34"
     },
     {
       "path": "docs/PLATFORM-SOURCES.md",
@@ -259,11 +283,11 @@
     },
     {
       "path": "docs/ROADMAP.md",
-      "sha256": "33a7919c5711407b3a323dbcf2c98658eee7f71723acbd04758b4bb0ca1105c4"
+      "sha256": "7a79c172fd45d6425c74a724977f658608a95274ebec9893d02f0ebb1ca2cb09"
     },
     {
       "path": "docs/RULES.md",
-      "sha256": "4d34d1dcb470d6cb70d38f94d634f4e06584d8bfff928029155fadae21aca732"
+      "sha256": "ba71b687b079d25c2ee6d718e18ad6b0c60b835f426960538c071c288f2d6cb2"
     },
     {
       "path": "docs/RULES.pre-P05.md",
@@ -271,11 +295,15 @@
     },
     {
       "path": "docs/STATUS.md",
-      "sha256": "d16b0519b115b5f8104dabeb9db901c21acb600ee0cfc335da77d01b72ccf7b9"
+      "sha256": "c48f40c49d036222b9da970cf8c370e97632063532b432477aaa1c94d7f07332"
     },
     {
       "path": "docs/STATUS.pre-P05.md",
       "sha256": "01aca2492d307b770ac9c2cce595fabb8f442a5f367beeebec309229deadb073"
+    },
+    {
+      "path": "docs/STATUS.pre-P06A.md",
+      "sha256": "d16b0519b115b5f8104dabeb9db901c21acb600ee0cfc335da77d01b72ccf7b9"
     },
     {
       "path": "docs/fixtures/rules-v1.json",
@@ -307,11 +335,11 @@
     },
     {
       "path": "package-lock.json",
-      "sha256": "afa35fa340d3f575716e5b78581e94cdc1236b57f43332d55b375ad337717044"
+      "sha256": "4c68032854e4f04113ce32a2edec6ee774535bef8348aed6faff1461fb4d7efe"
     },
     {
       "path": "package.json",
-      "sha256": "36f49e63826f2fa5551d23ceec1ea7e3dffdff978a504b710de7667982f06ee2"
+      "sha256": "afe90050ccfdeddd45800ed06f3dec63c482c1644229e6866bf75a7cc6ebeb2e"
     },
     {
       "path": "prisma/migrations/0001_foundation/migration.sql",
@@ -374,6 +402,10 @@
       "sha256": "9e11fb26825df18cb5763a05e2a22f1f441b9d7c7597b3867597ef7371194af0"
     },
     {
+      "path": "tests/high-order-value.test.ts",
+      "sha256": "92b00e3705fbb7557e192c31fc8930817d61ed29f83a9d9882db5cabd81257fe"
+    },
+    {
       "path": "tests/http.test.ts",
       "sha256": "e45ade6075217c85fc187150a325900a1087a0b10d9b41db38bc0a55828b821e"
     },
@@ -400,6 +432,10 @@
     {
       "path": "tests/order-updates.test.ts",
       "sha256": "b319787f5c4bc7b12bf2f0179bfe69f317ae923186712f3e6ed77070ccd4b632"
+    },
+    {
+      "path": "tests/order-value-integration.test.ts",
+      "sha256": "35a25f4368fef4f616530a30706a6f877e2f03912fd7b156fa4a3fc0867d5107"
     },
     {
       "path": "tests/storage.test.ts",
