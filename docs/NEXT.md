@@ -1,11 +1,7 @@
-# Next slice
+# Next task — P06A
 
-Version **0.2.0** contains P04 bounded recovery. Its actual and synthetic evidence, limitations and operations are recorded in [STATUS.md](STATUS.md) and [P04-SYNC.md](P04-SYNC.md).
+P05 version0.3.0 contains specifications only. Read [RULES.md](RULES.md), [P05-RULE-CONTRACT.md](P05-RULE-CONTRACT.md), [fixtures](fixtures/rules-v1.json) and STATUS.md.
 
-## P05 — deterministic rule-input contract
+Next prompt: Implement only high_order_value and the necessary shared applicability/result contract using the approved snapshot fields. Compare exact decimal strings in matching shop currency, preserve cancellation/coverage/unknown semantics and versioned evidence. Convert the P05 value cases into meaningful executable tests, including invalid configuration, currency mismatch and independent shop settings. Do not implement high_line_quantity, alerts, UI, new fields/scopes or Shopify mutations. Preserve P04 live limitations. Work on a separate branch, then verify, update README/CHANGELOG, merge sanitized source to main and tag the next minor version. Do not repeat P02 installation checks.
 
-Read [RULES.md](RULES.md), [PRODUCT.md](PRODUCT.md) and the [data inventory](ARCHITECTURE.md). Implement only deterministic input/outcome types, eligibility and source/config/rule version evidence for the accepted checks. Preserve exact monetary strings/currency, current line quantities, cancellation semantics, monitoring/retention boundaries and unavailable-versus-empty distinctions. Use server-authenticated tenant identity and meaningful synthetic acceptance examples. Actual rule evaluation belongs to the following milestones.
-
-Do not add new data fields or scopes, historic backfill, order mutations, messaging, AI, billing or unrelated UI. Keep unresolved production privacy/access/infrastructure work visible. Actual update/cancellation webhook delivery and multi-page live synchronization remain unexecuted checks, distinct from passed synthetic cases.
-
-No account changes, deployment or review submission are authorized by this handoff. Preserve already verified installation evidence; repeat checks only when a relevant change requires it.
+Do not start implementation merely because this handoff exists.

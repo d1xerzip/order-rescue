@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0 — P05 contracts and fixtures
+
+- Exactly two rule cards, four outcomes, applicability, evidence and immutable rule/settings versions.
+- 48 synthetic expected cases and one authorization-boundary example; structural checks only, evaluator not implemented.
+- Preserved current amount/per-line fields and P04 unexecuted live checks.
+
 ## 0.2.0 — P04 bounded synchronization
 
 - Accept relevant order-created, updated and cancelled events through authenticated durable intake; reread authoritative approved fields instead of trusting event order.

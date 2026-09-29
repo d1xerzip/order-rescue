@@ -43,11 +43,11 @@
     },
     {
       "path": "AGENTS.md",
-      "sha256": "a0ca4ee0977a5e7aaaf6520fc76b2d9c3b1ad0cf828af1078525d0c074af5f69"
+      "sha256": "b4f750ad8d897b6888b098144aeb35e32fe67d900eb05f1d0eb47cf0c2ba0c3c"
     },
     {
       "path": "CHANGELOG.md",
-      "sha256": "a53c8861c64d29f544b862b3d4c94cf2eb0a986411b0dfe4ea0325a1112606f0"
+      "sha256": "df00de2ed7c7b48f1514d5da887d1625a0e322f3b5df710a7a39d50ab98618c7"
     },
     {
       "path": "LICENSE.md",
@@ -55,7 +55,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "9ebb9f1ff520720fee3b24e28267cab9fa067e288993bbfe72674208b42f900f"
+      "sha256": "aa7ce76616b78220448590a8e6f82bc3ab916fbd7ac18024050dc1d4a253fd5d"
     },
     {
       "path": "app/auth.server.ts",
@@ -215,7 +215,7 @@
     },
     {
       "path": "docs/ARCHITECTURE.md",
-      "sha256": "bac1ae3d073a018743472e684f9decb64c2e569960937fcbc881b5d909d0fe0c"
+      "sha256": "81bd67670efadda5b6ddd9e15d159f6099aa061447fa039a07930b01250d1d9c"
     },
     {
       "path": "docs/LOCAL-SETUP.md",
@@ -223,6 +223,10 @@
     },
     {
       "path": "docs/NEXT.md",
+      "sha256": "1f0d6d95482d662ccf08e8ee6be492ad5de2ce91fe661f2f4360b69fd3648976"
+    },
+    {
+      "path": "docs/NEXT.pre-P05.md",
       "sha256": "03b1a0ebd4296a37bc2ee2ed700fca56906ae53a79f39055f23bf89e9f437db3"
     },
     {
@@ -238,12 +242,16 @@
       "sha256": "d9eb8665426ac7c1d089acfff566c2576e330e44a37796de82188b9ba484c86a"
     },
     {
+      "path": "docs/P05-RULE-CONTRACT.md",
+      "sha256": "3d369c3de4325498983d278dd2ad2116f747a6190cdbd58f0836b2fd9dcc04ba"
+    },
+    {
       "path": "docs/PLATFORM-SOURCES.md",
       "sha256": "ad1d094654a4d61958ff8323b29eb1cfbca45e69a923e3c6e2010f8ff278c781"
     },
     {
       "path": "docs/PRODUCT.md",
-      "sha256": "969f525b92a10e1fe1cafddd3d792501185a0a7870ca1563d02daff48f007401"
+      "sha256": "3be03c0453380bfe29364c48ed12737827250dfc372090b6bb5668e10352b0a5"
     },
     {
       "path": "docs/PUBLIC-REVIEW.md",
@@ -251,15 +259,27 @@
     },
     {
       "path": "docs/ROADMAP.md",
-      "sha256": "18bf4780f44ec92f6b5528d95fbe0f06f836388b9504f6fa69c29864d62c0ce4"
+      "sha256": "33a7919c5711407b3a323dbcf2c98658eee7f71723acbd04758b4bb0ca1105c4"
     },
     {
       "path": "docs/RULES.md",
+      "sha256": "4d34d1dcb470d6cb70d38f94d634f4e06584d8bfff928029155fadae21aca732"
+    },
+    {
+      "path": "docs/RULES.pre-P05.md",
       "sha256": "ada868f2b9ee900b5b57b6133b35ee2b9056a362bf49241880157eafc89f0535"
     },
     {
       "path": "docs/STATUS.md",
+      "sha256": "d16b0519b115b5f8104dabeb9db901c21acb600ee0cfc335da77d01b72ccf7b9"
+    },
+    {
+      "path": "docs/STATUS.pre-P05.md",
       "sha256": "01aca2492d307b770ac9c2cce595fabb8f442a5f367beeebec309229deadb073"
+    },
+    {
+      "path": "docs/fixtures/rules-v1.json",
+      "sha256": "2a99894bef5272fd8cec84d2f81401de7fbb7d32f573e005251f13da94dbcf83"
     },
     {
       "path": "docs/p03/granted-scopes.graphql",
@@ -287,11 +307,11 @@
     },
     {
       "path": "package-lock.json",
-      "sha256": "c109e9a7b4fea8bcb0724da48ddb42307e2f9d5b61d34fe50ca756282a2b7912"
+      "sha256": "afa35fa340d3f575716e5b78581e94cdc1236b57f43332d55b375ad337717044"
     },
     {
       "path": "package.json",
-      "sha256": "ec1ec4cc65929965d9065c3a728c10ede1dd8deaf6a5905c74d611f647a429b5"
+      "sha256": "36f49e63826f2fa5551d23ceec1ea7e3dffdff978a504b710de7667982f06ee2"
     },
     {
       "path": "prisma/migrations/0001_foundation/migration.sql",
@@ -316,6 +336,10 @@
     {
       "path": "public/favicon.svg",
       "sha256": "6dd23f1bca89eb39aabbc61d9326411d528da4d34206cdc464ab05ad60968083"
+    },
+    {
+      "path": "scripts/check-rule-fixtures.mjs",
+      "sha256": "42e360feabd11c9abb817a4f465b015d0f97c781075db0339008078b3232794e"
     },
     {
       "path": "scripts/local-database.mjs",

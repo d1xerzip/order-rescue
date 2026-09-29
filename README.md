@@ -2,7 +2,7 @@
 
 A read-only Shopify embedded app for reviewing order exceptions.
 
-Version **0.2.0**. React Router, TypeScript, PostgreSQL and Prisma. Implemented: server-verified authentication, encrypted sessions, tenant isolation, durable order webhook intake, minimal encrypted snapshots and bounded initial/periodic synchronization.
+Version **0.3.0**. React Router, TypeScript, PostgreSQL and Prisma. Implemented: server-verified authentication, encrypted sessions, tenant isolation, durable order webhook intake, minimal encrypted snapshots and bounded initial/periodic synchronization.
 
 Planned V1: two merchant-configurable checks (high order value and high line-item quantity), an exception inbox, evidence, Open in Shopify, Resolve and Ignore. Rules and the inbox are not implemented. Resolve and Ignore will change application records only. No AI, customer messages, refunds, cancellations or Shopify order mutations.
 
@@ -17,3 +17,5 @@ This is a portable source edition. It contains no linked Shopify registration, l
 - [Roadmap](docs/ROADMAP.md)
 - [Publication boundaries](docs/PUBLIC-REVIEW.md)
 - [License](LICENSE.md)
+
+P05 adds [two rule cards and a shared result contract](docs/P05-RULE-CONTRACT.md), with synthetic expected examples. Rule evaluation is not implemented.

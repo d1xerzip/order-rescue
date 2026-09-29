@@ -14,3 +14,6 @@ The foundation and order-created ingestion are implemented. Recovery is the next
 | Release | Functional/reliability/privacy evidence, production access | Separately authorized hosting/deployment, review-ready listing, then submission and approval |
 
 Free first release. AI, customer messaging, order mutations, address validation and speculative integrations are deferred. This roadmap authorizes no external action.
+
+
+P05 is complete as contracts and fixtures only. Next is P06A value-rule implementation after explicit start; runtime rule evaluation remains unimplemented.
