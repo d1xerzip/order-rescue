@@ -59,3 +59,7 @@ For the final two-line markup correction: `npm run lint` PASS; first `npm run ty
 Current live narrow viewport/keyboard interaction, network failure, two-tab conflict, foreign-shop direct HTTP request and broader unknown/partial-sync/pagination scenarios remain NOT RUN in this manual sequence. Earlier synthetic checks retain their original scope; P02 isolation evidence is not rerun or relabeled as current P08 HTTP evidence. Changing evidence after a terminal decision has not been exercised live here. Remaining P04 lifecycle/sync, actual P09 registration/delivery, production access, legal/support identity, provider security, export delivery, independent journal custody and dependency advisory gates stay open.
 
 Next: inspect the app at a narrow viewport without changing records. Then address only the remaining applicable checks with isolated synthetic fault testing as required. **P08 is partially accepted, not complete; release is not production/App Store ready.**
+
+## Follow-up0.8.9 — current evidence by environment
+
+[P08 acceptance reconciliation](P08-ACCEPTANCE-RECONCILIATION.md) supersedes older next-step/blanket gap statements. Owner390px readability and current synthetic layout/keyboard are verified. Prior negative tests retain their scope after source/log review; no new execution or Shopify PASS is implied. Actual embedded keyboard and real exception-ID isolation remain open; other stage/security/provider gates are unchanged.

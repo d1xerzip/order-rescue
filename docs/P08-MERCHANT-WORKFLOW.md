@@ -77,3 +77,7 @@ P10A repair reconciliation (0.8.1,2026-09-30): the reproduced local IAB hydratio
 ## Follow-up 0.8.8 — bounded actual development evidence
 
 [Manual acceptance matrix](P08-MANUAL-ACCEPTANCE.md) supersedes blanket NOT RUN for the specifically observed settings, ingestion/evidence, Resolve/Ignore reload, correct order link and current manual hydration observation. It preserves historical findings and separates owner screenshots/reports from read-only DB assertions. The form id/name Issue disappeared after the minimal markup fix. Remaining warnings and live failure/conflict/foreign-ID/viewport/provider/privacy/advisory gates remain open; P08 is not complete.
+
+## Follow-up0.8.9 — current evidence by environment
+
+[P08 acceptance reconciliation](P08-ACCEPTANCE-RECONCILIATION.md) supersedes older next-step/blanket gap statements. Owner390px readability and current synthetic layout/keyboard are verified. Prior negative tests retain their scope after source/log review; no new execution or Shopify PASS is implied. Actual embedded keyboard and real exception-ID isolation remain open; other stage/security/provider gates are unchanged.

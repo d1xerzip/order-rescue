@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.9 — P08 evidence reconciliation
+
+- Record owner-confirmed390px readability and measured synthetic layout/keyboard results.
+- Reconcile manual Shopify, synthetic browser and historical integration evidence against unchanged source; preserve unexecuted platform/security gates.
+- Update the next single manual step; no runtime, schema, dependency or account change, no repeated successful suite, no deployment.
+
 ## 0.8.8 — P08 form identifiers and manual development evidence
 
 - Add stable id/name attributes to rule-enable toggles and the review-state filter; preserve all handlers and rule/decision semantics.

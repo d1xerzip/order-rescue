@@ -1,19 +1,19 @@
-# Current status — manual P08 progress and form-control correction
+# Current status — P08 evidence reconciliation
 
-Version **0.8.8**, codex/p08-form-identifiers, 2026-09-30, based on v0.8.7 / ac9a88e87116d6f96e6b5939068df05666d76d32. Final file hashes: SOURCE-MANIFEST.json in the sanitized release. Previous detailed working status is preserved in STATUS.pre-p08-manual.md.
+Version **0.8.9**, codex/p08-acceptance-reconciliation,2026-09-30. Based on v0.8.8 / df97e29d32ea0f68bbc42f796c2664cd48bc114d; final hashes in sanitized SOURCE-MANIFEST.json. Documentation/evidence patch only; no runtime/schema/dependency change.
 
 ## Changed
-Added stable id/name attributes to rule-enable checkboxes and the Review state filter. Two markup edits only; existing handlers, labels, API requests, rule semantics, schema and dependencies are unchanged. Consolidated manual development evidence in [P08-MANUAL-ACCEPTANCE.md](P08-MANUAL-ACCEPTANCE.md).
+Reconciled current acceptance by environment in [P08-ACCEPTANCE-RECONCILIATION.md](P08-ACCEPTANCE-RECONCILIATION.md). Earlier reports and tagged versions preserve historical failures and observations. Removed the obsolete request to repeat the390px screenshot. No already-passed install/workflow/fault suite repeated.
 
 ## Verified
-Actual owner-operated Shopify workflow plus read-only database assertions: both explicit rule settings/save/reload; authentic dev order ingestion and exact fields; value match and quantity-only match/value no-match; one exception per intended signal; evidence; Resolve and Ignore with audited actor/time/versions and reload; correct Open in Shopify destination. The first intended Ignore was actually Resolve as confirmed by the owner; its failed expectation remains documented, and Ignore passed on a separate fixture.
+Owner-operated dev settings, both rules, evidence, Resolve/Ignore reload and correct Shopify order navigation, corroborated by read-only DB assertions. Current manual Console observation has no visible red/hydration messages; other warnings remain. Owner confirmed390px readable evidence/history. Independent current synthetic browser checks measured390px iframe/375px client and scroll widths, no tested horizontal overflow, Enter/Tab navigation and0 captured errors/warnings. No writes in that responsive check.
 
-The latest All levels Console screenshot has no visible red/hydration errors or hidden-message count; bounded manual observation PASS. The form id/name Issue disappeared after the fix. Remaining warnings/performance notices and deprecated unload Issue are recorded, not suppressed or assigned unsupported provenance. Lint/typecheck/build PASS for the changed component; typecheck required a retry after sandbox filesystem denial. No full-suite repeat; 240-test PASS retains v0.8.5 scope. Original screenshots/private helper data are not published.
+Historical240/240 test log and meaningful isolation/concurrency/stale assertions re-inspected; relevant source unchanged except v0.8.8 form identifiers. v0.8.8 lint/typecheck/build retained with their original scope. Source comparison, public content scan, Markdown links and staged manifest hashes checked for this checkpoint; no new full-suite run.
 
 ## Not run / blockers
-Current live narrow viewport/keyboard, failure/conflict, foreign-ID HTTP and broader unknown/partial-sync/pagination/changed-evidence scenarios remain NOT RUN in this sequence. Prior local/P02 evidence retains its scope. Browser automation still denied; all new visual evidence is owner-operated, with no bypass. No repeated install, account/scopes/questionnaire change, data reset, live deletion/restore test or deployment.
+Actual embedded keyboard, measured live DOM geometry, current App Bridge foreign-exception-ID requests and broader live scenarios remain NOT RUN. Browser automation still refused by saved policy; no bypass. Fault/conflict tests already pass in isolated synthetic environments; no live outage planned. P08/P10A full acceptance stays OPEN.
 
-Existing dev migration/journal/worker preparation was completed by v0.8.7; see [recovery](DEV-RUNTIME-RECOVERY.md). Remaining P04 live lifecycle/sync, P09 actual registration/delivery, production PCD, legal/support, secure export delivery, provider/TLS/storage/log/backups and independent journal custody gates remain open. The separate deepmerge advisory is OPEN; auth-race correction retains v0.8.5 evidence.
+P04 actual lifecycle/sync; P09 actual registration/delivery; production PCD; legal/support/provider/export/backup/journal-custody gates and the separate dependency advisory remain open. Dev-runtime recovery is complete, not a current setup blocker. No account changes, installation repeat, live erasure/restore or deployment.
 
-## Decision / next
-**P08 partially verified; release NOT READY.** Next single manual check: narrow viewport layout and access to the inbox/evidence/settings without writing records. Keep successful settings/order/action/link steps closed. See [NEXT.md](NEXT.md).
+## Next
+One owner-operated, non-writing keyboard step in Shopify; then the remaining authenticated foreign-ID evidence gap. [NEXT.md](NEXT.md). **Release NOT READY.**
