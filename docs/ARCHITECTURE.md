@@ -65,3 +65,6 @@ P07 inventory addition: verified Shopify user sub only (no name/email/token), ac
 
 
 P08 reconciliation (0.7.0): merchant onboarding/settings/inbox/detail/evidence and server-confirmed decisions now exist, with bounded API pagination and synthetic browser verification. Previous UI-unimplemented/unmigrated-dev statements are historical; existing dev data was preserved during the additive migration. No real thresholds were saved. See [P08 workflow and evidence](P08-MERCHANT-WORKFLOW.md). Real embedded Shopify acceptance remains NOT RUN; P09 is the next independent slice.
+
+
+P09 reconciliation (0.8.0,2026-09-30): previous intake-only/unimplemented-privacy statements are historical. Scoped privacy processing, cascades, anti-replay/restore journal and retention are locally implemented/tested; actual compliance registration and production controls are NOT RUN/unresolved. Approved order allowlist,30dayoriginalcreatedAt expiry, monitoring boundaries and terminal decisions are unchanged. See [PRIVACY-EVIDENCE.md](PRIVACY-EVIDENCE.md), [policy draft](PRIVACY-POLICY.md) and [support](PRIVACY-SUPPORT.md). No separate financial/fulfillment status or new personal scopes added.

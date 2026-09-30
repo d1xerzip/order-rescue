@@ -11,7 +11,7 @@
     },
     {
       "path": ".env.example",
-      "sha256": "04b649ed5c46565defd674bb8445b472fd2ab208af6a2dfe6dd352b46b6f70e6"
+      "sha256": "d64e5aad99f96b1ee2fd39bb6d153e844fdaa6330a5d64074014e19e81553db7"
     },
     {
       "path": ".eslintignore",
@@ -43,11 +43,11 @@
     },
     {
       "path": "AGENTS.md",
-      "sha256": "1cca8c04e5bc697ced0c53cc25f1b538e49a0f9d0497abb2b986fc13faa586cc"
+      "sha256": "f8f5be7e76d3f7073e5f3bdc0b422a4f357f6877b26581ca070a9f19f6d71b9f"
     },
     {
       "path": "CHANGELOG.md",
-      "sha256": "ffcc5c0c32d0903ebe0a99a616af17a99467ae0b7e11d053cecdfa241971acf4"
+      "sha256": "a3485dac49296edae19d8b17bee76b4697b0016af15e1b62a60c4317fd8e2ea5"
     },
     {
       "path": "LICENSE.md",
@@ -55,11 +55,15 @@
     },
     {
       "path": "README.md",
-      "sha256": "af371effd7d974c89b5a4e5e1db4d2e9275aee928d93642d7a0a0e15d27dbb14"
+      "sha256": "82eb1e8794de4833b53484021cecd6b024a7f72916760fa16acefaabcfa7b145"
+    },
+    {
+      "path": "app/auth-lock.server.ts",
+      "sha256": "40a05715a34ef36bc82fc0c915962e467410f6b663bf63e13206df855bda1558"
     },
     {
       "path": "app/auth.server.ts",
-      "sha256": "243722bf67136ca7ed15eb2f936c03d26eec59fe91fb890e0c126a54547014f2"
+      "sha256": "9a9c5a2c83769e0b627922a5d19663a0365810646e8c995a0c451ef8a13880c4"
     },
     {
       "path": "app/components/Foundation.tsx",
@@ -95,7 +99,7 @@
     },
     {
       "path": "app/exceptions.server.ts",
-      "sha256": "2be50da8acc38dd8512de16f230c7d6603330660ba210588ad75835932b16af9"
+      "sha256": "a3656d50ddb3adaf2691201d348b7bb4421c594bf5c9ea966f3a1ef3df899ee9"
     },
     {
       "path": "app/globals.d.ts",
@@ -115,7 +119,7 @@
     },
     {
       "path": "app/order-jobs.server.ts",
-      "sha256": "44b429e68547667a0d7bbe95f22f4cf1d8129cb8182665c0e095f7d240463679"
+      "sha256": "d5d377a096d70308236c0a6096f0bf7212eb2d381012b7b5eb943fda027c85b6"
     },
     {
       "path": "app/order-reader.server.ts",
@@ -131,11 +135,23 @@
     },
     {
       "path": "app/order-sync.server.ts",
-      "sha256": "f906b2e5a41a34d68095b94e66306cfd15b7d95b87626daa43af2065eb36ffa4"
+      "sha256": "a74bf93e74790d768cc753087c3384584b177b8b446b086774c423a875f7c3f7"
     },
     {
       "path": "app/order-webhook.server.ts",
       "sha256": "95a31443b1f0a62327b8ea0d48e236497837f504362cc8e84acda2fbdae7e3aa"
+    },
+    {
+      "path": "app/privacy-guard.server.ts",
+      "sha256": "4822d21b5e8ba7f3216807841821b8d5e9d9be9bc81d53059898e8fcd243d9a0"
+    },
+    {
+      "path": "app/privacy-webhook.server.ts",
+      "sha256": "acb6a42277c38064ec5f488a65cc1a067c2559e604c083eab45bc0169d386013"
+    },
+    {
+      "path": "app/privacy.server.ts",
+      "sha256": "49bcee0c651ef9b3d257720fa1c981f0d82de9fe6ed9ad21cc94980ab7c522e9"
     },
     {
       "path": "app/root.tsx",
@@ -207,7 +223,7 @@
     },
     {
       "path": "app/routes/readyz.ts",
-      "sha256": "73f539bdbac2d3dab1b553ac07e44b63ef147e44584a608fa238508f1a24636d"
+      "sha256": "80b6a1c7fe84fb0a4a5d5639b74366022664d51fef44604fc81c7720bda99e96"
     },
     {
       "path": "app/routes/webhooks.app.scopes_update.tsx",
@@ -255,7 +271,7 @@
     },
     {
       "path": "app/session-storage.server.ts",
-      "sha256": "b143e0b47c45fb709cbda96030c6ec4e8619912707fba194b8f363805bacdb6f"
+      "sha256": "6f631dfed6cd4c811276ab07fc87aebc14503f6cfc53240a99af5dded366bd41"
     },
     {
       "path": "app/shopify.server.ts",
@@ -263,15 +279,15 @@
     },
     {
       "path": "app/storage.server.ts",
-      "sha256": "525ba1989fbfc5d9aef8f93600f98bab09ca8bc0b02c809cf0fcccccb2092bbd"
+      "sha256": "aed63d3781e3fc148a225f7b840668787a4b1cbaabd98b25daff322628782635"
     },
     {
       "path": "app/webhooks.server.ts",
-      "sha256": "7f09d2217cd8f0d93069a07b2103f781c059ff43add62a07eac5e4f204a29bd7"
+      "sha256": "cf464fa21c6c9cca671665c0a0db73bc5df8e17850b4ae069fcf9485559ba39a"
     },
     {
       "path": "docs/ARCHITECTURE.md",
-      "sha256": "599fb6f13f95cbafdbf4dd0cb5cb8c02dd430a3780af1a2a365f54158403caae"
+      "sha256": "e3b1e97d5f97a136df636c62b803fa0d32d9125feb6752fc97a15d4a0e25deec"
     },
     {
       "path": "docs/CHECKPOINT.md",
@@ -279,11 +295,11 @@
     },
     {
       "path": "docs/LOCAL-SETUP.md",
-      "sha256": "4b4b47f748c2921b2f0eb6deefee518ad3d7f69ca506452d59b5c86acd593426"
+      "sha256": "3fd9677ab9d7344ecbc05551c6718497fe10c09804be81ad8ae06302ee5ee6b5"
     },
     {
       "path": "docs/NEXT.md",
-      "sha256": "6716f048c221c7d450d232477cb44a2227449020226b29ca3c97b994b846fa82"
+      "sha256": "69ef9e5f8e3f96448e2e33b4158d0287c200b914aba14b32f676292b85b5e4c2"
     },
     {
       "path": "docs/NEXT.pre-P05.md",
@@ -304,6 +320,10 @@
     {
       "path": "docs/NEXT.pre-P08.md",
       "sha256": "ed35e281385d5644befb0f260ccedbce60e0e1f1bd575e7392c959812fa194c9"
+    },
+    {
+      "path": "docs/NEXT.pre-P09.md",
+      "sha256": "6716f048c221c7d450d232477cb44a2227449020226b29ca3c97b994b846fa82"
     },
     {
       "path": "docs/P03-ACCESS-PLAN.md",
@@ -331,15 +351,31 @@
     },
     {
       "path": "docs/P07-LIFECYCLE.md",
-      "sha256": "d4af302a996789f9a4f2679cf9561e4ba6311aa485ce0e10141f51bcd0f00a66"
+      "sha256": "bb28c01a28a5f60141a5493730887a56f89aa1033df93e6540163b82da588413"
     },
     {
       "path": "docs/P08-MERCHANT-WORKFLOW.md",
       "sha256": "bd7ce3d14ecb48d3b9f622cb7282b1218bb5d9e93d7d3534c1701ba38484723a"
     },
     {
+      "path": "docs/P09-PLATFORM-RESEARCH.md",
+      "sha256": "b065ac3f263b32e2a599e30e5fc240eb7cfa06f06d394a29448965aff58c45ba"
+    },
+    {
       "path": "docs/PLATFORM-SOURCES.md",
       "sha256": "ad1d094654a4d61958ff8323b29eb1cfbca45e69a923e3c6e2010f8ff278c781"
+    },
+    {
+      "path": "docs/PRIVACY-EVIDENCE.md",
+      "sha256": "04a454d86fa9c5118267db1b1e0584213d716d35af409c542fd1e589d2cc5ff6"
+    },
+    {
+      "path": "docs/PRIVACY-POLICY.md",
+      "sha256": "c5ec4c1b233b1c3504b7556d27b52d2e65e917e4f1735b97d9768db159d52054"
+    },
+    {
+      "path": "docs/PRIVACY-SUPPORT.md",
+      "sha256": "7ac7b288f8117f16efa3ec83098860043215ede798157dce7c9475633905a5c5"
     },
     {
       "path": "docs/PRODUCT.md",
@@ -351,7 +387,7 @@
     },
     {
       "path": "docs/ROADMAP.md",
-      "sha256": "15a056070fc17c6cafd70787635be0f9c79cd000661c85adccfbd6c99f252b2e"
+      "sha256": "cba9e8ae059a42fa18dbc042d6b1742c063abf6650fea89d60edbf5953db9559"
     },
     {
       "path": "docs/RULES.md",
@@ -363,7 +399,7 @@
     },
     {
       "path": "docs/STATUS.md",
-      "sha256": "09ddb451a28b471d82d215011d4f796b4238e0ee653d4ac650db28f0637c2ef1"
+      "sha256": "85b1f8973bd210884da3db028fb9071c3196105d5bcb3563608ba74d13664f83"
     },
     {
       "path": "docs/STATUS.pre-P05.md",
@@ -384,6 +420,10 @@
     {
       "path": "docs/STATUS.pre-P08.md",
       "sha256": "1aa9f64dd9bbb044d90e808ea05c276b10a667af0373ae760d13184349188e4c"
+    },
+    {
+      "path": "docs/STATUS.pre-P09.md",
+      "sha256": "09ddb451a28b471d82d215011d4f796b4238e0ee653d4ac650db28f0637c2ef1"
     },
     {
       "path": "docs/evidence/p08/inbox-narrow.png",
@@ -439,11 +479,11 @@
     },
     {
       "path": "package-lock.json",
-      "sha256": "46da1fff24f74625b78c1fa687109082d3a3b03c2a8d3549101ebed3922119ce"
+      "sha256": "1c9af33f059b5ffef0b2c63bdd28550820e2e6133a159e0df90198d37301d34c"
     },
     {
       "path": "package.json",
-      "sha256": "bf25f42820cd1847501a1b16ce82fa93dbd6bd0c31e655046868d00029ef1e72"
+      "sha256": "63d3b5a675bd3d9317d1cbc75f446808933115ef54bbcb7f1945b5797a3d66ac"
     },
     {
       "path": "prisma/migrations/0001_foundation/migration.sql",
@@ -462,12 +502,16 @@
       "sha256": "20666102f166d88db7daa3c7fc56fc787c62be2e30670904a2ef062c581d2f8e"
     },
     {
+      "path": "prisma/migrations/0005_privacy_lifecycle/migration.sql",
+      "sha256": "2efcb36c17c2bfc135b63713fbd09e98de69f86d2e882df3de1846e1d74e6931"
+    },
+    {
       "path": "prisma/migrations/migration_lock.toml",
       "sha256": "1db17a8d051aa136110736752c5e1f8b7ed92b6ea8e803112fbbe2497047c210"
     },
     {
       "path": "prisma/schema.prisma",
-      "sha256": "03d2075f41aa1dd16acc32b37b6eb2d301b1d755a925aeaadc7a73ebd8fed62d"
+      "sha256": "08d7e1a985126670397e90fd326b3620832de73b78fbf653cf5e52ec3d95136d"
     },
     {
       "path": "public/favicon.svg",
@@ -502,12 +546,16 @@
       "sha256": "c0e84d4115d46c6660aedcaf8777d771b56f54b93dfda40e27f798c97080c250"
     },
     {
+      "path": "scripts/privacy-worker.ts",
+      "sha256": "a56e84a0858bf5d198fdeca0ec92bc4457eb61e17734c3dc1d69654bcbec31cf"
+    },
+    {
       "path": "scripts/test.mjs",
-      "sha256": "48ba572d1a4d99ae8d870b001b111c1b43fe430a6e68b81c5400c939fcb575b9"
+      "sha256": "eed1f5c12e3d650b36b1e2b174c95f1d70c56761f2e574efee356f437d484bb6"
     },
     {
       "path": "scripts/ui-test-server.mjs",
-      "sha256": "0465bc4fc1857800a647def031006fa23a2c976d6cfe435fcbb7a3e2f7327bf9"
+      "sha256": "8f9c27d17115ba76969c45acab4265a53823db3a19ff28d29616f78f09ed5d9e"
     },
     {
       "path": "shopify.app.toml",
@@ -519,7 +567,7 @@
     },
     {
       "path": "tests/exception-lifecycle.test.ts",
-      "sha256": "6baf5fba49f21da143ab2e1aa207e65bf972e9dc2dbb98e9b413575a9ae2a4b5"
+      "sha256": "0017ed2132b155bf8d471466930d00da12eda15e762316cbeeb9f9b525d0e38a"
     },
     {
       "path": "tests/exception-pagination.test.ts",
@@ -535,7 +583,7 @@
     },
     {
       "path": "tests/http.test.ts",
-      "sha256": "e45ade6075217c85fc187150a325900a1087a0b10d9b41db38bc0a55828b821e"
+      "sha256": "fb8a32902128bb99c127a6ef1a85e34401ea17d7ab38f4406675652c2089212a"
     },
     {
       "path": "tests/order-api.test.ts",
@@ -566,8 +614,12 @@
       "sha256": "04d9fa0f875695613220a2bf9996145225c51b7634c0161add03b26b57053e80"
     },
     {
+      "path": "tests/privacy-lifecycle.test.ts",
+      "sha256": "000714514d373a5b53401f37e60031269ee9d80cb103316c78dd36a468505db7"
+    },
+    {
       "path": "tests/storage.test.ts",
-      "sha256": "c25e7df59ba8b6f5a6dc94d082396c77f38f6ecc4927a69c30479002a1277005"
+      "sha256": "4c6ca4928a6954029eda8e83b58843619f9d6e85e1cd722a4d228751d412faaa"
     },
     {
       "path": "tsconfig.json",

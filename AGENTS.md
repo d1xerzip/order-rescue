@@ -24,3 +24,5 @@ For P05 contracts/fixtures read docs/P05-RULE-CONTRACT.md. Specifications are no
 - Exception transitions, persisted rule settings/evaluations, decision audit and P07 API boundaries: [P07-LIFECYCLE.md](docs/P07-LIFECYCLE.md). Keep terminal decisions closed under automatic reevaluation; never invent a merchant threshold.
 
 - P08 merchant workflow, pagination contract, synthetic browser harness and live acceptance limits: [P08-MERCHANT-WORKFLOW.md](docs/P08-MERCHANT-WORKFLOW.md). Never treat harness-supplied synthetic tokens as App Bridge integration proof.
+
+- Privacy/data deletion/export/restore: read [PRIVACY-EVIDENCE.md](docs/PRIVACY-EVIDENCE.md), [PRIVACY-SUPPORT.md](docs/PRIVACY-SUPPORT.md) and [current platform research](docs/P09-PLATFORM-RESEARCH.md). Preserve the independent journal; test deletion/restore only in a disposable synthetic database. Prepared export is not delivery. Never change questionnaire answers without separate owner agreement.

@@ -3,6 +3,7 @@ import type { OrderJob, Prisma, Shop } from "@prisma/client";
 import prisma from "./db.server";
 import { openOrder, sealOrder } from "./order-crypto.server";
 import { validateShopDomain } from "./storage.server";
+import { privacyBlocked } from "./privacy-guard.server";
 import { SnapshotError } from "./order-snapshot.server";
 import { loadRuleSettings, persistRuleEvaluations } from "./exceptions.server";
 import { evaluateStoredOrderRules } from "./order-evaluation.server";
@@ -36,6 +37,8 @@ export async function acceptOrderJob(
       await lifecycleLock(tx, domain);
       const shop = await tx.shop.findUnique({ where: { domain } });
       if (!shop?.active || !shop.jobsEnabled)
+        return { accepted: false, duplicate: false };
+      if (await privacyBlocked(tx, domain, orderId, shop.installedAt))
         return { accepted: false, duplicate: false };
       const key = { shopId: shop.id, generation: shop.generation, deliveryId };
       const existing = await tx.orderJob.findUnique({
@@ -114,6 +117,16 @@ export async function processOneOrderJob(
   const readKey = { shopId: job.shopId, generation: job.generation, orderId: job.orderId };
   const releaseRead = () => prisma.orderReadLock.deleteMany({where: {...readKey, token: job.leaseToken!}});
   try {
+    const shop = await prisma.$transaction(async tx => {
+      const hint = await tx.shop.findUniqueOrThrow({where:{id:job.shopId}});
+      await lifecycleLock(tx,hint.domain);
+      const current = await tx.shop.findUniqueOrThrow({where:{id:job.shopId}});
+      if (!current.active || !current.jobsEnabled || current.generation !== job.generation)
+        throw new Error("INACTIVE_INSTALLATION");
+      if (await privacyBlocked(tx,current.domain,job.orderId,current.installedAt))
+        throw new Error("PRIVACY_PENDING");
+      return current;
+    });
     const acquired = await prisma.$transaction(async tx => {
       await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtextextended(${`${job.shopId}:${job.generation}:${job.orderId}`}, 2))`;
       const existing = await tx.orderReadLock.findUnique({where:{shopId_generation_orderId:readKey}});
@@ -122,11 +135,6 @@ export async function processOneOrderJob(
       return true;
     });
     if (!acquired) throw new Error("ORDER_BUSY");
-    const shop = await prisma.shop.findUniqueOrThrow({
-      where: { id: job.shopId },
-    });
-    if (!shop.active || !shop.jobsEnabled || shop.generation !== job.generation)
-      throw new Error("INACTIVE_INSTALLATION");
     if (valueSettings) validateHighOrderValueSettings(shop.id, valueSettings);
     if (quantitySettings) validateHighLineQuantitySettings(shop.id, quantitySettings);
     const snapshot = await loadSnapshot(job, shop);
@@ -176,23 +184,8 @@ export async function processOneOrderJob(
         current.generation !== job.generation
       )
         throw new Error("INACTIVE_INSTALLATION");
-      const privacyPending = await tx.privacyReceipt.findFirst({
-        where: {
-          shopDomain: shop.domain,
-          status: "pending",
-          OR: [
-            { topic: "shop/redact" },
-            {
-              topic: "customers/redact",
-              payload: {
-                path: ["orders_to_redact"],
-                array_contains: [job.orderId.split("/").at(-1)!],
-              },
-            },
-          ],
-        },
-      });
-      if (privacyPending) throw new Error("PRIVACY_PENDING");
+      if (await privacyBlocked(tx,current.domain,job.orderId,current.installedAt))
+        throw new Error("PRIVACY_PENDING");
       if (
         createdAt < current.installedAt ||
         createdAt > clock() ||
@@ -304,24 +297,26 @@ export async function processOneOrderJob(
   // Intentional separate transaction: snapshot, evaluations and exception history
   // are durable together. Crash replay is idempotent and the lease is reclaimable.
   await options.afterWrite?.();
-  const result = await prisma.orderJob.updateMany({
-    where: {
-      id: job.id,
-      status: "processing",
-      leaseToken: job.leaseToken,
-      leaseUntil: { gt: clock() },
-    },
-    data: {
-      status: "completed",
-      leaseToken: null,
-      leaseUntil: null,
-      errorCode: null,
-    },
+  const result = await prisma.$transaction(async tx => {
+    const hint = await tx.shop.findUnique({where:{id:job.shopId}});
+    if (!hint) return {count:0,blocked:false};
+    await lifecycleLock(tx,hint.domain);
+    const current = await tx.shop.findUnique({where:{id:job.shopId}});
+    if (!current?.active || !current.jobsEnabled || current.generation !== job.generation)
+      return {count:0,blocked:false};
+    const blocked = await privacyBlocked(tx,current.domain,job.orderId,current.installedAt);
+    const updated = await tx.orderJob.updateMany({
+      where: {id:job.id,status:"processing",leaseToken:job.leaseToken,leaseUntil:{gt:clock()}},
+      data: {status:blocked ? "failed" : "completed",leaseToken:null,leaseUntil:null,errorCode:blocked ? "PRIVACY_PENDING" : null},
+    });
+    // A privacy request received after the snapshot transaction must suppress
+    // its in-memory evidence as well as prevent completion/replay writes.
+    return {count:blocked ? 0 : updated.count,blocked};
   });
   await releaseRead();
   return {
     processed: true,
-    status: result.count ? "completed" : "lease_lost",
+    status: result.blocked ? "failed" : result.count ? "completed" : "lease_lost",
     jobId: job.id,
     // Never expose evidence on failure, lost lease or afterWrite crash. This is
     // internal response only; persisted results remain behind authenticated reads.

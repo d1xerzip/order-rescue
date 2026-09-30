@@ -1,11 +1,8 @@
 import { webhookApi } from "./shopify.server";
 import { withAuthLock } from "./auth.server";
-import {
-  deactivateShop,
-  receivePrivacy,
-  type PrivacyTopic,
-} from "./storage.server";
+import { deactivateShop } from "./storage.server";
 import prisma from "./db.server";
+import { receivePrivacyWebhook } from "./privacy-webhook.server";
 
 function canonicalShopId(value: unknown): string | null {
   if (typeof value === "string" && /^gid:\/\/shopify\/Shop\/\d+$/.test(value))
@@ -22,6 +19,8 @@ export async function lifecycleWebhook(
   request: Request,
   expectedTopic: string,
 ) {
+  if (["customers/data_request", "customers/redact", "shop/redact"].includes(expectedTopic))
+    return receivePrivacyWebhook(request, expectedTopic);
   if (request.method !== "POST") return new Response(null, { status: 405 });
   const rawBody = await request.text();
   const validation = await webhookApi.webhooks.validate({
@@ -97,29 +96,7 @@ export async function lifecycleWebhook(
       ]);
     });
   } else {
-    const ids =
-      expectedTopic === "customers/data_request"
-        ? payload.orders_requested
-        : payload.orders_to_redact;
-    if (
-      expectedTopic !== "shop/redact" &&
-      (!Array.isArray(ids) ||
-        ids.some(
-          (v) =>
-            !Number.isSafeInteger(v) &&
-            !(typeof v === "string" && /^\d+$/.test(v)),
-        ))
-    )
-      return new Response(null, { status: 400 });
-    // Retain only allowlisted identifiers. P02 stores no orders or customer profiles.
-    await receivePrivacy(domain, expectedTopic as PrivacyTopic, deliveryId, {
-      ...(expectedTopic === "customers/data_request"
-        ? { orders_requested: ids, data_request: payload.data_request }
-        : {}),
-      ...(expectedTopic === "customers/redact"
-        ? { orders_to_redact: ids }
-        : {}),
-    });
+    return new Response(null, { status: 400 });
   }
   return new Response(null, { status: 200 });
 }

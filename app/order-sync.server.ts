@@ -4,6 +4,7 @@ import prisma from "./db.server";
 import { openOrder } from "./order-crypto.server";
 import { OrderApiError } from "./order-api.server";
 import { SnapshotError } from "./order-snapshot.server";
+import { privacyBlocked } from "./privacy-guard.server";
 
 const DAY = 86_400_000;
 const INTERVAL = 300_000;
@@ -25,6 +26,7 @@ async function guard(tx: Prisma.TransactionClient, shopId: string) {
   await tx.$queryRaw`SELECT "id" FROM "Shop" WHERE "id" = ${shopId} FOR UPDATE`;
   const shop = await tx.shop.findUniqueOrThrow({ where: { id: shopId } });
   if (!shop.active || !shop.jobsEnabled) throw new Error("INACTIVE_INSTALLATION");
+  if (await privacyBlocked(tx,shop.domain,undefined,shop.installedAt)) throw new Error("PRIVACY_PENDING");
   return shop;
 }
 function pendingIds(value: Prisma.JsonValue): string[] {
@@ -53,8 +55,13 @@ export async function advanceOrderSync(shopId: string, fetchPage: SyncPageFetche
     if (state.phase === "failed" || state.nextRunAt > now || (state.leaseUntil && state.leaseUntil > now)) return null;
     if (state.phase === "waiting") {
       const ids = pendingIds(state.pendingJobIds);
-      const jobs = await tx.orderJob.findMany({ where: { id: { in: ids }, shopId, generation: shop.generation } });
-      const missing = jobs.length !== ids.length;
+      const receivedJobs = await tx.orderJob.findMany({ where: { id: { in: ids }, shopId, generation: shop.generation } });
+      const jobs = [];
+      // Redaction can be received while a page is waiting. Those orders are
+      // deliberately absent; their removal must not make synchronization wait
+      // forever or classify erased fields as unavailable.
+      for (const job of receivedJobs) if (!await privacyBlocked(tx,shop.domain,job.orderId,shop.installedAt)) jobs.push(job);
+      const missing = receivedJobs.length !== ids.length;
       const failed = jobs.some(job => job.status === "failed");
       if (missing || failed) {
         await tx.orderSyncState.update({ where: { shopId }, data: { phase: "failed", lastError: missing ? "SYNC_JOBS_EXPIRED" : "SYNC_ORDER_FAILED" } });
@@ -96,6 +103,12 @@ export async function advanceOrderSync(shopId: string, fetchPage: SyncPageFetche
   const clock = () => new Date(now.getTime() + Date.now() - started);
   try {
     if (!state.windowStart || !state.windowEnd || !state.runId) throw new Error("INVALID_CHECKPOINT");
+    await prisma.$transaction(async tx => {
+      const currentShop = await guard(tx,shopId);
+      const current = await tx.orderSyncState.findUnique({where:{shopId}});
+      if (currentShop.generation !== state.generation || current?.leaseToken !== token || !current.leaseUntil || current.leaseUntil <= clock())
+        throw new Error("SYNC_LEASE_LOST");
+    });
     const page = await fetchPage({ shop, windowStart: state.windowStart, windowEnd: state.windowEnd, cursor: state.cursor });
     if (!Array.isArray(page.orders) || page.orders.length > 50 || typeof page.hasNextPage !== "boolean" ||
       (page.hasNextPage && (!page.endCursor || page.endCursor === state.cursor))) throw new Error("INVALID_SYNC_PAGE");
@@ -111,6 +124,7 @@ export async function advanceOrderSync(shopId: string, fetchPage: SyncPageFetche
       if (currentShop.generation !== state.generation || current.leaseToken !== token || !current.leaseUntil || current.leaseUntil <= clock()) throw new Error("SYNC_LEASE_LOST");
       const jobIds: string[] = [];
       for (const order of page.orders) {
+        if (await privacyBlocked(tx,currentShop.domain,order.id,currentShop.installedAt)) continue;
         const deliveryId = `sync:${state.runId}:${state.pageNo}:${order.id}`;
         const previous = await tx.orderJob.findUnique({ where: { shopId_generation_deliveryId: { shopId, generation: state.generation, deliveryId } } });
         // A replayed page can discover a newer revision under the same cursor.
@@ -149,12 +163,18 @@ export async function resetOrderSync(shopId: string, now = new Date()) {
 }
 
 export async function getOrderSyncStatus(shopId: string) {
-  const shop = await prisma.shop.findUnique({ where: { id: shopId } });
-  if (!shop?.active) throw new Error("INACTIVE_INSTALLATION");
-  const [state, backlog, failed] = await Promise.all([
-    prisma.orderSyncState.findFirst({ where: { shopId, generation: shop.generation } }),
-    prisma.orderJob.count({ where: { shopId, generation: shop.generation, status: { in: ["pending", "processing", "retry"] } } }),
-    prisma.orderJob.count({ where: { shopId, generation: shop.generation, status: "failed" } }),
-  ]);
-  return { phase: state?.phase ?? "not_started", lastSuccessAt: state?.lastSuccessAt ?? null, nextRunAt: state?.nextRunAt ?? null, lastError: state?.lastError ?? null, backlog, failed };
+  return prisma.$transaction(async tx => {
+    const hint = await tx.shop.findUnique({where:{id:shopId}});
+    if (!hint) throw new Error("INACTIVE_INSTALLATION");
+    await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtextextended(${hint.domain}, 0))`;
+    const shop = await tx.shop.findUnique({ where: { id: shopId } });
+    if (!shop?.active) throw new Error("INACTIVE_INSTALLATION");
+    if (await privacyBlocked(tx,shop.domain,undefined,shop.installedAt)) throw new Error("PRIVACY_PENDING");
+    const [state, backlog, failed] = await Promise.all([
+      tx.orderSyncState.findFirst({ where: { shopId, generation: shop.generation } }),
+      tx.orderJob.count({ where: { shopId, generation: shop.generation, status: { in: ["pending", "processing", "retry"] } } }),
+      tx.orderJob.count({ where: { shopId, generation: shop.generation, status: "failed" } }),
+    ]);
+    return { phase: state?.phase ?? "not_started", lastSuccessAt: state?.lastSuccessAt ?? null, nextRunAt: state?.nextRunAt ?? null, lastError: state?.lastError ?? null, backlog, failed };
+  });
 }

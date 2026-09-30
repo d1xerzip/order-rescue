@@ -340,8 +340,8 @@ test("privacy pending and inactive installations deny evidence/actions and do no
   assert.deepEqual(await listExceptions(shop.principal), []); assert.deepEqual(await listEvaluations(shop.principal), []);
   await assert.rejects(getException(shop.principal, first.id), status(404));
   await assert.rejects(actOnException(shop.principal, first.id, { action: "ignore", reason: "NOT_RELEVANT", expectedRevision: first.revision }), status(404));
-  await acceptOrderJob(shop.domain, randomUUID(), orderId);
-  assert.equal((await processOneOrderJob(async () => snapshot())).status, "failed");
+  assert.equal((await acceptOrderJob(shop.domain, randomUUID(), orderId)).accepted, false);
+  assert.equal((await processOneOrderJob(async () => { throw new Error("PRIVACY_MUST_NOT_FETCH"); })).processed, false);
   await deactivateShop(shop.domain, randomUUID());
   await assert.rejects(listRuleSettings(shop.principal), status(404));
   const installed = await activateShop(shop.domain);

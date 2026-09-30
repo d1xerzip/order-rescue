@@ -22,7 +22,8 @@
     "db:migrate": "prisma migrate deploy",
     "db:local": "node scripts/local-database.mjs",
     "preview:local": "node scripts/local-preview.mjs",
-    "worker:orders": "node --env-file=.env.local --import tsx scripts/order-worker.ts"
+    "worker:orders": "node --env-file=.env.local --import tsx scripts/order-worker.ts",
+    "worker:privacy": "node --env-file=.env.local --import tsx scripts/privacy-worker.ts"
   },
   "type": "module",
   "engines": {
@@ -87,5 +88,5 @@
       "qs": "^6.16.0"
     }
   },
-  "version": "0.7.0"
+  "version": "0.8.0"
 }

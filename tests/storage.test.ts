@@ -5,6 +5,7 @@ import { after, before, test } from "node:test";
 import { PrismaClient } from "@prisma/client";
 import { Session } from "@shopify/shopify-api";
 import prisma from "../app/db.server";
+import { privacyHash } from "../app/privacy-guard.server";
 import { EncryptedSessionStorage } from "../app/session-storage.server";
 import {
   activateShop,
@@ -260,6 +261,7 @@ test("privacy intake stays available after uninstall, deduplicates, and strips c
   assert.deepEqual(first.payload, {
     orders_requested: ["123"],
     requestId: "789",
+    customerKey: privacyHash(`customer:${shops[0]}:456`),
   });
   assert.equal(await requireActiveShop(shops[0]), null);
   assert.equal(

@@ -1,8 +1,11 @@
 import prisma from "../db.server";
 import { localPreviewEnabled } from "../config.server";
+import { readDeletionJournal } from "../privacy-guard.server";
 export async function loader() {
   try {
     await prisma.shop.count();
+    await prisma.privacyDeletion.count();
+    readDeletionJournal();
     const configured =
       !localPreviewEnabled() &&
       !!process.env.SHOPIFY_API_KEY &&
