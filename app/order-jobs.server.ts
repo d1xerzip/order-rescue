@@ -254,13 +254,18 @@ export async function processOneOrderJob(
       "INVALID_CONFIGURATION",
       "RULE_TENANT_MISMATCH",
     ]);
-    const code =
+    const hintedDelay = error instanceof SnapshotError && Number.isFinite(error.retryAfterMs)
+      ? Math.max(0, error.retryAfterMs!) : 0;
+    // Match discovery's bounded deferral policy. Never retry earlier than a
+    // long upstream hint or park work silently past the retention horizon.
+    const excessiveDelay = hintedDelay > 3_600_000;
+    const code = excessiveDelay ? "THROTTLE_DELAY_EXCESSIVE" :
       error instanceof SnapshotError && error.code === "API_THROTTLED"
         ? "API_THROTTLED"
         : error instanceof Error && safeCodes.has(error.message)
         ? error.message
         : "ORDER_FETCH_FAILED";
-    const terminal =
+    const terminal = excessiveDelay ||
       code === "INACTIVE_INSTALLATION" ||
       code === "OUTSIDE_MONITORING_WINDOW" ||
       code === "PRIVACY_PENDING" ||
@@ -281,9 +286,7 @@ export async function processOneOrderJob(
         leaseUntil: null,
         availableAt: new Date(
           clock().getTime() +
-            Math.max(Math.min(60_000 * 2 ** (job.attempts - 1), 900_000),
-              error instanceof SnapshotError && Number.isFinite(error.retryAfterMs)
-                ? Math.max(0, error.retryAfterMs!) : 0),
+            Math.min(3_600_000, Math.max(Math.min(60_000 * 2 ** (job.attempts - 1), 900_000), hintedDelay)),
         ),
       },
     });

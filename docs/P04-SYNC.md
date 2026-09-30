@@ -47,3 +47,7 @@ Actual GraphQL synchronization ran in two development stores, with one discovere
 - [Cost throttling](https://shopify.dev/docs/apps/build/apis/graphql-admin/rate-limits), [API limits](https://shopify.dev/docs/api/usage/limits), [GraphQL errors](https://shopify.dev/docs/api/admin-graphql/latest#status-and-error-codes)
 
 The source review identified 2026-07 as the current supported selector. The implementation pins that version and verifies returned version headers. Recheck time-sensitive documentation before future platform changes.
+
+## P10B reliability addendum (0.8.2)
+
+Order retries honor finite throttle hints up to one hour. A larger hint becomes failed/THROTTLE_DELAY_EXCESSIVE for investigation; never retry earlier than the hint. Exhausted fifth-attempt crashed leases become ATTEMPTS_EXHAUSTED on sweep. FIFO claiming is not a per-shop quota/fairness guarantee. The synthetic load and interrupted checkpoint recovery were executed; exact evidence and live limits are in [QA-RELIABILITY.md](QA-RELIABILITY.md).

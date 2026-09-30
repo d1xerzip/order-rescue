@@ -36,3 +36,7 @@ Restore procedure: keep server/ordinary workers and merchant access offline; val
 ## Production review checklist
 
 Read-only verification must establish active compliance subscriptions and delivery evidence; CLI-generated payloads do not prove registration. Obtain actual production PCD approval separately. Resolve legal identity/contact, merchant agreement, provider/region, volume encryption, database TLS, logs/TTL, staff access, backup horizon, journal protection, secure export delivery and incident response. Reassess questionnaire answers from evidence with owner agreement; do not save/submit them under this procedure. Preserve outstanding P04/P08 live and browser checks in STATUS.
+
+## P10B restore evidence addendum
+
+The previously proposed local backup/restore procedure now has an executed synthetic rehearsal: actual pg_dump/pg_restore into a distinct disposable DB, exact row/history comparison and current independent journal applied before ordinary access. See [P10B-RESTORE.md](P10B-RESTORE.md). This does not close provider backup encryption, external journal custody, production RTO/RPO or existing-dev setup gates. Preserve older failed/tooling reports as historical evidence; do not treat the current local pass as production compliance.

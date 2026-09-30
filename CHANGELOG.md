@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.2 — P10B local reliability and recovery
+
+- Bound excessive retry hints and cover fifth-crash exhaustion without duplicate effects.
+- Verify233 tests, bounded three-shop synthetic HTTP load, real worker crash/DB outage and checkpoint recovery; compare exact tenant/rule identities and snapshot fields.
+- Execute actual PostgreSQL backup/restore to a distinct disposable database with current independent deletion journal; verify settings/history and v0.8.1 server-source compatibility on current schema.
+- Apply supported Vite esbuild0.28.2 override;4high Prisma/deepmerge audit entries remain.
+- Typecheck/lint/generation/build PASS. Full P08–P10 Shopify/provider/privacy gates remain open; no production readiness, live deletion, account edit or deployment.
+
 ## 0.8.1 — P10A local QA and workflow repairs
 
 - Repair reproduced local IAB hydration with compatible React/runtime/types19.3.0 and the normal React Router entry.
