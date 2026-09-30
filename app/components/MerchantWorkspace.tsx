@@ -155,7 +155,13 @@ export default function MerchantWorkspace({ shopLabel, synthetic = false }: { sh
     const sequence = ++detailSequence.current; setSelectedId(id); setDetailBusy(true); setDetailError(""); setActionMessage("");
     if (!cursor) setDetail(null);
     try { const next = await request<Detail>(`/api/exceptions/${encodeURIComponent(id)}?limit=20${cursor ? `&historyCursor=${encodeURIComponent(cursor)}` : ""}`, { signal: controller.signal });
-      if (mounted.current && sequence === detailSequence.current) { setDetail(previous => cursor && previous?.id === id ? { ...next, history: [...previous.history, ...next.history.filter(item => !previous.history.some(old => old.id === item.id))] } : next); if (!cursor) requestAnimationFrame(() => detailHeading.current?.focus()); }
+      if (mounted.current && sequence === detailSequence.current) {
+        setDetail(previous => cursor && previous?.id === id ? { ...next, history: [...previous.history, ...next.history.filter(item => !previous.history.some(old => old.id === item.id))] } : next);
+        // A confirmed detail refresh must also update its loaded inbox row,
+        // especially after another tab changed the merchant decision.
+        setInbox(previous => previous ? { ...previous, items: previous.items.map(item => item.id === id ? next : item) } : previous);
+        if (!cursor) requestAnimationFrame(() => detailHeading.current?.focus());
+      }
     } catch (e) { if (mounted.current && sequence === detailSequence.current && !controller.signal.aborted) setDetailError(errorText(e)); }
     finally { if (mounted.current && sequence === detailSequence.current) setDetailBusy(false); }
   }

@@ -1,6 +1,8 @@
 # Order Rescue — V1 rule contract
 
-P05 contract revision **1.0.0**, source version **0.3.0**. This milestone contains specification and synthetic expected examples only; high_order_value is now implemented in P06A; high_line_quantity remains specification-only.
+Current reconciliation (0.8.1,2026-09-30): both accepted rules, persisted settings/evaluations, exception lifecycle and merchant UI are implemented. Privacy is locally implemented/tested. [P10A matrix](QA-FUNCTIONAL.md) records231 passing local tests and synthetic browser repairs; real Shopify workflow/privacy registration and production prerequisites remain open. Prior milestone completion/next-task/access paragraphs below are historical snapshots, not current verification. Rule contract1.0.0, field semantics,30dayoriginalcreatedAt retention, monitoring boundary and terminal merchant decisions are unchanged.
+
+P05 contract revision **1.0.0**. Both accepted rules are implemented; historical stage summaries remain below.
 
 | Rule | Approved measurement | Match condition |
 |---|---|---|

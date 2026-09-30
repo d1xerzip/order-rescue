@@ -40,20 +40,22 @@
     "@shopify/shopify-app-session-storage-prisma": "^9.0.0",
     "isbot": "^5.1.31",
     "prisma": "^6.16.3",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
     "react-router": "7.18.2",
     "vite-tsconfig-paths": "^6.0.4"
   },
   "devDependencies": {
     "@shopify/api-codegen-preset": "^2.0.0",
+    "@shopify/cli": "^3.90.0",
     "@shopify/polaris-types": "1.0.1",
     "@types/eslint": "^9.6.1",
     "@types/node": "^25.5.2",
-    "@types/react": "^18.3.25",
-    "@types/react-dom": "^18.3.7",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
+    "embedded-postgres": "18.4.0-beta.17",
     "eslint": "^8.57.1",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.32.0",
@@ -62,11 +64,9 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "graphql-config": "^5.1.1",
     "prettier": "^3.6.2",
-    "typescript": "^5.9.3",
-    "vite": "^7.3.1",
     "tsx": "^4.20.6",
-    "embedded-postgres": "18.4.0-beta.17",
-    "@shopify/cli": "^3.90.0"
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
   },
   "workspaces": {
     "packages": [
@@ -88,5 +88,5 @@
       "qs": "^6.16.0"
     }
   },
-  "version": "0.8.0"
+  "version": "0.8.1"
 }

@@ -26,3 +26,6 @@ For P05 contracts/fixtures read docs/P05-RULE-CONTRACT.md. Specifications are no
 - P08 merchant workflow, pagination contract, synthetic browser harness and live acceptance limits: [P08-MERCHANT-WORKFLOW.md](docs/P08-MERCHANT-WORKFLOW.md). Never treat harness-supplied synthetic tokens as App Bridge integration proof.
 
 - Privacy/data deletion/export/restore: read [PRIVACY-EVIDENCE.md](docs/PRIVACY-EVIDENCE.md), [PRIVACY-SUPPORT.md](docs/PRIVACY-SUPPORT.md) and [current platform research](docs/P09-PLATFORM-RESEARCH.md). Preserve the independent journal; test deletion/restore only in a disposable synthetic database. Prepared export is not delivery. Never change questionnaire answers without separate owner agreement.
+
+
+- Functional release acceptance/current browser limits and P10B dependencies: [QA-FUNCTIONAL.md](docs/QA-FUNCTIONAL.md). Distinguish synthetic/local PASS from current Shopify E2E; retain live/privacy blockers. Independent local P10B is permitted, but full P10A acceptance is still open.
