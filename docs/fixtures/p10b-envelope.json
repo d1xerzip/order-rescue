@@ -1,0 +1,26 @@
+{
+  "format": 1,
+  "status": "proposed synthetic envelope, not merchant capacity",
+  "assumption": "Product targets small physical-goods merchants; pilot shop/order volume is not confirmed.",
+  "shops": 3,
+  "steadySeconds": 60,
+  "steadyOrdersPerSecond": 1,
+  "burstOrders": 120,
+  "duplicateEvery": 5,
+  "httpConcurrency": 6,
+  "workers": 1,
+  "mockGraphqlLatencyMs": 20,
+  "maximumLinesPerOrder": 3,
+  "targets": {
+    "unexpectedReceiptErrors": 0,
+    "duplicateEffects": 0,
+    "receiptP95Ms": 1000,
+    "receiptMaxMs": 5000,
+    "processingP95Ms": 30000,
+    "oldestPendingMaxMs": 45000,
+    "drainMs": 60000,
+    "quietShopP95Ms": 30000,
+    "restoreExactFieldAndHistoryEquality": true,
+    "restoredDeletionResurrection": false
+  }
+}

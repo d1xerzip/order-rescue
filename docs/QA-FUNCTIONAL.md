@@ -81,3 +81,7 @@ The owner reports both Shopify domains set to Always allow. Explicit retry of bo
 Keep open: P08 actual Admin/App Bridge/workflow/order-link/embedded Console; P04 actual update/cancel and multi-page recovery; P09 actual subscription/delivery, safe existing-dev schema/journal/worker setup after legacy fixture review, production PCD, legal/support identity, secure export handoff, hosting/TLS/volume/log/backups and independently durable current journal. Local hydration repair closes only its reproducible synthetic IAB defect; actual Shopify hydration remains NOT RUN.
 
 **P10B may proceed only for independent local reliability and compatible dependency triage. Full P10A acceptance and the candidate deployment/listing gate cannot pass yet.** Next prompt: [NEXT.md](NEXT.md). Version0.8.1 is a patch repair/evidence save, not a completed P10 minor milestone. No live erasure/restore, account change, deployment, review submission or external message is authorized by this report.
+
+## P10B follow-up (0.8.2)
+
+[Independent local reliability](QA-RELIABILITY.md) and actual synthetic restore now pass their recorded envelope; final local suite is233/233. Vite production esbuild advisory fixed;4high Prisma/deepmerge entries remain. No P10A current Shopify criterion changed from NOT RUN to PASS. Both protected browser domains still refuse access; all actual UI/privacy/provider gates above remain open.

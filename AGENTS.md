@@ -29,3 +29,5 @@ For P05 contracts/fixtures read docs/P05-RULE-CONTRACT.md. Specifications are no
 
 
 - Functional release acceptance/current browser limits and P10B dependencies: [QA-FUNCTIONAL.md](docs/QA-FUNCTIONAL.md). Distinguish synthetic/local PASS from current Shopify E2E; retain live/privacy blockers. Independent local P10B is permitted, but full P10A acceptance is still open.
+
+- Operational reliability/load/fault/backup/rollback: [QA-RELIABILITY.md](docs/QA-RELIABILITY.md), [P10B-RESTORE.md](docs/P10B-RESTORE.md). Use isolated synthetic databases only; preserve the independent current privacy journal. Local envelope PASS is not real pilot capacity or closure of P08–P10 live/provider gates.
