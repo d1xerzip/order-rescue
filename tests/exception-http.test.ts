@@ -89,7 +89,9 @@ test("authenticated endpoints expose only own persisted settings/evaluations/exc
   for (const index of [0, 1]) {
     const listed = await exceptions(args(request(index)));
     assert.equal(listed.status, 200);
-    const records = await listed.json();
+    const page = await listed.json();
+    const records = page.items;
+    assert.equal(page.nextCursor, null);
     assert.equal(records.length, 1);
     if (index === 0) aId = records[0].id; else bId = records[0].id;
     assert.equal(records[0].state, "open");

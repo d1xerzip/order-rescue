@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.0 — P08 merchant workflow
+
+- Add onboarding, persisted explicit settings, inbox/detail/evidence, history and server-confirmed decisions using the existing design/authentication flow.
+- Bound list/history queries and tenant-scoped cursors; keep current results and terminal decisions separate.
+- Apply the additive dev migration without reset and verify existing rows unchanged; no real settings seeded.
+- Verify189 tests, browser synthetic workflow, two-tab conflicts, failure states, pagination, keyboard/narrow layout and foreign requests. Include sanitized screenshots.
+- Real embedded Shopify UI checks remain NOT RUN; in-app-browser hydration incompatibility remains pending. P04 live and P09 privacy/production gates are retained.
+
 ## 0.6.0 — P07 exception lifecycle
 
 - Persist explicit tenant rule settings and both results in the existing order transaction; no default merchant thresholds.

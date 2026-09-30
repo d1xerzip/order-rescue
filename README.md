@@ -1,27 +1,16 @@
 # Order Rescue
 
-A read-only Shopify embedded app for reviewing order exceptions.
+A read-only Shopify embedded app for reviewing order exceptions. Version **0.7.0**.
 
-Version **0.6.0**. React Router, TypeScript, PostgreSQL and Prisma. Implemented: server-verified authentication, encrypted sessions, tenant isolation, durable order webhook intake, minimal encrypted snapshots and bounded initial/periodic synchronization.
+React Router, TypeScript, PostgreSQL and Prisma. Two accepted checks use exact current order value and per-line current quantity. The merchant workspace provides explicit settings without default thresholds, an exception inbox, current/decision evidence, history and Open in Shopify. Resolve and Ignore change only our alert and remain closed under reevaluation. No AI, customer messaging or Shopify order mutations.
 
-Planned V1: two merchant-configurable checks (high order value and high line-item quantity), an exception inbox, evidence, Open in Shopify, Resolve and Ignore. Both rule evaluators and settings/exception persistence are implemented; merchant settings UI and the inbox remain unimplemented. Resolve and Ignore will change application records only. No AI, customer messages, refunds, cancellations or Shopify order mutations.
+Server-verified authentication, encrypted minimal snapshots, durable ingestion, bounded synchronization and tenant-isolated decisions are implemented. 189 local tests pass. The actual production build was browser-tested with synthetic shops and a disposable database; this is not proof of the real embedded Shopify workflow. Live P08 verification, remaining P04 cases, complete privacy processing and production access/deployment remain open. **Not production or App Store ready.**
 
-This is a portable source edition. It contains no linked Shopify registration, live credentials, database, production deployment or original private Git history. It is **not production or App Store ready**. Privacy receipt intake is not complete privacy processing.
+- [Status and blockers](docs/STATUS.md), [next task](docs/NEXT.md), [version history](CHANGELOG.md)
+- [Local setup](docs/LOCAL-SETUP.md), [P08 workflow and browser evidence](docs/P08-MERCHANT-WORKFLOW.md)
+- [Rule contracts](docs/RULES.md), [lifecycle](docs/P07-LIFECYCLE.md), [architecture/inventory](docs/ARCHITECTURE.md)
+- [Ingestion](docs/P03-INGESTION.md), [synchronization](docs/P04-SYNC.md), [roadmap](docs/ROADMAP.md)
 
-- [Local setup](docs/LOCAL-SETUP.md)
-- [Current status](docs/STATUS.md), [next task](docs/NEXT.md) and [version history](CHANGELOG.md)
-- [Ingestion](docs/P03-INGESTION.md) and [synchronization runbook](docs/P04-SYNC.md)
-- [Product](docs/PRODUCT.md) and [rule contract](docs/RULES.md)
-- [Architecture and data inventory](docs/ARCHITECTURE.md)
-- [Development access proposal](docs/P03-ACCESS-PLAN.md)
-- [Roadmap](docs/ROADMAP.md)
-- [Publication boundaries](docs/PUBLIC-REVIEW.md)
-- [License](LICENSE.md)
+Local synthetic workflow: `npm ci`, `npm run db:generate`, `npm run build`, then `node scripts/ui-test-server.mjs`; open `http://127.0.0.1:3108/__test`. This creates a fresh disposable database, uses fictional shops and does not load a real env file. Stop automated tests before using its test database port. Use LOCAL-SETUP for real development configuration; never reset an existing database or invent merchant settings.
 
-P05 adds [two rule cards and a shared result contract](docs/P05-RULE-CONTRACT.md), with synthetic expected examples. P06A/P06B implement both accepted rules.
-
-[Historical P06A evidence](docs/P06A-HIGH-ORDER-VALUE.md): value evaluator acceptance; its persistence limitation was addressed in P07.
-
-[Historical P06B evidence](docs/P06B-LINE-QUANTITY.md): both rule evaluators; its transient-result limitation was addressed in P07.
-
-[P07 lifecycle and evidence](docs/P07-LIFECYCLE.md): explicit settings without default thresholds, stable exceptions, encrypted decision history and authenticated APIs. Ignore/Resolve remain terminal under reevaluation.183 local tests pass; live migration and UI acceptance remain NOT RUN. P08 UI is next.
+This portable source edition excludes linked account configuration, credentials, databases, machine identities and original private Git history. See [publication boundaries](docs/PUBLIC-REVIEW.md) and [license](LICENSE.md).

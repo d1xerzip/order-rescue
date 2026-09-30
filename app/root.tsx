@@ -1,7 +1,8 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import foundationStyles from "./components/foundation.css?url";
+import workspaceStyles from "./components/merchant-workspace.css?url";
 
-export const links = () => [{ rel: "stylesheet", href: foundationStyles }];
+export const links = () => [{ rel: "stylesheet", href: foundationStyles }, { rel: "stylesheet", href: workspaceStyles }];
 
 export default function App() {
   return (

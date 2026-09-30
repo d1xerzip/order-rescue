@@ -1,15 +1,15 @@
-# Current status — P07
+# Current status — P08
 
-Version **0.6.0**, branch `codex/p07-exception-lifecycle`. Local backend slice complete; no UI or live activation.
+Version **0.7.0**, branch `codex/p08-merchant-workflow`. Local implementation and synthetic browser checks complete; real Shopify P08 acceptance remains NOT RUN.
 
 ## Changed
-Persisted explicit shop rule settings with validation/version guards and no default thresholds; both rule results saved atomically with the winning order snapshot. Stable exception identity per shop/order/rule, open/acknowledged/resolved/ignored states, encrypted revision-ordered history. Terminal decisions never reopen automatically; current outcome/freshness is separate. Authenticated read/action APIs with tenant, installation, expiry and pending-privacy boundaries. Additive migration and uninstall settings cleanup.
+Embedded merchant workspace: onboarding, explicit persisted settings without defaults, inbox/filter/pagination, detail/current and decision evidence, history, Open in Shopify, server-confirmed Resolve/Ignore/Acknowledge. Unknown/empty/partial-sync/stale/error states remain distinct. Existing dev database received the additive P07 migration without reset; encrypted pre-migration backup and unchanged old-row hashes/counts verified. No real merchant thresholds written.
 
 ## Verified
-`npm test`183/183 PASS, including21 new lifecycle/HTTP cases, two-process PostgreSQL action race, duplicate/crash replay, stale/settings races, preserved Ignore, unknown and foreign-ID protection. `npm run db:generate`, typecheck, lint and build PASS. Detailed transition table written before behavior changes, exact commands, synthetic before/after records, API and limitations: [P07-LIFECYCLE.md](P07-LIFECYCLE.md).
+`npm test`189/189 PASS; focused pagination/HTTP/lifecycle27/27 PASS; typecheck, lint, build and harness syntax PASS. Actual production build + disposable PostgreSQL + synthetic Shopify authentication/transport exercised in Opera: configure→order→inbox→evidence→decision→reload, two-tab decision/settings conflicts, unknown data, partial sync, pagination, foreign404, HTTP503, total server outage, keyboard and narrow iframe. No application JavaScript/hydration errors in final Opera checks. Sanitized screenshots and exact commands: [P08-MERCHANT-WORKFLOW.md](P08-MERCHANT-WORKFLOW.md).
 
 ## Not run / blockers
-Dev/live DB migration, real-store configured actions and UI verification NOT RUN. No real merchant thresholds saved. HTTP auth evidence uses real SDK + synthetic signed tokens/mock network, not live Shopify. P04 real update/cancel deliveries and live multi-page sync remain NOT RUN; install cycles not repeated. Full privacy processing/restore, production approval and hosting remain open. List/history endpoints currently unpaginated; bound them with P08 before scaling.
+Shopify Admin browser permission remains denied: actual embedded P08 journey, live App Bridge requests and real Open in Shopify navigation NOT RUN. The in-app browser still produced hydration errors on the local build while Opera did not; its clean-console acceptance remains pending. No install tests repeated. P04 real update/cancel deliveries and live multi-page sync remain NOT RUN. P09 full privacy processing/restore, production PCD approval and hosting remain open. Source publication is not deployment.
 
 ## Next
-P08 settings/inbox/detail/evidence UI on the existing authenticated APIs, only after explicit start. Add bounded pagination and verify unknown/stale/terminal decision presentation. A selected dev runtime needs the additive migration and explicit merchant settings before live use. Source publication is not deployment.
+P09 privacy processing on the full stored inventory, including settings/evaluations/exceptions/history, with synthetic export/redaction/replay/restore tests. Keep P04/P08 live gates for P10. No new rules or features.

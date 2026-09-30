@@ -91,3 +91,8 @@ Reproduce with `npm test -- tests/exception-lifecycle.test.ts` using the reposit
 Live/dev database migration, configured real-store lifecycle actions, browser/UI verification and deployment: NOT RUN. No installation cycles repeated; local regression tests of foundation are not a new live install test. No real thresholds saved. Previous P04 real update/cancel delivery and live multi-page sync limitations remain NOT RUN. P09 full privacy processing/restore, production approval and hosting remain open.
 
 P07 local backend slice is complete. P08 may implement settings/inbox/detail/evidence/actions on these authenticated APIs after explicit start, add bounded pagination, and perform actual UI acceptance. Applying the additive migration to a chosen development runtime and setting an explicit merchant threshold must precede live P08 use. This source release alone does not migrate, configure or deploy a store.
+
+
+P08 reconciliation (0.7.0): merchant onboarding/settings/inbox/detail/evidence and server-confirmed decisions now exist, with bounded API pagination and synthetic browser verification. Previous UI-unimplemented/unmigrated-dev statements are historical; existing dev data was preserved during the additive migration. No real thresholds were saved. See [P08 workflow and evidence](P08-MERCHANT-WORKFLOW.md). Real embedded Shopify acceptance remains NOT RUN; P09 is the next independent slice.
+
+P08 API supersedes earlier unpaginated responses: GET lists return {items,nextCursor}; detail history uses historyCursor and historyNextCursor, plus independent latestDecision. Default20/max50; cursors never replace authentication.
