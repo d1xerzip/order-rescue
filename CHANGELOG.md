@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.0 — P07 exception lifecycle
+
+- Persist explicit tenant rule settings and both results in the existing order transaction; no default merchant thresholds.
+- Add stable exception identity, open/acknowledged/resolved/ignored transitions and encrypted revision-ordered observation/decision history. Preserve terminal decisions under changed evidence/settings.
+- Authenticate settings/evaluation/exception read and action APIs; enforce revisions, tenant/installation isolation, expiry, privacy blocking and uninstall settings cleanup.
+- Verify183/183 tests including separate-process action race, replay/crash and synthetic SDK HTTP authorization. Typecheck/lint/build pass.
+- No UI, Shopify mutations, live DB migration or deployment. P04 live and P09 production/privacy gates remain.
+
 ## 0.5.0 — P06B high line quantity
 
 - Add accepted per-line currentQuantity evaluator and shared applicability/configuration boundaries; preserve value semantics.

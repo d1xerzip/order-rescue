@@ -1,15 +1,15 @@
-# Current status — P06B
+# Current status — P07
 
-Version **0.5.0**, branch `codex/p06b-line-quantity`. Both accepted V1 rules are implemented with unchanged rule/contract version 1.0.0.
+Version **0.6.0**, branch `codex/p07-exception-lifecycle`. Local backend slice complete; no UI or live activation.
 
 ## Changed
-Pure high_line_quantity evaluates each currentQuantity separately across complete normalized lines. Shared applicability and configuration validation preserve P06A behavior. Both rules run from the same winning stored snapshot, digest and evaluation time in the existing fenced job path. Minimal sorted line evidence; no new fields/scopes, pipeline, schema or UI.
+Persisted explicit shop rule settings with validation/version guards and no default thresholds; both rule results saved atomically with the winning order snapshot. Stable exception identity per shop/order/rule, open/acknowledged/resolved/ignored states, encrypted revision-ordered history. Terminal decisions never reopen automatically; current outcome/freshness is separate. Authenticated read/action APIs with tenant, installation, expiry and pending-privacy boundaries. Additive migration and uninstall settings cleanup.
 
 ## Verified
-87 pure tests PASS (34 quantity including all 22 P05 quantity fixtures; 53 value including all 26 value fixtures). 11 disposable PostgreSQL rule integration tests and 29 affected ingestion/snapshot/sync/update tests PASS across targeted runs: 127 distinct tests. Typecheck, lint and build PASS. Initial integration fixture isolation failure and repair documented in [P06B evidence](P06B-LINE-QUANTITY.md).
+`npm test`183/183 PASS, including21 new lifecycle/HTTP cases, two-process PostgreSQL action race, duplicate/crash replay, stale/settings races, preserved Ignore, unknown and foreign-ID protection. `npm run db:generate`, typecheck, lint and build PASS. Detailed transition table written before behavior changes, exact commands, synthetic before/after records, API and limitations: [P07-LIFECYCLE.md](P07-LIFECYCLE.md).
 
 ## Not run / blockers
-Live configured-rule execution and owner visual comparison NOT RUN. Settings/evaluation persistence and settings UI remain absent: explicit tenant-bound settings only, transient internal results; normal worker remains NOT_CONFIGURED. P04 actual update/cancel webhook delivery and live multi-page sync remain NOT RUN. P02 install cycles not repeated. No deployment or production approval claimed.
+Dev/live DB migration, real-store configured actions and UI verification NOT RUN. No real merchant thresholds saved. HTTP auth evidence uses real SDK + synthetic signed tokens/mock network, not live Shopify. P04 real update/cancel deliveries and live multi-page sync remain NOT RUN; install cycles not repeated. Full privacy processing/restore, production approval and hosting remain open. List/history endpoints currently unpaginated; bound them with P08 before scaling.
 
 ## Next
-P07 local exception persistence/lifecycle is the next dependent slice: P06A/P06B evaluator prerequisites now pass. Start only on explicit request; establish durable tenant-bound settings/results as required by that slice, with replay-safe exception identity and terminal decisions. This does not satisfy live or production gates.
+P08 settings/inbox/detail/evidence UI on the existing authenticated APIs, only after explicit start. Add bounded pagination and verify unknown/stale/terminal decision presentation. A selected dev runtime needs the additive migration and explicit merchant settings before live use. Source publication is not deployment.
