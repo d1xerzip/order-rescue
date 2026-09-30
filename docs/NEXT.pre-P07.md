@@ -1,0 +1,5 @@
+# Next task — P07
+
+P06A/P06B pure evaluator and existing-job integration prerequisites pass; see STATUS.md and P06B-LINE-QUANTITY.md. P07 is ready for local implementation after explicit authorization, not for deployment.
+
+Next prompt: Implement the accepted exception persistence and lifecycle using both V1 rules from one winning normalized snapshot. Read RULES.md, P05-RULE-CONTRACT.md, ARCHITECTURE.md and the preserved R09–R13 acceptance examples. First reconcile durable shop-specific settings/version resolution and evaluation persistence with the existing transient API; do not invent a merchant threshold. Provide one stable exception identity, replay-safe updates, terminal Resolve/Ignore decisions and authenticated tenant-scoped actions that never modify Shopify orders. Test concurrency, repeat evaluation, stale inputs, foreign IDs and decision preservation with disposable data. No inbox UI or extra rules. Preserve P04 NOT RUN limitations, retention and privacy boundaries. Use a separate branch and sanitized versioned source release.

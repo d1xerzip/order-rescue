@@ -57,3 +57,8 @@ P06A reconciliation: only high_order_value is now implemented, preserving P05 se
 
 
 P06B reconciliation (0.5.0): both accepted rules are implemented and tested, preserving contract 1.0.0. Earlier specification-only/quantity-unimplemented statements describe historical milestones. See [P06B evidence](P06B-LINE-QUANTITY.md). P07 local evaluator prerequisites pass; settings/results persistence and exceptions are still absent. Live P04 and production gates remain open.
+
+
+P07 reconciliation (0.6.0): explicit shop settings, latest evaluations, stable exceptions and encrypted decision history now persist; earlier transient-only statements are historical. Terminal Resolve/Ignore decisions remain closed under automatic reevaluation. See [P07 lifecycle/evidence](P07-LIFECYCLE.md). P08 UI is next; no live migration/deployment or production-readiness claim.
+
+P07 inventory addition: verified Shopify user sub only (no name/email/token), actor/action/reason/time and exact result versions/evidence are encrypted in decision history under the original order createdAt+30days expiry, cascade deletion and tenant access. Current encrypted settings include latest author/time, current installation only; uninstall deletes settings. No new Shopify data scope. Pending redaction blocks reads/actions; completed export/redaction/restore remains P09.

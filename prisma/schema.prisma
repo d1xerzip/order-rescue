@@ -42,6 +42,7 @@ model Shop {
   orderSnapshots OrderSnapshot[]
   orderSync OrderSyncState?
   orderReadLocks OrderReadLock[]
+  ruleSettings RuleSetting[]
 }
 
 model OrderReadLock {
@@ -110,6 +111,8 @@ model OrderSnapshot {
   shopId String
   generation Int
   orderId String
+  evaluations RuleEvaluation[]
+  exceptions ExceptionRecord[]
   encryptedSnapshot String
   orderCreatedAt DateTime
   orderUpdatedAt DateTime
@@ -145,4 +148,63 @@ model PrivacyReceipt {
   status String @default("pending")
   receivedAt DateTime @default(now())
   @@unique([shopDomain, topic, deliveryId])
+}
+model RuleSetting {
+  shopId String
+  generation Int
+  ruleKey String
+  revision Int
+  settingsVersion String
+  encryptedSettings String
+  updatedAt DateTime
+  shop Shop @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  @@id([shopId, generation, ruleKey])
+}
+
+model RuleEvaluation {
+  id String @id @default(uuid())
+  shopId String
+  generation Int
+  orderId String
+  ruleKey String
+  fingerprint String
+  encryptedResult String
+  checkedAt DateTime
+  snapshot OrderSnapshot @relation(fields: [shopId, generation, orderId], references: [shopId, generation, orderId], onDelete: Cascade)
+  @@unique([shopId, generation, orderId, ruleKey])
+}
+
+enum ExceptionState {
+  open
+  acknowledged
+  resolved
+  ignored
+}
+
+model ExceptionRecord {
+  id String @id @default(uuid())
+  shopId String
+  generation Int
+  orderId String
+  ruleKey String
+  state ExceptionState @default(open)
+  revision Int @default(1)
+  createdAt DateTime
+  updatedAt DateTime
+  snapshot OrderSnapshot @relation(fields: [shopId, generation, orderId], references: [shopId, generation, orderId], onDelete: Cascade)
+  history ExceptionHistory[]
+  @@unique([shopId, orderId, ruleKey])
+  @@index([shopId, generation, state])
+}
+
+model ExceptionHistory {
+  id String @id @default(uuid())
+  exceptionId String
+  revision Int
+  kind String
+  at DateTime
+  encryptedDetail String
+  exception ExceptionRecord @relation(fields: [exceptionId], references: [id], onDelete: Cascade)
+  @@index([exceptionId, at])
+  @@unique([exceptionId, revision])
 }

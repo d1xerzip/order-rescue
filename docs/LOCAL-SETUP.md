@@ -34,3 +34,6 @@ For real development installation, use an independently configured registration 
 
 ## P03 worker
 See [P03-INGESTION.md](P03-INGESTION.md) for gated subscription/worker setup and targeted tests. Use migration 0002_order_ingestion after 0001_foundation. Never apply this edition migration history to a private deployment with differently named migrations.
+
+## P07 schema preparation
+P07 adds settings/evaluation/exception/history tables. The new migration was applied only by npm test to a fresh disposable database. After selecting the intended local development database and supplying its existing environment privately, run npm run db:generate and npm run db:migrate before starting the updated app/worker. Do not reset the database or apply this to production. No merchant settings are seeded; configure explicit settings through the authenticated P07 API (documented in P07-LIFECYCLE.md), with UI deferred to P08. A source update alone does not migrate the currently running dev database.

@@ -96,6 +96,7 @@ export async function deactivateShop(
       where: { domain: shopDomain },
       data: { active: false, jobsEnabled: false, uninstalledAt: new Date() },
     });
+    if (shop) await tx.ruleSetting.deleteMany({ where: { shopId: shop.id } });
     await tx.session.deleteMany({ where: { shop: shopDomain } });
     return { duplicate: false, stale };
   });

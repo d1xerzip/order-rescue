@@ -4,6 +4,7 @@ import prisma from "./db.server";
 import { openOrder, sealOrder } from "./order-crypto.server";
 import { validateShopDomain } from "./storage.server";
 import { SnapshotError } from "./order-snapshot.server";
+import { loadRuleSettings, persistRuleEvaluations } from "./exceptions.server";
 import { evaluateStoredOrderRules } from "./order-evaluation.server";
 import { validateHighOrderValueSettings } from "./rules/high-order-value";
 import { validateHighLineQuantitySettings } from "./rules/high-line-quantity";
@@ -98,8 +99,11 @@ export async function processOneOrderJob(
   options: { now?: Date; afterWrite?: () => Promise<void> | void;
     valueSettings?: HighOrderValueSettings | null; quantitySettings?: HighLineQuantitySettings | null } = {},
 ): Promise<{ processed: boolean; status?: string; jobId?: string; evaluation?: RuleResult; evaluations?: ReturnType<typeof evaluateStoredOrderRules> }> {
-  // Capture an immutable input before asynchronous work. No configured merchant
-  // threshold is invented when settings storage has not yet been implemented.
+  // Explicit settings injection is only a disposable-test compatibility seam.
+  // Ordinary workers resolve current persisted settings under the Shop lock.
+  const injected = options.valueSettings !== undefined || options.quantitySettings !== undefined;
+  if (injected && (process.env.RUN_MODE !== "test" || process.env.ORDER_RESCUE_DISPOSABLE_TEST_DB !== "1"))
+    throw new Error("TEST_SETTINGS_OVERRIDE_FORBIDDEN");
   const valueSettings = structuredClone(options.valueSettings ?? null);
   const quantitySettings = structuredClone(options.quantitySettings ?? null);
   let evaluations: ReturnType<typeof evaluateStoredOrderRules> | undefined;
@@ -224,12 +228,18 @@ export async function processOneOrderJob(
       const selected = existing && existing.orderUpdatedAt > updatedAt
         ? JSON.parse(openOrder(existing.encryptedSnapshot, `${job.shopId}:${job.generation}:${job.orderId}`))
         : snapshot;
+      const configured = injected ? { valueSettings, quantitySettings } : await loadRuleSettings(tx, current);
+      const evaluatedAt = clock();
       evaluations = evaluateStoredOrderRules(selected, {
         shopId: current.id, generation: current.generation,
         active: current.active && current.jobsEnabled,
         monitoringStartedAt: current.installedAt.toISOString(),
-        evaluatedAt: clock().toISOString(),
-      }, valueSettings, quantitySettings);
+        evaluatedAt: evaluatedAt.toISOString(),
+      }, configured.valueSettings, configured.quantitySettings);
+      if (!injected) {
+        const stored = await tx.orderSnapshot.findUniqueOrThrow({ where: { shopId_generation_orderId: key } });
+        await persistRuleEvaluations(tx, current, stored, evaluations, evaluatedAt);
+      }
       await tx.orderJob.update({
         where: { id: job.id },
         data: {
@@ -291,8 +301,8 @@ export async function processOneOrderJob(
       jobId: job.id,
     };
   }
-  // Intentional separate transaction: a crash here leaves a durable snapshot
-  // and a reclaimable lease. Replay observes the same order/revision.
+  // Intentional separate transaction: snapshot, evaluations and exception history
+  // are durable together. Crash replay is idempotent and the lease is reclaimable.
   await options.afterWrite?.();
   const result = await prisma.orderJob.updateMany({
     where: {
@@ -314,7 +324,8 @@ export async function processOneOrderJob(
     status: result.count ? "completed" : "lease_lost",
     jobId: job.id,
     // Never expose evidence on failure, lost lease or afterWrite crash. This is
-    // an internal result only; worker logs continue to select operation/status.
+    // internal response only; persisted results remain behind authenticated reads.
+    // Worker logs continue to select operation/status.
     ...(result.count ? { evaluation: evaluations?.high_order_value, evaluations } : {}),
   };
 }
