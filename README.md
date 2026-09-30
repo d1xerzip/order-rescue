@@ -1,6 +1,6 @@
 # Order Rescue
 
-A read-only Shopify embedded app for reviewing order exceptions. Version **0.8.5**.
+A read-only Shopify embedded app for reviewing order exceptions. Version **0.8.6**.
 
 React Router, TypeScript, PostgreSQL and Prisma. Exactly two accepted rules use exact current order value and per-line current quantity. Explicit settings without default thresholds, inbox, evidence/history and Open in Shopify. Resolve/Ignore change app alerts only and remain closed under reevaluation. No AI, customer messaging or Shopify order mutations.
 
@@ -11,6 +11,8 @@ P08 real Shopify Admin/App Bridge workflow, P04 remaining live cases and P09 act
 The0.8.3 update records a [dependency remediation proposal](docs/DEPENDENCY-REMEDIATION.md), not an implemented fix: current upstream peers/pins prevent a supported drop-in update. That investigation did not change runtime/dependencies; the advisory remains open.
 
 The0.8.4 [actual auth-timeout diagnostic](docs/AUTH-TIMEOUT-DIAGNOSTIC.md) found a separate release blocker: an uncancelled refresh can write encrypted credentials after auth-lock expiry and uninstall. Its historical acceptance is FAIL; ordinary access remained denied. The0.8.5 [runtime correction](docs/AUTH-REFRESH-FIX.md) now cancels OAuth through response-body read and atomically fences credential/activation writes. The actual reproducer and race regressions pass. This does not remediate the dependency advisory.
+
+The0.8.6 [live runtime preflight](docs/DEV-RUNTIME-READINESS.md) remains blocked by browser permissions and unprepared development prerequisites. It changes documentation only; no current Shopify E2E or account change is claimed.
 
 - [Status](docs/STATUS.md), [next task](docs/NEXT.md), [changelog](CHANGELOG.md)
 - [Local setup](docs/LOCAL-SETUP.md), [merchant workflow](docs/P08-MERCHANT-WORKFLOW.md)

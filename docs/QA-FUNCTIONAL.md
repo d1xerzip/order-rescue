@@ -89,3 +89,7 @@ Keep open: P08 actual Admin/App Bridge/workflow/order-link/embedded Console; P04
 ## Follow-up0.8.5 — auth lifecycle regression supplement
 
 Local/synthetic PASS: full240-test suite, including bounded OAuth headers/body, actual SDK retry, parallel refresh/uninstall, fresh generation preservation and foreign auth-context rejection. See [source-bound evidence](AUTH-REFRESH-FIX.md). Existing real Shopify P08/P09/P10 acceptance remains open; neither loopback OAuth nor a green build closes it. Browser/live lifecycle checks were not repeated.
+
+## Follow-up0.8.6 — actual browser retry still blocked
+
+Fresh access attempts for both Shopify origins were rejected by the saved-user-permission policy in Codex In-app Browser. [Readiness report and exact errors](DEV-RUNTIME-READINESS.md) distinguish this access blocker from app failures. Independent local preflight is not ready; no live scenario, DB migration, journal initialization or account change occurred. All actual P08 criteria remain NOT RUN. Prior local hydration/auth repairs and240-test evidence retain their original scope.
