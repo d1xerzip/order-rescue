@@ -33,3 +33,5 @@ For P05 contracts/fixtures read docs/P05-RULE-CONTRACT.md. Specifications are no
 - Operational reliability/load/fault/backup/rollback: [QA-RELIABILITY.md](docs/QA-RELIABILITY.md), [P10B-RESTORE.md](docs/P10B-RESTORE.md). Use isolated synthetic databases only; preserve the independent current privacy journal. Local envelope PASS is not real pilot capacity or closure of P08–P10 live/provider gates.
 
 - Dependency updates/security disposition: [DEPENDENCY-REMEDIATION.md](docs/DEPENDENCY-REMEDIATION.md). Preserve supported SDK/Prisma peer contracts; latest dist-tags or local passing tests do not establish upstream support. No forced transitive major overrides.
+
+- Auth HTTP timeout/late credential writes: [AUTH-TIMEOUT-DIAGNOSTIC.md](docs/AUTH-TIMEOUT-DIAGNOSTIC.md). Diagnostic completion can record acceptance FAIL. Keep the observed auth race separate from the deepmerge dependency advisory; require actual cancellation and atomic stale-write rejection before closing it.

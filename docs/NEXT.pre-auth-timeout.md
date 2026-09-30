@@ -1,0 +1,9 @@
+# Next task — bounded background-auth HTTP recovery
+
+Read [STATUS](STATUS.md), [reliability limits](QA-RELIABILITY.md), [dependency decision](DEPENDENCY-REMEDIATION.md) and relevant auth/session code. Version0.8.3 is a documentation-only save; its current4high Prisma/deepmerge findings remain open. No compatible published fix was found; do not repeat the same dependency check unless upstream evidence changes.
+
+Smallest independent next prompt:
+
+> Verify the real timeout/cancellation behavior of background authentication and token refresh using the existing supported Shopify SDK flow, a loopback synthetic HTTP server and a fresh disposable database. P10B injected TimeoutError did not prove a stalled token request is cancelled. Define expected bounds before running; test delayed/no-response refresh, lock release, subsequent request recovery, encrypted credential persistence, and uninstall/privacy interaction without contacting Shopify or using real credentials. If a defect exists, implement the smallest supported bounded fix and meaningful regressions; preserve separate auth/application pools and tenant locks. Do not rewrite auth, force dependency overrides, alter account settings, apply existing-dev migrations or repeat passed installs/load tests unnecessarily. Keep P08–P10 live/privacy/provider/dependency gates open; document measured versus simulated timing and use codex branch → sanitized main → patch tag after verification.
+
+The conditional dependency migration and acceptance packet are in DEPENDENCY-REMEDIATION.md; no major stack or project-owned fork has been selected. A prerelease/latest dist-tag is not stable-release approval. Required real Shopify workflow/privacy registration and provider controls remain separate. Retry browser access only after an owner-side permission change; never work around a saved denial. Preserve the current independent privacy journal; all fault/deletion/restore work stays in synthetic disposable databases.
