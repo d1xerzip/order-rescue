@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.3 — Supported dependency remediation review
+
+- Verify registry versions and official Prisma/Shopify peer contracts; no supported drop-in deepmerge advisory fix available.
+- Record a concrete conditional migration/rollback and acceptance packet without changing runtime, schema or dependencies.
+- Preserve4high audit findings and all P08–P10 live/privacy/provider gates. Earlier233-test/load/restore evidence remains dated0.8.2; not rerun for this documentation-only change.
+- Identify local actual SDK token-refresh timeout/cancellation as the next independent reliability slice.
+
 ## 0.8.2 — P10B local reliability and recovery
 
 - Bound excessive retry hints and cover fifth-crash exhaustion without duplicate effects.

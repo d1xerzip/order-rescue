@@ -1,8 +1,9 @@
 {
   "format": 1,
-  "release": "0.8.2",
-  "baseline": "3fc5bf98978a7f99b5b633a4a44ea333c89ff353",
-  "testedRuntimeSha256": "8bd65f7bade4191d2dc6fbfd1b8a44845c0c2ad4aa8ae99cf1dd561d4fcc566a",
+  "release": "0.8.3",
+  "baseline": "2187d87f6837bb06e17413dee08a588bff4e8c7f",
+  "runtimeUnchangedFromBaseline": true,
+  "unchangedRuntimeSha256": "9d1305fbd674081e88bf438d50ccd7c754d8c6d6bd1cf83e1a9d9f32e6df38fc",
   "files": [
     {
       "path": ".dockerignore",
@@ -46,11 +47,11 @@
     },
     {
       "path": "AGENTS.md",
-      "sha256": "6e234370005090e55444770b82889929b2353a3bc5972866fa97135042c5f4ac"
+      "sha256": "eeabb843e5ab1010db867cc2ecac1e33bd93266dd61266956bd2be636e9c83c6"
     },
     {
       "path": "CHANGELOG.md",
-      "sha256": "8e11c0b7afe0e49a092f2f922be5b84de8366910c7cc6f6f6fe8480fbda42b61"
+      "sha256": "eb384dabef7d57dd8572816db732d7c02cfedf6d81f7872a1bf5a02c2f586c99"
     },
     {
       "path": "LICENSE.md",
@@ -58,7 +59,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "3518eed35617a300180bccd855f76c0757cc22bf732fe3e585f1d00848fe8b04"
+      "sha256": "534d714a2e5786421e5da2181adeba1bbf658dffc579d02c1768f0eadb2fec14"
     },
     {
       "path": "app/auth-lock.server.ts",
@@ -297,12 +298,16 @@
       "sha256": "83f4e39728c5729cf65e7fc79661fbfe61add2ea93cd69ddbdd45d7009f957e2"
     },
     {
+      "path": "docs/DEPENDENCY-REMEDIATION.md",
+      "sha256": "823671896dfe2235bb87e3fb609a30610755b4a14798022573b86396a55c5285"
+    },
+    {
       "path": "docs/LOCAL-SETUP.md",
       "sha256": "11fef74607f377fee8b538e41b4ae241d70dd15c7ba3e59fa4f7e85dd1bae596"
     },
     {
       "path": "docs/NEXT.md",
-      "sha256": "924d2e58f02ef4016ea6c16283de461b19906035f46e1d484fe856e57725ce7f"
+      "sha256": "ba2caa52a9ddd5c60105f41ecfea55b3c4a082caaacd360e4d98874a3665e757"
     },
     {
       "path": "docs/NEXT.pre-P05.md",
@@ -335,6 +340,10 @@
     {
       "path": "docs/NEXT.pre-P10B.md",
       "sha256": "29b3249f94477bf4d29673d33703816a18f04051ef0b3adfb5efeb93384fea82"
+    },
+    {
+      "path": "docs/NEXT.pre-dependency-review.md",
+      "sha256": "924d2e58f02ef4016ea6c16283de461b19906035f46e1d484fe856e57725ce7f"
     },
     {
       "path": "docs/P03-ACCESS-PLAN.md",
@@ -422,7 +431,7 @@
     },
     {
       "path": "docs/STATUS.md",
-      "sha256": "eededc508f7b1b34cc98c97881a12aeacfdb3253e53a444ae1a4ff3b64bc60ad"
+      "sha256": "86b7b9bb31a5afb5c82f897f85ea767602020e0341fb209cb47676cc1534e452"
     },
     {
       "path": "docs/STATUS.pre-P05.md",
@@ -455,6 +464,14 @@
     {
       "path": "docs/STATUS.pre-P10B.md",
       "sha256": "8953703a1ced28f9855e8ce922b215786c762a83092c03b8743e9b06a57300ce"
+    },
+    {
+      "path": "docs/STATUS.pre-dependency-review.md",
+      "sha256": "eededc508f7b1b34cc98c97881a12aeacfdb3253e53a444ae1a4ff3b64bc60ad"
+    },
+    {
+      "path": "docs/evidence/dependencies/review.json",
+      "sha256": "114c74aaf6cbed008e5a62dd98132fb44e8bb627f93c56eaf9ce2d61a8c0135c"
     },
     {
       "path": "docs/evidence/p08/inbox-narrow.png",
@@ -534,11 +551,11 @@
     },
     {
       "path": "package-lock.json",
-      "sha256": "13c85e921b6ff196a45617d802125e5f0500502df50636698115b5531a517f0a"
+      "sha256": "2203e475d0f74219e175efd10c67b49cf7e11962242a41cde100a568c2b3b567"
     },
     {
       "path": "package.json",
-      "sha256": "b2520862990da02c760cd871892355d8a322251e573ac0c0cc64c0dd750921e7"
+      "sha256": "0432fbb00f945923cbc145e4123d4defda50582a83606bec8def2a2966a3aeb3"
     },
     {
       "path": "prisma/migrations/0001_foundation/migration.sql",
