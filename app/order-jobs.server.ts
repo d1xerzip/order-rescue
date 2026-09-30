@@ -4,9 +4,10 @@ import prisma from "./db.server";
 import { openOrder, sealOrder } from "./order-crypto.server";
 import { validateShopDomain } from "./storage.server";
 import { SnapshotError } from "./order-snapshot.server";
-import { evaluateStoredOrderValue } from "./order-evaluation.server";
+import { evaluateStoredOrderRules } from "./order-evaluation.server";
 import { validateHighOrderValueSettings } from "./rules/high-order-value";
-import type { HighOrderValueSettings, RuleResult } from "./rules/contracts";
+import { validateHighLineQuantitySettings } from "./rules/high-line-quantity";
+import type { HighLineQuantitySettings, HighOrderValueSettings, RuleResult } from "./rules/contracts";
 
 const DAY = 86_400_000;
 const MAX_ATTEMPTS = 5;
@@ -95,12 +96,13 @@ export type SnapshotLoader = (
 export async function processOneOrderJob(
   loadSnapshot: SnapshotLoader,
   options: { now?: Date; afterWrite?: () => Promise<void> | void;
-    valueSettings?: HighOrderValueSettings | null } = {},
-): Promise<{ processed: boolean; status?: string; jobId?: string; evaluation?: RuleResult }> {
+    valueSettings?: HighOrderValueSettings | null; quantitySettings?: HighLineQuantitySettings | null } = {},
+): Promise<{ processed: boolean; status?: string; jobId?: string; evaluation?: RuleResult; evaluations?: ReturnType<typeof evaluateStoredOrderRules> }> {
   // Capture an immutable input before asynchronous work. No configured merchant
   // threshold is invented when settings storage has not yet been implemented.
   const valueSettings = structuredClone(options.valueSettings ?? null);
-  let evaluation: RuleResult | undefined;
+  const quantitySettings = structuredClone(options.quantitySettings ?? null);
+  let evaluations: ReturnType<typeof evaluateStoredOrderRules> | undefined;
   const now = options.now ?? new Date();
   const job = await claimOrderJob(now);
   if (!job) return { processed: false };
@@ -122,6 +124,7 @@ export async function processOneOrderJob(
     if (!shop.active || !shop.jobsEnabled || shop.generation !== job.generation)
       throw new Error("INACTIVE_INSTALLATION");
     if (valueSettings) validateHighOrderValueSettings(shop.id, valueSettings);
+    if (quantitySettings) validateHighLineQuantitySettings(shop.id, quantitySettings);
     const snapshot = await loadSnapshot(job, shop);
     const createdAt = new Date(snapshot.createdAt);
     const updatedAt = new Date(snapshot.updatedAt);
@@ -221,12 +224,12 @@ export async function processOneOrderJob(
       const selected = existing && existing.orderUpdatedAt > updatedAt
         ? JSON.parse(openOrder(existing.encryptedSnapshot, `${job.shopId}:${job.generation}:${job.orderId}`))
         : snapshot;
-      evaluation = evaluateStoredOrderValue(selected, {
+      evaluations = evaluateStoredOrderRules(selected, {
         shopId: current.id, generation: current.generation,
         active: current.active && current.jobsEnabled,
         monitoringStartedAt: current.installedAt.toISOString(),
         evaluatedAt: clock().toISOString(),
-      }, valueSettings);
+      }, valueSettings, quantitySettings);
       await tx.orderJob.update({
         where: { id: job.id },
         data: {
@@ -312,7 +315,7 @@ export async function processOneOrderJob(
     jobId: job.id,
     // Never expose evidence on failure, lost lease or afterWrite crash. This is
     // an internal result only; worker logs continue to select operation/status.
-    ...(result.count ? { evaluation } : {}),
+    ...(result.count ? { evaluation: evaluations?.high_order_value, evaluations } : {}),
   };
 }
 

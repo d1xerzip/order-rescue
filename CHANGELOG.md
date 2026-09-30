@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0 — P06B high line quantity
+
+- Add accepted per-line currentQuantity evaluator and shared applicability/configuration boundaries; preserve value semantics.
+- Return both versioned results from one winning snapshot in the existing job path. No UI, extra rules or merchant defaults.
+- Verify 87 pure tests, 11 rule integration tests and 29 affected regressions across targeted runs; typecheck/lint/build pass.
+- Settings/results remain transient. P04 live limitations preserved; P07 local persistence is next.
+
 ## 0.4.0 — P06A high order value
 
 - Implement pure high_order_value with exact BigInt decimals, accepted lifecycle/currency policy and tenant-bound configuration validation.

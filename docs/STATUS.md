@@ -1,15 +1,15 @@
-# Current status — P06A
+# Current status — P06B
 
-Version **0.4.0**, branch `codex/p06a-high-order-value`. Only the accepted high_order_value rule is implemented; rule/contract version1.0.0.
+Version **0.5.0**, branch `codex/p06b-line-quantity`. Both accepted V1 rules are implemented with unchanged rule/contract version 1.0.0.
 
 ## Changed
-Pure exact-decimal evaluation with explicit state, configuration validation, four outcomes and versioned evidence. Connected to the existing fenced order-job path; evaluates the stored winning snapshot, returns evidence only after successful completion. No second pipeline, schema migration, extra Shopify fields/scopes, quantity evaluator or exceptions UI.
+Pure high_line_quantity evaluates each currentQuantity separately across complete normalized lines. Shared applicability and configuration validation preserve P06A behavior. Both rules run from the same winning stored snapshot, digest and evaluation time in the existing fenced job path. Minimal sorted line evidence; no new fields/scopes, pipeline, schema or UI.
 
 ## Verified
-53 pure tests (all26 accepted P05 value examples plus defensive/precision/lifecycle cases);8 disposable PostgreSQL integration tests;20 affected ingestion/sync/update regression tests.81 distinct tests across targeted runs, not one combined81-test command. Typecheck, lint and build PASS. Details, changed files, exact commands and initial type-inference repair: [P06A-HIGH-ORDER-VALUE.md](P06A-HIGH-ORDER-VALUE.md).
+87 pure tests PASS (34 quantity including all 22 P05 quantity fixtures; 53 value including all 26 value fixtures). 11 disposable PostgreSQL rule integration tests and 29 affected ingestion/snapshot/sync/update tests PASS across targeted runs: 127 distinct tests. Typecheck, lint and build PASS. Initial integration fixture isolation failure and repair documented in [P06B evidence](P06B-LINE-QUANTITY.md).
 
 ## Not run / blockers
-Live configured rule execution: NOT RUN. There is no persisted merchant settings/evaluation model or settings UI yet: explicit tenant-bound settings are accepted internally, results are transient, normal worker settings remain null/NOT_CONFIGURED. No merchant default threshold installed. P04 actual update/cancel deliveries and live multi-page sync remain NOT RUN; prior small two-store live sync/ingestion evidence preserved. P02 install cycles not repeated. Production approval/privacy/hosting gates remain open.
+Live configured-rule execution and owner visual comparison NOT RUN. Settings/evaluation persistence and settings UI remain absent: explicit tenant-bound settings only, transient internal results; normal worker remains NOT_CONFIGURED. P04 actual update/cancel webhook delivery and live multi-page sync remain NOT RUN. P02 install cycles not repeated. No deployment or production approval claimed.
 
 ## Next
-P06B quantity-rule implementation only after explicit start; preserve the accepted per-line semantics and shared result contract. Source publication is not deployment.
+P07 local exception persistence/lifecycle is the next dependent slice: P06A/P06B evaluator prerequisites now pass. Start only on explicit request; establish durable tenant-bound settings/results as required by that slice, with replay-safe exception identity and terminal decisions. This does not satisfy live or production gates.

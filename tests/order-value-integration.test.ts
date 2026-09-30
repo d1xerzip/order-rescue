@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
-import { after, before, test } from "node:test";
+import { after, afterEach, before, test } from "node:test";
 import prisma, { authLockDb } from "../app/db.server";
 import { activateShop } from "../app/storage.server";
 import { acceptOrderJob, processOneOrderJob } from "../app/order-jobs.server";
@@ -14,6 +14,7 @@ const snapshot=(amount="100.01",cancelledAt:string|null=null)=>({id,createdAt:st
   cancelledAt:{available:true,value:cancelledAt},total:{available:true,value:{amount,currencyCode:"CAD"}},
   lines:{available:false,reason:"LINES_UNAVAILABLE"}});
 before(()=>{assert.equal(process.env.ORDER_RESCUE_DISPOSABLE_TEST_DB,"1");assert.equal(new URL(process.env.DATABASE_URL!).hostname,"127.0.0.1");});
+afterEach(async()=>{await prisma.orderJob.deleteMany({where:{shop:{domain:{in:domains}}}});});
 after(async()=>{await prisma.shop.deleteMany({where:{domain:{in:domains}}});await Promise.all([prisma.$disconnect(),authLockDb.$disconnect()]);});
 async function fixture(){const domain=`value-${randomUUID()}.myshopify.com`;domains.push(domain);const shop=await activateShop(domain);return prisma.shop.update({where:{id:shop.id},data:{installedAt:new Date(Date.now()-60_000)}});}
 const settings=(shopId:string,threshold="100.00")=>validateHighOrderValueSettings(shopId,{shopId,ruleKey:"high_order_value",settingsVersion:"settings-1",enabled:true,threshold,currencyCode:"CAD"});
@@ -91,4 +92,44 @@ test("lost completion lease cannot expose already computed rule evidence",async(
     await prisma.orderJob.updateMany({where:{shopId:shop.id},data:{leaseUntil:new Date(0)}});
   }});
   assert.equal(result.status,"lease_lost");assert.equal(result.evaluation,undefined);
+});
+
+test("both rules share one winning snapshot and independent settings versions in the existing job",async()=>{
+  const shop=await fixture();
+  const quantitySettings={shopId:shop.id,ruleKey:"high_line_quantity" as const,settingsVersion:"quantity-2",enabled:true,threshold:5};
+  const withLines=(amount:string,quantities:number[])=>({...snapshot(amount),lines:{available:true as const,value:quantities.map((currentQuantity,index)=>({id:`gid://shopify/LineItem/${index+1}`,currentQuantity}))}});
+  for(const [amount,quantities,outcome] of [["100.01",[6],"matched"],["99.99",[3,3],"not_matched"]] as const){
+    await acceptOrderJob(shop.domain,randomUUID(),id);
+    const result=await processOneOrderJob(async()=>withLines(amount,[...quantities]),{valueSettings:settings(shop.id),quantitySettings});
+    assert.equal(result.status,"completed");
+    const pair=result.evaluations!;
+    assert.equal(pair.high_order_value.outcome,outcome);assert.equal(pair.high_line_quantity.outcome,outcome);
+    assert.equal(pair.high_order_value.sourceSnapshotVersion,pair.high_line_quantity.sourceSnapshotVersion);
+    assert.equal(pair.high_order_value.evaluatedAt,pair.high_line_quantity.evaluatedAt);
+    assert.equal(pair.high_order_value.settingsVersion,"settings-1");assert.equal(pair.high_line_quantity.settingsVersion,"quantity-2");
+  }
+  assert.equal(await prisma.orderSnapshot.count({where:{shopId:shop.id}}),1);
+});
+test("quantity settings foreign tenant or invalid threshold fail before fetch",async()=>{
+  const shop=await fixture();
+  for(const [shopId,threshold,code] of [["foreign-shop",5,"RULE_TENANT_MISMATCH"],[shop.id,0,"INVALID_CONFIGURATION"]] as const){
+    await acceptOrderJob(shop.domain,randomUUID(),id);let fetched=false;
+    const result=await processOneOrderJob(async()=>{fetched=true;return snapshot();},{quantitySettings:{shopId,ruleKey:"high_line_quantity",settingsVersion:"q1",enabled:true,threshold}});
+    assert.equal(fetched,false);assert.equal(result.evaluations,undefined);assert.equal(result.status,"failed");
+    assert.equal((await prisma.orderJob.findFirstOrThrow({where:{shopId:shop.id}})).errorCode,code);
+    await prisma.orderJob.deleteMany({where:{shopId:shop.id}});
+  }
+});
+test("quantity unknown does not suppress value and completion fencing hides both results",async()=>{
+  const shop=await fixture();
+  const quantitySettings={shopId:shop.id,ruleKey:"high_line_quantity" as const,settingsVersion:"q1",enabled:true,threshold:5};
+  await acceptOrderJob(shop.domain,randomUUID(),id);
+  const result=await processOneOrderJob(async()=>snapshot(),{valueSettings:settings(shop.id),quantitySettings});
+  assert.equal(result.evaluations?.high_order_value.outcome,"matched");
+  assert.equal(result.evaluations?.high_line_quantity.reasonCode,"LINES_UNAVAILABLE");
+  await acceptOrderJob(shop.domain,randomUUID(),id);
+  const lost=await processOneOrderJob(async()=>snapshot(),{valueSettings:settings(shop.id),quantitySettings,afterWrite:async()=>{
+    await prisma.orderJob.updateMany({where:{shopId:shop.id},data:{leaseUntil:new Date(0)}});
+  }});
+  assert.equal(lost.status,"lease_lost");assert.equal(lost.evaluations,undefined);assert.equal(lost.evaluation,undefined);
 });

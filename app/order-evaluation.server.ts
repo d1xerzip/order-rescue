@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { evaluateHighOrderValue } from "./rules/high-order-value";
-import type { HighOrderValueSettings, RuleOrderInput } from "./rules/contracts";
+import { evaluateHighLineQuantity } from "./rules/high-line-quantity";
+import type { HighLineQuantitySettings, HighOrderValueSettings, RuleOrderInput } from "./rules/contracts";
 
 function canonical(value: unknown): string {
   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
@@ -13,16 +14,30 @@ function canonical(value: unknown): string {
 
 // Server-only adapter: no Shopify fetch, database access, threshold default or log.
 // The caller supplies the winning stored snapshot and its verified locked tenant.
-export function evaluateStoredOrderValue(
+export function evaluateStoredOrderRules(
   snapshot: Record<string, unknown>,
   context: { shopId: string; generation: number; active: boolean; monitoringStartedAt: string; evaluatedAt: string },
   settings: HighOrderValueSettings | null,
+  quantitySettings: HighLineQuantitySettings | null = null,
 ) {
   const sourceSnapshotVersion = `sha256:${createHash("sha256").update(canonical(snapshot)).digest("hex")}`;
-  return evaluateHighOrderValue({ context, settings, order: {
+  const order = {
     ...snapshot,
     shopId: context.shopId,
     generation: context.generation,
     sourceSnapshotVersion,
-  } as RuleOrderInput });
+  } as RuleOrderInput;
+  return {
+    high_order_value: evaluateHighOrderValue({ context, settings, order }),
+    high_line_quantity: evaluateHighLineQuantity({ context, settings: quantitySettings, order }),
+  };
+}
+
+/** Compatibility adapter; both results use the same canonical snapshot path. */
+export function evaluateStoredOrderValue(
+  snapshot: Record<string, unknown>,
+  context: Parameters<typeof evaluateStoredOrderRules>[1],
+  settings: HighOrderValueSettings | null,
+) {
+  return evaluateStoredOrderRules(snapshot, context, settings).high_order_value;
 }

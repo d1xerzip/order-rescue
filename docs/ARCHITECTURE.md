@@ -54,3 +54,6 @@ P05 adds contract/fixture artifacts only. No data fields, scopes, persistence or
 
 
 P06A reconciliation: only high_order_value is now implemented, preserving P05 semantics. Earlier no-rule statements describe prior milestones. See [implementation/evidence](P06A-HIGH-ORDER-VALUE.md); merchant settings/evaluation persistence remains absent, results are internal/transient. Next P06B; P04 live limitations remain.
+
+
+P06B reconciliation (0.5.0): both accepted rules are implemented and tested, preserving contract 1.0.0. Earlier specification-only/quantity-unimplemented statements describe historical milestones. See [P06B evidence](P06B-LINE-QUANTITY.md). P07 local evaluator prerequisites pass; settings/results persistence and exceptions are still absent. Live P04 and production gates remain open.
