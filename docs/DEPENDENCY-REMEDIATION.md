@@ -97,3 +97,7 @@ Unverified pages are not relied upon: the attempted Shopify custom-session-stora
 Supported dependency remediation is blocked on upstream compatibility, not on an owner login. No owner threshold/data permission/account decision is needed for this investigation. Keep the advisory open; do not deploy based on bounded reachability analysis. P08–P10 live/privacy/provider gates are unchanged.
 
 The smallest independent next engineering slice is a synthetic local test of **actual background-authentication HTTP timeout/cancellation** (the P10B injected TimeoutError did not prove it), followed by a bounded compatible fix if required. Preserve the official auth flow, keep all network fixtures on loopback, and do not call real Shopify or mutate existing dev data. This is the next prompt in [NEXT.md](NEXT.md), not work performed here.
+
+## Follow-up0.8.4: distinct reliability defect observed
+
+[Actual local HTTP diagnostic](AUTH-TIMEOUT-DIAGNOSTIC.md) now records FAIL: refresh survives auth-lock expiry and writes a session after uninstall. This is a separate auth lifecycle defect. No deepmerge input was tested or patched, no dependency version changed, and the advisory remains OPEN. The next auth correction must not be presented as dependency remediation.

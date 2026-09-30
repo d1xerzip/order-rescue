@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.4 — Actual background-auth timeout diagnostic
+
+- Execute real loopback HTTP/official SDK refresh and isolated PostgreSQL experiment with fixed acceptance targets.
+- Record FAIL: request remains open at65s; late response after auth-lock expiry/uninstall recreates encrypted session, then P2028. Ordinary access remains denied; privacy intake and other-shop recovery verified.
+- Add reproducible diagnostic/source hashes and a proposed cancellation plus atomic-write-fence correction. Typecheck/lint PASS; production app/dependencies unchanged.
+- Keep deepmerge advisory and all P08–P10 external gates open; no fix, rollout or live deletion claimed.
+
 ## 0.8.3 — Supported dependency remediation review
 
 - Verify registry versions and official Prisma/Shopify peer contracts; no supported drop-in deepmerge advisory fix available.

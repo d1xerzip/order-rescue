@@ -1,0 +1,63 @@
+{
+  "format": 1,
+  "recordedAt": "2026-09-30T08:49:18.840Z",
+  "startedAt": "2026-09-30T08:48:13.381Z",
+  "version": "0.8.4",
+  "synthetic": true,
+  "transport": "real loopback HTTP sockets; official SDK refresh; local destination forwarding only",
+  "database": "new isolated PostgreSQL cluster55436",
+  "targets": {
+    "refreshSettlesWithinMs": 15000,
+    "lateCredentialWriteAfterUninstall": false,
+    "ordinaryAccessAfterUninstall": false
+  },
+  "sourceSha256": {
+    "app/auth.server.ts": "9a9c5a2c83769e0b627922a5d19663a0365810646e8c995a0c451ef8a13880c4",
+    "app/auth-lock.server.ts": "40a05715a34ef36bc82fc0c915962e467410f6b663bf63e13206df855bda1558",
+    "app/order-runtime.server.ts": "df278c6b2ddc1df515d227359a095df0e994d767736628a8b2797560100e2402",
+    "app/session-storage.server.ts": "6f631dfed6cd4c811276ab07fc87aebc14503f6cfc53240a99af5dded366bd41",
+    "app/shopify.server.ts": "9612bcfe7de2159bd7352fa143df1d3374deccbc6da225fe6f76b6f2d2852a27",
+    "package-lock.json": "7565b1405eeba1fdd85b33f60d99c78d5df99673a276539cabb5e5d1be649a7e",
+    "scripts/auth-timeout-check.mjs": "7bb5b2dc0ffdfa4c80546f095af40bbe41494f96f8db55339a712505f08cc246",
+    "scripts/auth-timeout-fixture.ts": "7420e2ed1d0feaa3149eb766e5339f8466e4bbb641d359b70164f9ed8edc883e"
+  },
+  "observations": {
+    "delayedRefreshMs": 292,
+    "delayedCredentialEncrypted": true,
+    "settledAt16s": false,
+    "socketOpenAt16s": true,
+    "settledAt65s": false,
+    "socketOpenAt65s": true,
+    "elapsedUntilManualLateReplyMs": 65038,
+    "suppliedSignals": 0,
+    "abortedSockets": 0,
+    "requests": 2,
+    "uninstallMs": 16,
+    "sessionsBeforeLateReply": 0,
+    "lateCredentialWriteAfterUninstall": true,
+    "lateCredentialEncrypted": true,
+    "finalAuthPromise": {
+      "errorName": "PrismaClientKnownRequestError",
+      "errorCode": "P2028"
+    },
+    "ordinaryAccessDeniedAfterUninstall": true,
+    "privacyReceiptStatus": 200,
+    "otherShopRecoveryMs": 9
+  },
+  "checks": {
+    "refreshBound": false,
+    "noLateWrite": false,
+    "ordinaryAccessBlocked": true,
+    "privacyIntakeAvailable": true,
+    "otherShopRecovery": true
+  },
+  "acceptance": "FAIL",
+  "diagnosticCompleted": true,
+  "advisoryRemediated": false,
+  "limitations": [
+    "No real Shopify, TLS, DNS, production proxy or customer data",
+    "Manual late server reply ends the stalled request; no proof of autonomous eventual cancellation",
+    "Current advisory unaffected; no runtime fix applied",
+    "Privacy intake accepted; export/deletion processing not claimed"
+  ]
+}
