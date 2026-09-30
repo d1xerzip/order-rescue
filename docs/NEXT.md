@@ -1,11 +1,13 @@
-# Next task — remaining P08 checks only
+# Next task — unexecuted P08 platform evidence
 
-Read [STATUS](STATUS.md) and [manual evidence](P08-MANUAL-ACCEPTANCE.md). Version 0.8.8 fixes form-control identifiers; lint/typecheck/build and the owner screenshot after reload support that limited fix. Both rule settings, dev ingestion/evidence, Resolve/Ignore reload and correct order navigation are verified within the documented manual/server scope. Current manual reload showed no red/hydration messages; warnings remain documented. Do not repeat those checks or installation.
+Read [STATUS](STATUS.md) and [environment-specific reconciliation](P08-ACCEPTANCE-RECONCILIATION.md). Version0.8.9 changes evidence/docs only. Do not repeat settings/order/action/link/Console/390px checks or installation. Do not relabel retained synthetic failures/conflicts/isolation as Shopify E2E.
 
-Next single owner action: narrow the app viewport to about 390 CSS pixels, open one existing alert's evidence and inspect the layout. No record or setting changes. Report clipped text/buttons or inability to access controls; a cropped image alone does not establish viewport width or absence of horizontal scrolling.
+Current single owner step: use Tab to focus View evidence, Enter to open it, then Tab to Open in Shopify. Open Rule settings with Enter and reach the enabled toggle and Save rule using Tab. Observe visible focus and reachability only; do not change/save values or activate decisions. Actual embedded keyboard result is pending, not PASS. Local keyboard already passed.
+
+After that, prepare the smallest owner-operated authenticated foreign-exception-ID read/action probe using synthetic app records and both stores, without leaking or asking for tokens. Keep this real App Bridge security gap open until observed; P02 workspace-record checks are different. Browser policy still denies automation; no alternate-surface bypass. Do not run disruptive faults against dev shops to replace already-passed isolated negative tests.
 
 Next prompt:
 
-> Continue owner-operated P08 one step at a time from the narrow-viewport check. Preserve prior manual/DB evidence and live/provider/privacy/advisory gates. Then address outstanding keyboard, failure/conflict, foreign-shop HTTP and other applicable gaps; keep load/fault/deletion/restore tests in isolated synthetic environments. Do not reset terminal decisions, create extra fixtures without a specific unmet check, repeat installation, change account settings or bypass the saved browser denial. Distinguish owner reports/screenshots, direct requests and local tests. Save only sanitized source/evidence through the agreed branch/main/patch-tag workflow.
+> Continue the remaining P08 platform evidence from docs/P08-ACCEPTANCE-RECONCILIATION.md. Record the owner keyboard result, then prepare the smallest real authenticated foreign-exception-ID check without changing terminal decisions or copying tokens. Retain prior PASS scope, P04/P09/provider/advisory blockers and all NOT RUN entries. Fault, deletion and restore tests stay isolated and synthetic. Do not repeat installation or change account settings.
 
-Current dev services were left running; use [LOCAL-SETUP.md](LOCAL-SETUP.md) if they need a safe restart. Preserve stable session/privacy keys and the independent journal. No missing account approval is implied by this manual UI checkpoint.
+Dev services and the separate synthetic QA server were left running. Avoid a second port55433 test harness while the existing one is active. Preserve the existing keys and independent journal; use LOCAL-SETUP.md for any needed restart.

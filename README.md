@@ -1,6 +1,6 @@
 # Order Rescue
 
-A read-only Shopify embedded app for reviewing order exceptions. Version **0.8.8**.
+A read-only Shopify embedded app for reviewing order exceptions. Version **0.8.9**.
 
 React Router, TypeScript, PostgreSQL and Prisma. Exactly two accepted rules use exact current order value and per-line current quantity. Explicit settings without default thresholds, inbox, evidence/history and Open in Shopify. Resolve/Ignore change app alerts only and remain closed under reevaluation. No AI, customer messaging or Shopify order mutations.
 
@@ -15,6 +15,8 @@ The0.8.4 [actual auth-timeout diagnostic](docs/AUTH-TIMEOUT-DIAGNOSTIC.md) found
 The0.8.6 [historical preflight](docs/DEV-RUNTIME-READINESS.md) found browser and runtime blockers. The current [runtime recovery](docs/DEV-RUNTIME-RECOVERY.md) restores the development database/preview/workers and provisions the first independent dev journal after provenance review. Owner-operated P08 is in progress; browser automation and release acceptance remain blocked. That recovery preserved application source and dependencies.
 
 The0.8.8 [manual development checkpoint](docs/P08-MANUAL-ACCEPTANCE.md) verifies both rules, explicit settings, audited Resolve/Ignore with reload and correct Shopify order navigation. Stable form identifiers remove the observed form-control Issue; the latest owner Console screenshot shows no red/hydration errors. Other warnings and remaining UI/isolation/privacy/security gates stay open.
+
+The0.8.9 [evidence reconciliation](docs/P08-ACCEPTANCE-RECONCILIATION.md) adds owner-confirmed390px readability and measured synthetic layout/keyboard evidence. Existing negative tests are retained after source/log review; actual embedded keyboard and current exception-ID isolation remain open. No runtime change or repeated passing suite.
 
 - [Status](docs/STATUS.md), [next task](docs/NEXT.md), [changelog](CHANGELOG.md)
 - [Local setup](docs/LOCAL-SETUP.md), [merchant workflow](docs/P08-MERCHANT-WORKFLOW.md)
