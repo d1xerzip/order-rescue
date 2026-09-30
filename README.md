@@ -1,12 +1,14 @@
 # Order Rescue
 
-A read-only Shopify embedded app for reviewing order exceptions. Version **0.8.2**.
+A read-only Shopify embedded app for reviewing order exceptions. Version **0.8.3**.
 
 React Router, TypeScript, PostgreSQL and Prisma. Exactly two accepted rules use exact current order value and per-line current quantity. Explicit settings without default thresholds, inbox, evidence/history and Open in Shopify. Resolve/Ignore change app alerts only and remain closed under reevaluation. No AI, customer messaging or Shopify order mutations.
 
-Server authentication, encrypted minimal snapshots, durable ingestion, bounded synchronization, tenant-isolated decisions and privacy processing are implemented. **233 local tests pass**, including a predetermined persisted-setting/normal-pipeline release dataset. The local in-app browser hydration defect and stale inbox row after two-tab conflict recovery are repaired. Synthetic browser actions/settings/failure/unknown checks pass. [Functional evidence](docs/QA-FUNCTIONAL.md) separates local tests from current Shopify E2E.
+Server authentication, encrypted minimal snapshots, durable ingestion, bounded synchronization, tenant-isolated decisions and privacy processing are implemented. **The latest executed runtime suite (v0.8.2) passed233 tests**, including a predetermined persisted-setting/normal-pipeline release dataset. The local in-app browser hydration defect and stale inbox row after two-tab conflict recovery are repaired. Synthetic browser actions/settings/failure/unknown checks pass. [Functional evidence](docs/QA-FUNCTIONAL.md) separates local tests from current Shopify E2E.
 
 P08 real Shopify Admin/App Bridge workflow, P04 remaining live cases and P09 actual privacy registration/delivery/dev setup stay open. Production access, identity/contact, hosting/encryption/backups, secure export delivery and journal custody are unresolved; the Prisma/deepmerge production advisory still requires supported remediation. **Not production or App Store ready.** Full P10A/P10B gates remain open. The independent local P10B envelope passes:180 synthetic orders plus36 duplicates, recovery and actual isolated backup/restore; this is not real merchant capacity. See [reliability evidence](docs/QA-RELIABILITY.md). Source publication does not deploy or change Shopify settings.
+
+The0.8.3 update records a [dependency remediation proposal](docs/DEPENDENCY-REMEDIATION.md), not an implemented fix: current upstream peers/pins prevent a supported drop-in update. Runtime/dependencies are unchanged; the advisory remains open.
 
 - [Status](docs/STATUS.md), [next task](docs/NEXT.md), [changelog](CHANGELOG.md)
 - [Local setup](docs/LOCAL-SETUP.md), [merchant workflow](docs/P08-MERCHANT-WORKFLOW.md)

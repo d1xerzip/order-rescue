@@ -1,19 +1,19 @@
-# Current status — P10B local reliability / open release gates
+# Current status — dependency decision / open release gates
 
-Version **0.8.2**, branch codex/p10b-local-reliability, 2026-09-30. Baseline public v0.8.1 at 3fc5bf98978a7f99b5b633a4a44ea333c89ff353. Local reliability patch/evidence complete; full P10A/P10B acceptance remains open. The source release manifest and per-run source hashes bind the tested candidate.
+Version **0.8.3**, codex/dependency-remediation-plan, 2026-09-30. Baseline public v0.8.2 at 2187d87f6837bb06e17413dee08a588bff4e8c7f. Documentation/evidence patch only; application, schema, dependency versions and business semantics unchanged.
 
 ## Changed
-Bound excessive order retry hints to a visible THROTTLE_DELAY_EXCESSIVE failure; add exhausted-crash regression coverage. Update only Vite's compatible esbuild override to0.28.2. Add isolated synthetic load/fault, actual backup/restore and baseline-source rollback rehearsals. Rules, fields, retention, thresholds and schema unchanged.
+Prepared [supported dependency decision and conditional migration proposal](DEPENDENCY-REMEDIATION.md), with installed/published peer ranges, exact acceptance and rollback requirements. No forced major override, ORM rewrite or account change.
 
 ## Verified
-233/233 tests PASS; Prisma generation/typecheck/lint/build PASS. Load:180 orders +36 repeated receipts across3 fictional shops; exact tenant/order/rule identities, fields and histories checked. Receipt p95 42ms; processing p95 19041ms; oldest pending 20349ms; drain 20590ms;0 unexpected receipt/worker errors. Real disposable DB outage and worker-process death recover. Actual pg_dump/pg_restore into a different disposable DB compares9 tables; preserved independent journal blocks post-backup erasure resurrection. Archivedv0.8.1 server source works with current schema/current dependencies. [Evidence, exact commands, environment and limits](QA-RELIABILITY.md).
+Current npm metadata: newest6.x is Prisma6.19.3; latest Shopify adapter11.0.0 still requires Prisma6; latest @prisma/config7.10.0 still pins deepmerge7.1.5. Registry Prisma latest is8.0.0-rc.19, not a verified stable fix. Installed dependency graph valid. Production audit still exits1 with4high. Application/test/schema/script source matches v0.8.2; package changes only release version. Independent research findings verified against official sources and registry metadata. [Evidence](evidence/dependencies/review.json).
 
 ## Not run / blockers
-Both Shopify domains again refused by Codex In-app Browser saved-permission policy; no workaround. P08 actual Admin/App Bridge/workflow/order link/embedded Console and P04 remaining live update/cancel/multipage checks stay NOT RUN. Local P10A hydration repair is not actual Shopify evidence; passed install checks not repeated.
+No new runtime tests/build/load/restore/browser runs: no behavior changed. v0.8.2 evidence remains233 tests PASS and the bounded synthetic load/actual restore PASS; those are previous-run results, not new0.8.3 tests. Dependency advisory remains OPEN: no supported drop-in fix found.
 
-P09 existing-dev migration/journal/worker and legacy synthetic receipt provenance remain pending. Actual privacy subscriptions/delivery NOT RUN. Production PCD, legal/support identity, secure export handoff, provider/TLS/volume/log/backups and externally durable current privacy journal remain unresolved. No live deletion/restore or account/questionnaire change.
+P08 actual Shopify Admin/App Bridge/actions/settings/order link/embedded Console and P04 remaining real update/cancel/multipage checks remain NOT RUN. Browser refusal has not been retested without an owner-side change; no workaround. Local P10A hydration repair does not establish current Shopify hydration.
 
-Production audit exit1:4high entries from Prisma/deepmerge remain; Vite production esbuild advisory fixed. Dev CLI esbuild advisory remains. Real stalled SDK-token-refresh cancellation, large-line/high-concurrency capacity, provider restore and full binary/container rollback NOT RUN. FIFO is not a per-shop fairness guarantee.
+P09 existing-dev migration/journal/worker and pending receipt provenance remain unapplied; actual privacy subscription/delivery NOT RUN. Production PCD, legal/support identity, secure export handoff, provider/TLS/volume/log/backup controls and independently durable current journal remain open. No real deletion/restore. SDK token-refresh timeout, realistic pilot capacity and provider/full deployment rollback still need evidence.
 
 ## Decision / next
-**PASS only for the recorded synthetic envelope; NOT READY for a real pilot, production or App Store submission.** No confirmed merchant volume. Full P10 remains open, so this source-save is a patch, not a completed-minor milestone. Next: supported dependency remediation and preserved external evidence gates in [NEXT.md](NEXT.md). Source publication is not deployment.
+**NOT READY for real pilot, production or App Store submission.** No security waiver or full P10 acceptance. The dependency proposal is complete; a supported fix remains gated on compatible upstream releases. Next independent task: actual local background-auth HTTP timeout/cancellation check in [NEXT.md](NEXT.md). Source publication is not deployment.
