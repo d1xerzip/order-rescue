@@ -92,6 +92,10 @@ before(async () => {
 after(async () => {
   globalThis.fetch = fetchOriginal;
   setAbstractFetchFunc(fetchOriginal);
+  await prisma.privacyReceipt.deleteMany({ where: { shopDomain: { in: [a,b] } } });
+  await prisma.lifecycleDelivery.deleteMany({ where: { shopDomain: { in: [a,b] } } });
+  await prisma.session.deleteMany({ where: { shop: { in: [a,b] } } });
+  await prisma.shop.deleteMany({ where: { domain: { in: [a,b] } } });
   await prisma.$disconnect();
   await authLockDb.$disconnect();
 });

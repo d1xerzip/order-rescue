@@ -1,0 +1,5 @@
+# Next task — P09
+
+Read STATUS.md, ARCHITECTURE.md, P07-LIFECYCLE.md and P08-MERCHANT-WORKFLOW.md. P08 local UI and existing dev schema are ready; no real thresholds have been configured. Accepted retention remains original Order.createdAt+30days, current-installation monitoring only. Resolve/Ignore never edit Shopify or automatically reopen.
+
+Next prompt: Implement the minimum complete privacy processing for the current inventory: authenticated mandatory privacy receipt, durable scoped export/redaction and deletion safeguards across jobs, snapshots, evaluations, exceptions and decision history. Preserve pending-redaction isolation after uninstall/reinstall. Use synthetic tests for invalid/duplicate delivery, concurrent workers/actions, retention expiry and restore/replay that must not resurrect erased data. Verify current official requirements; do not submit review or claim production approval. Update the factual privacy inventory/runbook/evidence. Preserve P04 real-update/multi-page gaps and P08 real embedded/App Bridge/browser gates for P10. Follow the separate branch, sanitized source merge and next minor tag workflow.

@@ -1,7 +1,8 @@
 import { localPostgres } from "./postgres.mjs";
 import { spawn } from "node:child_process";
 import { randomBytes } from "node:crypto";
-import { readdirSync } from "node:fs";
+import { readdirSync, writeFileSync } from "node:fs";
+import { resolve } from "node:path";
 const { pg, url } = await localPostgres({ testing: true });
 const name = `rescue_test_${Date.now()}`;
 const selected = process.argv.slice(2);
@@ -24,10 +25,14 @@ const run = (args, env) =>
   });
 try {
   await pg.createDatabase(name);
+  const journal = resolve(`.local/test/${name}.privacy.jsonl`);
+  writeFileSync(journal, "", { flag: "wx" });
   const env = {
     ...process.env,
     DATABASE_URL: url(name) + "&connection_limit=1",
     SESSION_ENCRYPTION_KEY: randomBytes(32).toString("base64"),
+    PRIVACY_LEDGER_KEY: randomBytes(32).toString("base64"),
+    PRIVACY_JOURNAL_PATH: journal,
     ORDER_RESCUE_DISPOSABLE_TEST_DB: "1",
     SHOPIFY_API_KEY: "synthetic-api-key",
     SHOPIFY_API_SECRET: "synthetic-test-secret-not-real",

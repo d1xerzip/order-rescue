@@ -2,7 +2,7 @@
 import { spawn } from "node:child_process";
 import { createHmac, randomBytes, randomUUID } from "node:crypto";
 import { createServer } from "node:http";
-import { readFile, stat } from "node:fs/promises";
+import { readFile, stat, writeFile } from "node:fs/promises";
 import { resolve, sep, extname } from "node:path";
 import { localPostgres } from "./postgres.mjs";
 
@@ -19,8 +19,11 @@ if (!process.argv.includes("--child")) {
   const name = `rescue_ui_test_${Date.now()}`;
   try {
     await pg.createDatabase(name);
+    const journal = resolve(`.local/test/${name}.privacy.jsonl`);
+    await writeFile(journal, "", { flag: "wx" });
     const env = { ...process.env, DATABASE_URL: `${url(name)}&connection_limit=2`,
       SESSION_ENCRYPTION_KEY: randomBytes(32).toString("base64"),
+      PRIVACY_LEDGER_KEY: randomBytes(32).toString("base64"), PRIVACY_JOURNAL_PATH: journal,
       ORDER_RESCUE_DISPOSABLE_TEST_DB: "1", UI_TEST_MODE: "1", RUN_MODE: "test", NODE_ENV: "production",
       SHOPIFY_API_KEY: "synthetic-ui-api-key", SHOPIFY_API_SECRET: randomBytes(32).toString("hex"),
       SHOPIFY_APP_URL: "https://app.example.test" };

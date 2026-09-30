@@ -1,15 +1,17 @@
-# Current status — P08
+# Current status — P09
 
-Version **0.7.0**, branch `codex/p08-merchant-workflow`. Local implementation and synthetic browser checks complete; real Shopify P08 acceptance remains NOT RUN.
+Version **0.8.0**, branch `codex/p09-privacy-lifecycle`, 2026-09-30. Privacy implementation/synthetic checks complete; actual platform registration and production privacy readiness remain unverified.
 
 ## Changed
-Embedded merchant workspace: onboarding, explicit persisted settings without defaults, inbox/filter/pagination, detail/current and decision evidence, history, Open in Shopify, server-confirmed Resolve/Ignore/Acknowledge. Unknown/empty/partial-sync/stale/error states remain distinct. Existing dev database received the additive P07 migration without reset; encrypted pre-migration backup and unchanged old-row hashes/counts verified. No real merchant thresholds written.
+Original-byte privacy HMAC before writes, durable leased processing, scoped encrypted exports and separate confirmed-handoff audit; customer/shop deletion, persistent hashes and independent journal protect queued work/restore. Cascade covers evaluations/exceptions/history; sync checkpoint is reset. Staff session names/email are stripped. Retention and factual DRAFT policy/support procedure now match implementation. No new order fields/scopes or rule semantics.
 
 ## Verified
-`npm test`189/189 PASS; focused pagination/HTTP/lifecycle27/27 PASS; typecheck, lint, build and harness syntax PASS. Actual production build + disposable PostgreSQL + synthetic Shopify authentication/transport exercised in Opera: configure→order→inbox→evidence→decision→reload, two-tab decision/settings conflicts, unknown data, partial sync, pagination, foreign404, HTTP503, total server outage, keyboard and narrow iframe. No application JavaScript/hydration errors in final Opera checks. Sanitized screenshots and exact commands: [P08-MERCHANT-WORKFLOW.md](P08-MERCHANT-WORKFLOW.md).
+`npm test` **214/214 PASS**, including25 new privacy integration cases in a separate fresh synthetic PostgreSQL database. Invalid signature zero-write, DB outage503, large IDs, topic relabelling, tenant-scoped export/deletion, concurrent claims, UTC leases, retries/exhaustion, in-flight/completion races, uninstall/reinstall, journal crash/replay/restore and expiry verified. Typecheck/lint/build PASS; exact commands and evidence: [PRIVACY-EVIDENCE.md](PRIVACY-EVIDENCE.md).
 
 ## Not run / blockers
-Shopify Admin browser permission remains denied: actual embedded P08 journey, live App Bridge requests and real Open in Shopify navigation NOT RUN. The in-app browser still produced hydration errors on the local build while Opera did not; its clean-console acceptance remains pending. No install tests repeated. P04 real update/cancel deliveries and live multi-page sync remain NOT RUN. P09 full privacy processing/restore, production PCD approval and hosting remain open. Source publication is not deployment.
+Existing dev database was not migrated for P09, privacy journal not provisioned there and privacy worker not started; no live deletion/restore. Review legacy pending synthetic receipts before starting that worker. Actual config-managed privacy subscriptions/delivery NOT RUN; local TOML is not registration proof. Production PCD, legal/support identity, secure export delivery, hosting/TLS/volume/log/backup controls and independently durable current journal remain unresolved. Prepared export is not delivered compliance. No account/questionnaire change, review, deployment or external message.
+
+P08 actual Shopify Admin journey/App Bridge/Open in Shopify remains NOT RUN; in-app browser hydration issue unresolved. P04 real update/cancel and live multi-page checks remain NOT RUN. Installation tests not repeated. Source publication is not deployment.
 
 ## Next
-P09 privacy processing on the full stored inventory, including settings/evaluations/exceptions/history, with synthetic export/redaction/replay/restore tests. Keep P04/P08 live gates for P10. No new rules or features.
+P10A first close the P08 in-app hydration defect using the synthetic harness, then prepare preserved-data dev schema/journal startup and inspect actual privacy subscription registration read-only. Do not process legacy privacy fixtures or delete live data without reviewed provenance. Keep owner/provider/privacy gates explicit before candidate deployment.

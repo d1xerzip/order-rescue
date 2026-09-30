@@ -1,5 +1,6 @@
 import type { Prisma } from "@prisma/client";
 import prisma from "./db.server";
+import { privacyBlocked, privacyHash } from "./privacy-guard.server";
 
 export function validateShopDomain(domain: string): string {
   if (!/^[a-z0-9][a-z0-9-]*\.myshopify\.com$/.test(domain)) {
@@ -25,6 +26,8 @@ export async function activateShop(shopDomain: string, shopifyId?: string) {
     const existing = await tx.shop.findUnique({
       where: { domain: shopDomain },
     });
+    if (await privacyBlocked(tx, shopDomain, undefined, existing?.active ? existing.installedAt : new Date()))
+      throw new Error("PRIVACY_PENDING");
     if (shopifyId && existing?.shopifyId && existing.shopifyId !== shopifyId)
       throw new Error("Shop identity conflict");
     if (shopifyId) {
@@ -65,7 +68,11 @@ export async function activateShop(shopDomain: string, shopifyId?: string) {
 
 export async function requireActiveShop(shopDomain: string) {
   validateShopDomain(shopDomain);
-  return prisma.shop.findFirst({ where: { domain: shopDomain, active: true } });
+  return prisma.$transaction(async tx => {
+    await lockShop(tx, shopDomain);
+    const shop = await tx.shop.findFirst({ where: { domain: shopDomain, active: true } });
+    return shop && !await privacyBlocked(tx, shop.domain, undefined, shop.installedAt) ? shop : null;
+  });
 }
 
 export async function deactivateShop(
@@ -107,16 +114,8 @@ export async function canRunOrdinaryJob(
   generation: number,
 ) {
   validateShopDomain(shopDomain);
-  return Boolean(
-    await prisma.shop.findFirst({
-      where: {
-        domain: shopDomain,
-        active: true,
-        jobsEnabled: true,
-        generation,
-      },
-    }),
-  );
+  const shop = await requireActiveShop(shopDomain);
+  return Boolean(shop?.jobsEnabled && shop.generation === generation);
 }
 
 export async function getOwnWorkspaceRecord(shopId: string) {
@@ -196,10 +195,16 @@ function privacyPayload(
       throw new Error("Invalid privacy request identifier");
     result.requestId = String(request.id);
   }
+  const customer = payload.customer as Record<string, unknown> | undefined;
+  if (customer?.id !== undefined) {
+    const id = customer.id;
+    if (!(typeof id === "string" && /^[1-9]\d*$/.test(id)) && !(typeof id === "number" && Number.isSafeInteger(id) && id > 0)) throw new Error("Invalid privacy customer identifier");
+    result.customerKey = privacyHash(`customer:${payload.shop_domain}:${id}`);
+  }
   return result;
 }
 
-// Durable intake only. No session/token is required; no false claim of completed export.
+// Durable intake; worker performs export/redaction without Shopify credentials.
 export async function receivePrivacy(
   shopDomain: string,
   topic: PrivacyTopic,
@@ -215,9 +220,15 @@ export async function receivePrivacy(
     )
   )
     throw new Error("Invalid privacy topic");
-  const payload = privacyPayload(minimalPayload);
+  const payload = privacyPayload({ ...minimalPayload, shop_domain: shopDomain });
   return prisma.$transaction(async (tx) => {
+    await tx.$executeRaw`SET LOCAL statement_timeout = '1250ms'`;
+    await tx.$executeRaw`SET LOCAL lock_timeout = '1000ms'`;
     await lockShop(tx, shopDomain);
+    if (minimalPayload.shop_id !== undefined) {
+      const shop = await tx.shop.findUnique({ where: { domain: shopDomain }, select: { shopifyId: true } });
+      if (shop?.shopifyId && shop.shopifyId !== `gid://shopify/Shop/${minimalPayload.shop_id}`) throw new Error("PRIVACY_SHOP_IDENTITY_CONFLICT");
+    }
     return tx.privacyReceipt.upsert({
       where: {
         shopDomain_topic_deliveryId: {
@@ -227,7 +238,7 @@ export async function receivePrivacy(
         },
       },
       update: {},
-      create: { shopDomain, topic: normalized, deliveryId, payload },
+      create: { shopDomain, topic: normalized, deliveryId, payload, receivedAt: new Date(), availableAt: new Date() },
     });
-  });
+  }, { maxWait: 500, timeout: 1500 });
 }

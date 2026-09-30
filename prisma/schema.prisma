@@ -147,7 +147,26 @@ model PrivacyReceipt {
   payload Json
   status String @default("pending")
   receivedAt DateTime @default(now())
+  attempts Int @default(0)
+  availableAt DateTime @default(dbgenerated("(CURRENT_TIMESTAMP AT TIME ZONE 'UTC')"))
+  leaseToken String?
+  leaseUntil DateTime?
+  completedAt DateTime?
+  errorCode String?
+  encryptedExport String?
+  exportExpiresAt DateTime?
+  deliveredAt DateTime?
+  encryptedDelivery String?
+  @@index([status, availableAt, leaseUntil])
   @@unique([shopDomain, topic, deliveryId])
+}
+
+// Keyed routing hashes only; never customer profiles or erased evidence.
+model PrivacyDeletion {
+  shopKey String
+  orderKey String
+  deletedAt DateTime
+  @@id([shopKey, orderKey])
 }
 model RuleSetting {
   shopId String

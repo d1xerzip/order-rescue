@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.0 — P09 privacy lifecycle
+
+- Authenticate original privacy bytes; durable leased processing, scoped encrypted export and confirmed-handoff audit.
+- Cascade customer/shop erasure, block queued/racing work and apply an independent deletion journal on offline restore.
+- Minimize staff session PII; enforce expiry and retain failed/undelivered work visibly. Add factual privacy/support drafts and source/registration evidence.
+- Verify214 synthetic/local tests including25 new privacy cases; typecheck/lint/build PASS. Existing dev data untouched.
+- Real subscription/delivery, P08 live/hydration, P04 live and provider/legal/production gates remain open. No deployment/account change/live deletion.
+
 ## 0.7.0 — P08 merchant workflow
 
 - Add onboarding, persisted explicit settings, inbox/detail/evidence, history and server-confirmed decisions using the existing design/authentication flow.

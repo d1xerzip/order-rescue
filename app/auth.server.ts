@@ -1,4 +1,5 @@
-import { authLockDb } from "./db.server";
+import { withAuthLock } from "./auth-lock.server";
+export { withAuthLock } from "./auth-lock.server";
 import {
   authenticate,
   unauthenticated,
@@ -27,19 +28,6 @@ function lockHint(request: Request) {
   }
   const hint = url.searchParams.get("shop") || "invalid-auth";
   return shopDomain.test(hint) ? hint : "invalid-auth";
-}
-export async function withAuthLock<T>(
-  domain: string,
-  operation: () => Promise<T>,
-): Promise<T> {
-  // Distinct from storage's lifecycle transaction lock (salt 0).
-  return authLockDb.$transaction(
-    async (tx) => {
-      await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtextextended(${domain}, 1))`;
-      return operation();
-    },
-    { maxWait: 15000, timeout: 60000 },
-  );
 }
 export async function authenticateShopRequest(request: Request) {
   if (localPreviewEnabled())

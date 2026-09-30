@@ -2,6 +2,7 @@ import { createHash, randomUUID } from "node:crypto";
 import type { ExceptionRecord, OrderSnapshot, Prisma, RuleEvaluation, Shop } from "@prisma/client";
 import prisma from "./db.server";
 import { openOrder, sealOrder } from "./order-crypto.server";
+import { privacyBlocked as privacyScopeBlocked } from "./privacy-guard.server";
 import { validateHighOrderValueSettings } from "./rules/high-order-value";
 import { validateHighLineQuantitySettings } from "./rules/high-line-quantity";
 import { RuleConfigurationError, type HighLineQuantitySettings, type HighOrderValueSettings, type RuleKey, type RuleResult } from "./rules/contracts";
@@ -34,13 +35,12 @@ async function withShop<T>(principal: Principal, fn: (tx: Tx, shop: Shop, now: D
     await tx.$queryRaw`SELECT "id" FROM "Shop" WHERE "id" = ${principal.shopId} FOR UPDATE`;
     const shop = await tx.shop.findUnique({where: {id: principal.shopId}});
     if (!shop?.active || shop.generation !== principal.generation) throw notFound();
-    const blocked = await tx.privacyReceipt.findFirst({where:{shopDomain: shop.domain, status: "pending", topic:"shop/redact"},select:{id:true}});
-    if (blocked) throw notFound();
+    if (await privacyScopeBlocked(tx,shop.domain,undefined,shop.installedAt)) throw notFound();
     return fn(tx, shop, new Date());
   });
 }
 async function privacyBlocked(tx: Tx, shop: Shop, orderId: string) {
-  return Boolean(await tx.privacyReceipt.findFirst({where:{shopDomain:shop.domain,status:"pending",OR:[{topic:"shop/redact"},{topic:"customers/redact",payload:{path:["orders_to_redact"],array_contains:[orderId.split("/").at(-1)!]}}]},select:{id:true}}));
+  return privacyScopeBlocked(tx,shop.domain,orderId,shop.installedAt);
 }
 export async function saveRuleSettings(principal: Principal, ruleKey: RuleKey, input: unknown, expectedRevision: number) {
   checkRevision(expectedRevision);
@@ -88,6 +88,7 @@ export async function listRuleSettings(principal: Principal) {
 }
 export async function persistRuleEvaluations(tx: Tx, shop: Shop, snapshot: OrderSnapshot, evaluations: Record<RuleKey,RuleResult>, now: Date) {
   if (!shop.active || !shop.jobsEnabled || snapshot.shopId !== shop.id || snapshot.generation !== shop.generation || snapshot.expiresAt <= now) throw notFound();
+  if (await privacyBlocked(tx,shop,snapshot.orderId)) throw notFound();
   for (const ruleKey of keys) {
     const result = evaluations[ruleKey];
     if (result.ruleKey !== ruleKey) throw new Error("INVALID_CONFIGURATION");
