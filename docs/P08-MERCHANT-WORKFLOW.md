@@ -73,3 +73,7 @@ Real Shopify P08 workflow, navigation to an actual Shopify order, App Bridge fro
 
 
 P10A repair reconciliation (0.8.1,2026-09-30): the reproduced local IAB hydration defect now passes with compatible React19.3 and the normal React Router entry; no warning suppression. Load latest refreshes both list/detail after a stale409. Current synthetic action/reload/settings/failure/unknown checks pass; actual Shopify Admin/App Bridge/embedded hydration and actual order navigation remain NOT RUN. Details: [QA-FUNCTIONAL.md](QA-FUNCTIONAL.md). Historical failures/screenshots above retain their original environment/version.
+
+## Follow-up 0.8.8 — bounded actual development evidence
+
+[Manual acceptance matrix](P08-MANUAL-ACCEPTANCE.md) supersedes blanket NOT RUN for the specifically observed settings, ingestion/evidence, Resolve/Ignore reload, correct order link and current manual hydration observation. It preserves historical findings and separates owner screenshots/reports from read-only DB assertions. The form id/name Issue disappeared after the minimal markup fix. Remaining warnings and live failure/conflict/foreign-ID/viewport/provider/privacy/advisory gates remain open; P08 is not complete.

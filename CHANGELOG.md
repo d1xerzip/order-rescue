@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.8 — P08 form identifiers and manual development evidence
+
+- Add stable id/name attributes to rule-enable toggles and the review-state filter; preserve all handlers and rule/decision semantics.
+- Record owner-operated development evidence for both rules, settings, Resolve/Ignore persistence and correct Shopify order navigation, with independent database readback.
+- Observe the form-control Issue disappear and no red/hydration errors in the final All levels Console screenshot. Retain other warnings, the clarified mistaken-Resolve attempt and remaining acceptance gates.
+- Lint/typecheck/build pass for the markup fix. No dependency/schema/account changes or deployment; P08 and production release remain incomplete.
+
 ## 0.8.7 — Development runtime recovery
 
 - Restore existing local database, linked dev preview and workers without a reset; apply the existing P09 migration with immediate preservation evidence for 13 tables.
