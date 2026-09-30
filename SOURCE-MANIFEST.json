@@ -1,5 +1,8 @@
 {
   "format": 1,
+  "release": "0.8.1",
+  "baseline": "dbc08262e12156898221bb19aad919aca6050710",
+  "testedRuntimeSha256": "1cce28c0a393959d669a0a1c354073b7ba4a4cccc99e5710429b7e3d7f2ecaec",
   "files": [
     {
       "path": ".dockerignore",
@@ -43,11 +46,11 @@
     },
     {
       "path": "AGENTS.md",
-      "sha256": "f8f5be7e76d3f7073e5f3bdc0b422a4f357f6877b26581ca070a9f19f6d71b9f"
+      "sha256": "1fabc37cc941b05656cf65771540c20bde309b365db13399e53564b57b9f0a68"
     },
     {
       "path": "CHANGELOG.md",
-      "sha256": "a3485dac49296edae19d8b17bee76b4697b0016af15e1b62a60c4317fd8e2ea5"
+      "sha256": "8038db27fd000095ee58208932fe54bf9bfb6415b9b76c346e187ba3478df9cf"
     },
     {
       "path": "LICENSE.md",
@@ -55,7 +58,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "82eb1e8794de4833b53484021cecd6b024a7f72916760fa16acefaabcfa7b145"
+      "sha256": "c2eef878c46cfc17993c23e49ab35317680c8bedcfe13a22f74a4968cfa19479"
     },
     {
       "path": "app/auth-lock.server.ts",
@@ -71,7 +74,7 @@
     },
     {
       "path": "app/components/MerchantWorkspace.tsx",
-      "sha256": "4ed7a833cb1524ae465171802832693d7ad45814c5cdaca36a7122359ab0f011"
+      "sha256": "0594a2dd19ab559f3b2d4c82f409be77ea013d8097f34964cda90f43a6149220"
     },
     {
       "path": "app/components/foundation.css",
@@ -299,7 +302,7 @@
     },
     {
       "path": "docs/NEXT.md",
-      "sha256": "69ef9e5f8e3f96448e2e33b4158d0287c200b914aba14b32f676292b85b5e4c2"
+      "sha256": "29b3249f94477bf4d29673d33703816a18f04051ef0b3adfb5efeb93384fea82"
     },
     {
       "path": "docs/NEXT.pre-P05.md",
@@ -324,6 +327,10 @@
     {
       "path": "docs/NEXT.pre-P09.md",
       "sha256": "6716f048c221c7d450d232477cb44a2227449020226b29ca3c97b994b846fa82"
+    },
+    {
+      "path": "docs/NEXT.pre-P10A.md",
+      "sha256": "69ef9e5f8e3f96448e2e33b4158d0287c200b914aba14b32f676292b85b5e4c2"
     },
     {
       "path": "docs/P03-ACCESS-PLAN.md",
@@ -355,7 +362,7 @@
     },
     {
       "path": "docs/P08-MERCHANT-WORKFLOW.md",
-      "sha256": "bd7ce3d14ecb48d3b9f622cb7282b1218bb5d9e93d7d3534c1701ba38484723a"
+      "sha256": "f455af55dc5099244ac3894916241c5d1966a7c82409f6cf32be4dc1a12daaee"
     },
     {
       "path": "docs/P09-PLATFORM-RESEARCH.md",
@@ -379,19 +386,23 @@
     },
     {
       "path": "docs/PRODUCT.md",
-      "sha256": "3b090700a9201eb7889040bd0c61768e1b8908f9b5d2cbe7d52bdacdc774a6e8"
+      "sha256": "f3b7931d0e8a164a8c42cea28ce80f24f6cd56685089162875d2654dd5e9b412"
     },
     {
       "path": "docs/PUBLIC-REVIEW.md",
       "sha256": "e098e9281c23602036f30564933b99b59d594d5f082feb8bd90d7c59800be67b"
     },
     {
+      "path": "docs/QA-FUNCTIONAL.md",
+      "sha256": "6e00f521c91fdbf0fa0eaef761e20c9c89db1f8b478cd039b026b9c40d625577"
+    },
+    {
       "path": "docs/ROADMAP.md",
-      "sha256": "cba9e8ae059a42fa18dbc042d6b1742c063abf6650fea89d60edbf5953db9559"
+      "sha256": "275e847b2442df4c583518c2818fddf344c695dd97f2acd1510d82284993c0b8"
     },
     {
       "path": "docs/RULES.md",
-      "sha256": "40b5a95e33dcecc42d301d911b1df842cb3522e1b9b241a726b706f7f036a071"
+      "sha256": "8325a29141bf2d73529dc861764bed979bdc2616047841cf7939aa043bda2431"
     },
     {
       "path": "docs/RULES.pre-P05.md",
@@ -399,7 +410,7 @@
     },
     {
       "path": "docs/STATUS.md",
-      "sha256": "85b1f8973bd210884da3db028fb9071c3196105d5bcb3563608ba74d13664f83"
+      "sha256": "8953703a1ced28f9855e8ce922b215786c762a83092c03b8743e9b06a57300ce"
     },
     {
       "path": "docs/STATUS.pre-P05.md",
@@ -426,6 +437,10 @@
       "sha256": "09ddb451a28b471d82d215011d4f796b4238e0ee653d4ac650db28f0637c2ef1"
     },
     {
+      "path": "docs/STATUS.pre-P10A.md",
+      "sha256": "85b1f8973bd210884da3db028fb9071c3196105d5bcb3563608ba74d13664f83"
+    },
+    {
       "path": "docs/evidence/p08/inbox-narrow.png",
       "sha256": "f5b48ed356e6624e333b88bccb3cc1d5e596738d9f6630a34a94d8eeeb144060"
     },
@@ -448,6 +463,18 @@
     {
       "path": "docs/evidence/p08/settings-wide.png",
       "sha256": "bdcb064a7bfb02b6211f81144ffc9fab132a20d75e0c3c4244dcdf43a658beea"
+    },
+    {
+      "path": "docs/evidence/p10a/harness-narrow.png",
+      "sha256": "6472b469bbeafd3f3da8b7e9a9a0f4346691f19ba601880af5ca7615cdef56c2"
+    },
+    {
+      "path": "docs/evidence/p10a/ignored-evidence.png",
+      "sha256": "e428fb356333dc002795aef71f11f3076fece71766064c6faecd5ddc8f39f734"
+    },
+    {
+      "path": "docs/fixtures/p10a-release.json",
+      "sha256": "fee3d09a58234fc9215189bc7119e5e28fc23afd2673f335f8f47e68346834db"
     },
     {
       "path": "docs/fixtures/rules-v1.json",
@@ -479,11 +506,11 @@
     },
     {
       "path": "package-lock.json",
-      "sha256": "1c9af33f059b5ffef0b2c63bdd28550820e2e6133a159e0df90198d37301d34c"
+      "sha256": "8a898b29abb0e80a880968137c6074d72ee7add6c52b5a4209a4a45ff02a76ae"
     },
     {
       "path": "package.json",
-      "sha256": "63d3b5a675bd3d9317d1cbc75f446808933115ef54bbcb7f1945b5797a3d66ac"
+      "sha256": "e04202c34bd549a61bc3d6e23b2925f7b230afb1ece83b843dc8c8c667832bd7"
     },
     {
       "path": "prisma/migrations/0001_foundation/migration.sql",
@@ -616,6 +643,10 @@
     {
       "path": "tests/privacy-lifecycle.test.ts",
       "sha256": "000714514d373a5b53401f37e60031269ee9d80cb103316c78dd36a468505db7"
+    },
+    {
+      "path": "tests/qa-functional.test.ts",
+      "sha256": "4f448b1935b7523f4c9c80c05d35db0b4e3f7451e6863c139a7d96837ccd6edf"
     },
     {
       "path": "tests/storage.test.ts",

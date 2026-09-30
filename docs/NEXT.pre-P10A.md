@@ -1,0 +1,5 @@
+# Next task — P10A acceptance preparation
+
+Read STATUS.md, P08-MERCHANT-WORKFLOW.md and PRIVACY-EVIDENCE.md; for setup use LOCAL-SETUP.md and privacy support. P09 source/local tests pass; production obligations and registration remain open.
+
+Smallest next prompt: Close the known in-app-browser hydration error on the synthetic P08 harness without changing rules. Preserve the live Shopify Admin/App Bridge acceptance gate. Prepare the additive P09 migration and independent privacy journal for the existing dev environment while preserving data, but review legacy pending intake-only privacy fixtures before any worker can process them. Inspect actual config-managed compliance subscriptions read-only in Dashboard (Versions → Configuration → Subscriptions / Logs). Do not change account/questionnaire, submit review, deploy, send exports or delete live data. After access is available, complete the real P08 journey with explicit disposable settings. Keep P04 update/cancel/multi-page and provider/privacy readiness gaps visible. Use a separate codex/ branch and patch version for a focused repair; a completed P10 milestone gets the next minor version.

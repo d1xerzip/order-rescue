@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.1 — P10A local QA and workflow repairs
+
+- Repair reproduced local IAB hydration with compatible React/runtime/types19.3.0 and the normal React Router entry.
+- Refresh both inbox row and detail after server-confirmed two-tab conflict recovery; preserve lifecycle semantics.
+- Add13 predetermined acceptance fixtures through persisted settings, existing order worker, exact snapshots/evidence and authenticated HTTP checks; verify17 targeted and231 total tests.
+- Verify synthetic browser decision/reload, settings keyboard save,503 recovery, unknown/stale state and foreign404; typecheck/lint/generation/build PASS.
+- Full P10A Shopify gate remains open; only independent local P10B may proceed. P08/P04 live and P09 registration/dev/provider/privacy blockers retained; production audit findings remain unresolved. No live deletion/restore, account change or deployment.
+
 ## 0.8.0 — P09 privacy lifecycle
 
 - Authenticate original privacy bytes; durable leased processing, scoped encrypted export and confirmed-handoff audit.

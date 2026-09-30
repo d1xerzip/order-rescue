@@ -1,6 +1,8 @@
 # Roadmap
 
-The foundation and order-created ingestion are implemented. Recovery is the next slice. Each milestone needs its own executed evidence.
+Current reconciliation (0.8.1,2026-09-30): both accepted rules, persisted settings/evaluations, exception lifecycle and merchant UI are implemented. Privacy is locally implemented/tested. [P10A matrix](QA-FUNCTIONAL.md) records231 passing local tests and synthetic browser repairs; real Shopify workflow/privacy registration and production prerequisites remain open. Prior milestone completion/next-task/access paragraphs below are historical snapshots, not current verification. Rule contract1.0.0, field semantics,30dayoriginalcreatedAt retention, monitoring boundary and terminal merchant decisions are unchanged.
+
+Foundation, ingestion/recovery, two rules, exceptions/UI and local privacy are implemented. P10A local repair/QA evidence is recorded; independent local P10B is next, with live release gates still open.
 
 | Milestone | Dependency | Acceptance |
 |---|---|---|

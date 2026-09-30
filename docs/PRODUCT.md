@@ -1,5 +1,7 @@
 # Product scope
 
+Current reconciliation (0.8.1,2026-09-30): both accepted rules, persisted settings/evaluations, exception lifecycle and merchant UI are implemented. Privacy is locally implemented/tested. [P10A matrix](QA-FUNCTIONAL.md) records231 passing local tests and synthetic browser repairs; real Shopify workflow/privacy registration and production prerequisites remain open. Prior milestone completion/next-task/access paragraphs below are historical snapshots, not current verification. Rule contract1.0.0, field semantics,30dayoriginalcreatedAt retention, monitoring boundary and terminal merchant decisions are unchanged.
+
 ## Confirmed decisions
 - Goal: Shopify App Store submission.
 - Read Shopify orders and manage exceptions inside Order Rescue. Resolve and Ignore affect our records only.

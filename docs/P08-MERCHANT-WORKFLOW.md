@@ -70,3 +70,6 @@ Sanitized screenshots in [evidence/p08](evidence/p08): inbox-wide.png, review-ev
 ## Remaining gates
 
 Real Shopify P08 workflow, navigation to an actual Shopify order, App Bridge frontend requests and console in the embedded Admin remain NOT RUN because browser access is denied. Installation cycles were not repeated. Dev DB migration alone does not configure rules or activate real-store evaluation; no real merchant thresholds were written. P04 actual update/cancellation deliveries and live multi-page synchronization remain NOT RUN. P09 full privacy processing/restore, production PCD approval, hosting and App Store review remain open. Next independent slice: P09 privacy processing; preserve these live acceptance gaps for P10.
+
+
+P10A repair reconciliation (0.8.1,2026-09-30): the reproduced local IAB hydration defect now passes with compatible React19.3 and the normal React Router entry; no warning suppression. Load latest refreshes both list/detail after a stale409. Current synthetic action/reload/settings/failure/unknown checks pass; actual Shopify Admin/App Bridge/embedded hydration and actual order navigation remain NOT RUN. Details: [QA-FUNCTIONAL.md](QA-FUNCTIONAL.md). Historical failures/screenshots above retain their original environment/version.
