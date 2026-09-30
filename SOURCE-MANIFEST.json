@@ -1,10 +1,10 @@
 {
   "format": 1,
-  "release": "0.8.6",
-  "baseline": "c706d7eaa8c1898eb15dd33ef804c5d6d9e26976",
+  "release": "0.8.7",
+  "baseline": "a9d019df0eb1f310140f69b0c464710ba2679fdf",
   "applicationUnchanged": true,
-  "liveP08": "NOT RUN",
-  "devRuntime": "NOT READY",
+  "liveP08": "INCOMPLETE; owner-reported interface opening only",
+  "devRuntime": "READY for owner-operated checks",
   "advisoryRemediated": false,
   "files": [
     {
@@ -53,7 +53,7 @@
     },
     {
       "path": "CHANGELOG.md",
-      "sha256": "9219169a920fbfae2a09d4fcb9824500526134ce72f47d4bc7d86acf73f869bd"
+      "sha256": "45006cff5dc6bd9b56e27f557a6009e68d1cde2b4a7777f7a35fdd96f6f4eab9"
     },
     {
       "path": "LICENSE.md",
@@ -61,7 +61,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "07ae81d0a3c512ae0fc7c1b34592f769a2a657915f1bbf00fea4adcbb97c2b7b"
+      "sha256": "0ef3014a6e46aa37ff9435453b8bac1a8b55ada3c2245fdc5857964baecc0769"
     },
     {
       "path": "app/auth-lock.server.ts",
@@ -320,12 +320,16 @@
       "sha256": "69a5242e8bdfb94653e9489b48898c61333ef557adbe2d3abf7c969abf7aba08"
     },
     {
+      "path": "docs/DEV-RUNTIME-RECOVERY.md",
+      "sha256": "8cc211a164dba0d60ea9ee29402bd8f360de68584e9beb4183405417b586b8aa"
+    },
+    {
       "path": "docs/LOCAL-SETUP.md",
-      "sha256": "11fef74607f377fee8b538e41b4ae241d70dd15c7ba3e59fa4f7e85dd1bae596"
+      "sha256": "98bff1643e83212343105a8f5dc64c59c7e664c02cef763db7ba66807cd95f3e"
     },
     {
       "path": "docs/NEXT.md",
-      "sha256": "03f2616af69ecd115f68763bb9905ccc282f8c80cf7d68e75423e04ae12398b2"
+      "sha256": "ef4cabf4614264d388a14c7a8993e8ca8e07a4ea28613d322295d44ee60c459c"
     },
     {
       "path": "docs/NEXT.pre-P05.md",
@@ -374,6 +378,10 @@
     {
       "path": "docs/NEXT.pre-runtime-preflight.md",
       "sha256": "d741e3b9637eeccce707eed55961180d3ce2f8100b712602f12cf5cdf4bdcb24"
+    },
+    {
+      "path": "docs/NEXT.pre-runtime-recovery.md",
+      "sha256": "03f2616af69ecd115f68763bb9905ccc282f8c80cf7d68e75423e04ae12398b2"
     },
     {
       "path": "docs/P03-ACCESS-PLAN.md",
@@ -441,7 +449,7 @@
     },
     {
       "path": "docs/QA-FUNCTIONAL.md",
-      "sha256": "18f128f2975c8e39db66ac8b0513dcdee03d1e267a4ee22f67a6a66be543c907"
+      "sha256": "5baeb80b67effa73f97478f156dbb2eca4c1885c9f9ed0b4fb85dd7c6fb988af"
     },
     {
       "path": "docs/QA-RELIABILITY.md",
@@ -461,7 +469,7 @@
     },
     {
       "path": "docs/STATUS.md",
-      "sha256": "eb05fd2e83b66d60580b938ea8424dc90376e8bfd2990bd8b2e34d993d6b8c07"
+      "sha256": "4c346e966c8f95d171d6577f5cc037da0fec6b4db2949dc1e82c2c95d76b469c"
     },
     {
       "path": "docs/STATUS.pre-P05.md",
@@ -510,6 +518,10 @@
     {
       "path": "docs/STATUS.pre-runtime-preflight.md",
       "sha256": "4140345b6055211260a86ce400d08e4388267c344d7fc67ef95b1eec7ac7dbee"
+    },
+    {
+      "path": "docs/STATUS.pre-runtime-recovery.md",
+      "sha256": "eb05fd2e83b66d60580b938ea8424dc90376e8bfd2990bd8b2e34d993d6b8c07"
     },
     {
       "path": "docs/evidence/auth-timeout/fixed.json",
@@ -605,11 +617,11 @@
     },
     {
       "path": "package-lock.json",
-      "sha256": "4d266ce42636eb1d8e62bf380c31a920f0bcc3ecba45c6a1d47c753dd485fc30"
+      "sha256": "84ac701e191609dd084f5dcd7e5ea5ad6ff6a43b550a4d90d64686265e6f5dbe"
     },
     {
       "path": "package.json",
-      "sha256": "6db2d701de618611951f42d24aa1e69ed907a15a643c5375bcc60d0c0ae6e9c3"
+      "sha256": "bafd153b346b0ea92d0ea18d352e588afe3df73984b951c9066ede4c5e47776b"
     },
     {
       "path": "prisma/migrations/0001_foundation/migration.sql",

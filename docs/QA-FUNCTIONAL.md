@@ -93,3 +93,7 @@ Local/synthetic PASS: full240-test suite, including bounded OAuth headers/body, 
 ## Follow-up0.8.6 — actual browser retry still blocked
 
 Fresh access attempts for both Shopify origins were rejected by the saved-user-permission policy in Codex In-app Browser. [Readiness report and exact errors](DEV-RUNTIME-READINESS.md) distinguish this access blocker from app failures. Independent local preflight is not ready; no live scenario, DB migration, journal initialization or account change occurred. All actual P08 criteria remain NOT RUN. Prior local hydration/auth repairs and240-test evidence retain their original scope.
+
+## Follow-up 0.8.7 — runtime restored; manual P08 started
+
+[Recovery evidence](DEV-RUNTIME-RECOVERY.md) supersedes the offline database/missing dev-journal prerequisites. Owner reports the correct interface/shop with no visible error. This is not a Console/hydration check or complete P08 acceptance. Explicit settings/save/reload is pending. Browser automation remains unavailable; no bypass, account change or installation repeat occurred. All remaining P04/P08–P10 and advisory/provider gates remain open.
