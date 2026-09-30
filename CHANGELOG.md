@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.6 — P08 live runtime preflight
+
+- Recheck both Shopify domains in Codex In-app Browser; record exact saved-permission refusals without bypassing them.
+- Complete independent read-only runtime preflight and document safe owner/prerequisite actions. Live P08, current schema/provenance and runtime health remain NOT RUN where unavailable.
+- Preserve v0.8.5 auth correction,240-test evidence and all advisory/privacy/live/provider gates. No application, schema, dependency version or account changes.
+
 ## 0.8.5 — OAuth cancellation and atomic session fence
 
 - Bound token HTTP transport to10s including body consumption; preserve caller cancellation through the official SDK runtime hook.

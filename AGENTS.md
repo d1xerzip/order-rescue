@@ -37,3 +37,5 @@ For P05 contracts/fixtures read docs/P05-RULE-CONTRACT.md. Specifications are no
 - Auth HTTP timeout/late credential writes: [AUTH-TIMEOUT-DIAGNOSTIC.md](docs/AUTH-TIMEOUT-DIAGNOSTIC.md). Diagnostic completion can record acceptance FAIL. Keep the observed auth race separate from the deepmerge dependency advisory; require actual cancellation and atomic stale-write rejection before closing it.
 
 - OAuth cancellation and atomic session fencing: [AUTH-REFRESH-FIX.md](docs/AUTH-REFRESH-FIX.md). Preserve the lock-owning transaction for credential/activation writes, reject stale contexts and test header/body stalls on loopback. Keep0.8.4 historical FAIL and0.8.5 correction evidence distinct; neither closes the dependency advisory or live gates.
+
+- Before current live P08: [DEV-RUNTIME-READINESS.md](docs/DEV-RUNTIME-READINESS.md). Respect saved browser denial; approval in chat does not bypass tool policy. Review existing privacy receipt/journal provenance before any runtime migration or deletion-worker startup.

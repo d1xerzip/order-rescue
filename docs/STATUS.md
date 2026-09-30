@@ -1,17 +1,17 @@
-# Current status — auth refresh fence verified locally / release blocked
+# Current status — P08 live runtime preflight blocked
 
-Version **0.8.5**, codex/auth-refresh-fence, 2026-09-30. Baseline public v0.8.4 at e2ee3592b5299f644ebb84d8c220ef3171ac3ff9. Runtime repair; no schema, dependency version, product/rule or Shopify-account change.
+Version **0.8.6**, codex/dev-runtime-readiness, 2026-09-30. Read-only inspection of v0.8.5 / c706d7eaa8c1898eb15dd33ef804c5d6d9e26976; application, tests, schema and installed dependencies unchanged.
 
 ## Changed
-OAuth deadline10s includes response-body consumption and existing abort signals. Official encrypted session mapping now uses the transaction owning the auth lock; stale callbacks cannot save credentials or activate a shop after transaction loss/uninstall/reinstall. Activation and session commit atomically. [Implementation, commands and limits](AUTH-REFRESH-FIX.md).
+Recorded fresh browser denial, independent local runtime prerequisites and specific owner actions in [DEV-RUNTIME-READINESS.md](DEV-RUNTIME-READINESS.md). Preserved previous status/next snapshots. No runtime or account changes.
 
 ## Verified
-Actual loopback SDK reproducer PASS:10030ms cancellation, socket closed, no late credential row after uninstall, ordinary access denied, privacy intake200. Historical0.8.4 FAIL remains preserved. Full synthetic PostgreSQL suite **240/240 PASS**, including header/body stalls plus successful retry, four concurrent refreshes, signed uninstall/reinstall, deliberately terminated auth backend with exact new Shop/Session preservation, foreign-domain rejection and privacy races. Typecheck/lint/build PASS; final fixture tsc/lint PASS. [Bound evidence](evidence/auth-timeout/regressions.json).
+Browser inventory available; Codex In-app Browser rejected both admin.shopify.com and dev.shopify.com with saved-user-permission denial. No bypass attempted. Independent read-only preflight found the selected local DB/web endpoints unavailable and no matching dev/tunnel/worker candidates. Selected env file lacks privacy key/journal path configuration; no values printed. Schema and receipt provenance could not be read from the unavailable database. Source equality, release metadata, documentation links and public sanitization checked.
 
 ## Not run / blockers
-No fresh live Shopify/browser/token revocation, load/backup/restore or dependency audit. Earlier load/restore results retain their dates; source publication is not deployment. deepmerge advisory remains OPEN with previous4high findings; this separate runtime fix does not remediate it.
+Actual P08 order/inbox/evidence/action/reload/settings/order-link/foreign-ID/embedded Console workflow, screenshots and current Shopify hydration remain NOT RUN. Health/readiness HTTP checks and current DB migration/provenance checks NOT RUN. No process startup, migration, live cleanup, journal initialization, account/questionnaire change or installation repetition. Full suite/build not repeated because runtime unchanged;240-test PASS remains v0.8.5 evidence.
 
-Keep P08 actual Admin/App Bridge/workflow/order link/embedded Console and P04 actual update/cancel/multipage checks open. Keep P09 existing-dev migration/journal/worker/provenance, actual privacy registration/delivery, production PCD, legal/support identity, secure export handoff, provider/TLS/volume/log/backups and independent journal custody gates open. No existing dev database, journal, account/questionnaire, process or live record was changed.
+The local auth race remains fixed by v0.8.5 evidence. Deepmerge advisory remains OPEN (previous4high findings). Preserve P04 remaining live checks; P09 actual privacy registration/delivery, existing-dev migration/journal/worker/provenance, production PCD, legal/support identity, secure export handoff, provider/TLS/volume/log/backups and independent journal custody gates.
 
 ## Decision / next
-**Local auth race closed by regression evidence; NOT READY for pilot, production or App Store submission.** Next: close the smallest available external acceptance gate without treating local results as Shopify E2E; supported dependency remediation remains separately required. See [NEXT.md](NEXT.md).
+**Dev runtime NOT READY; release NOT READY.** Owner must correct the saved browser-site denial; chat approval alone does not alter the enforced setting. Separately prepare the dev runtime only after receipt/journal provenance review and a concrete reviewed migration/provisioning plan. See [NEXT.md](NEXT.md).
