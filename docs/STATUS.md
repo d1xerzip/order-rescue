@@ -1,17 +1,19 @@
-# Current status — P08 live runtime preflight blocked
+# Current status — development runtime restored; manual P08 in progress
 
-Version **0.8.6**, codex/dev-runtime-readiness, 2026-09-30. Read-only inspection of v0.8.5 / c706d7eaa8c1898eb15dd33ef804c5d6d9e26976; application, tests, schema and installed dependencies unchanged.
+Version **0.8.7**, branch `codex/dev-runtime-recovery`, 2026-09-30. Application/test/schema/dependency source unchanged from public merge a9d019df0eb1f310140f69b0c464710ba2679fdf. This operational recovery supersedes the offline preflight, preserved in STATUS.pre-runtime-recovery.md.
 
 ## Changed
-Recorded fresh browser denial, independent local runtime prerequisites and specific owner actions in [DEV-RUNTIME-READINESS.md](DEV-RUNTIME-READINESS.md). Preserved previous status/next snapshots. No runtime or account changes.
+Restored existing PostgreSQL and linked dev preview. After history review and conditional owner authorization, provisioned the first independent dev privacy key/journal without replacing prior credentials. Applied the existing additive P09 migration and started both workers. [Recovery evidence](DEV-RUNTIME-RECOVERY.md) records preservation, actual commands and startup corrections.
 
 ## Verified
-Browser inventory available; Codex In-app Browser rejected both admin.shopify.com and dev.shopify.com with saved-user-permission denial. No bypass attempted. Independent read-only preflight found the selected local DB/web endpoints unavailable and no matching dev/tunnel/worker candidates. Selected env file lacks privacy key/journal path configuration; no values printed. Schema and receipt provenance could not be read from the unavailable database. Source equality, release metadata, documentation links and public sanitization checked.
+Four previous migration checksums matched; existing session key authenticated all four stored credential fields. Only a known empty P02 synthetic data request was pending; no unattributed receipt or pending redaction. Encrypted logical backup created and authenticated roundtrip checked, without claiming a restore. Immediately after migration, all original columns/rows across 13 existing non-migration tables matched their pre-migration fingerprints. Both health endpoints returned 200 over loopback and HTTPS; readiness explicitly says configured_not_verified. Workers running; one synthetic privacy request and two ordinary jobs completed at observation. Current selected shop is active, has an encrypted session with only read_orders and initially has no saved rule settings.
+
+Owner manual P08 step 1: interface opened in the correct shop with no visible error. This is OWNER-REPORTED, not an automated browser/Console result. Step 2 (explicit value-rule settings and reload) is pending. No passed installation cycle repeated.
 
 ## Not run / blockers
-Actual P08 order/inbox/evidence/action/reload/settings/order-link/foreign-ID/embedded Console workflow, screenshots and current Shopify hydration remain NOT RUN. Health/readiness HTTP checks and current DB migration/provenance checks NOT RUN. No process startup, migration, live cleanup, journal initialization, account/questionnaire change or installation repetition. Full suite/build not repeated because runtime unchanged;240-test PASS remains v0.8.5 evidence.
+Full current P08 order/inbox/evidence/action/reload/settings/order-link/foreign-ID/Console workflow and screenshots remain incomplete. Current hydration check NOT RUN; browser automation denial unchanged and no bypass attempted. No actual dev deletion/restore test, account/questionnaire change or deployment. Full suite/build not repeated for this operational-only change; 240-test PASS remains v0.8.5 evidence.
 
-The local auth race remains fixed by v0.8.5 evidence. Deepmerge advisory remains OPEN (previous4high findings). Preserve P04 remaining live checks; P09 actual privacy registration/delivery, existing-dev migration/journal/worker/provenance, production PCD, legal/support identity, secure export handoff, provider/TLS/volume/log/backups and independent journal custody gates.
+Local dev migration, first journal provisioning, receipt provenance and worker startup are now completed, superseding their former NOT RUN status. Actual privacy platform registration/delivery, production PCD, legal/support identity, secure export handoff, provider/TLS/volume/log/backups and independent production journal custody remain open. Preserve P04 remaining live cases and P08–P10 acceptance gates. Auth race remains fixed by v0.8.5; the independent deepmerge advisory remains OPEN.
 
 ## Decision / next
-**Dev runtime NOT READY; release NOT READY.** Owner must correct the saved browser-site denial; chat approval alone does not alter the enforced setting. Separately prepare the dev runtime only after receipt/journal provenance review and a concrete reviewed migration/provisioning plan. See [NEXT.md](NEXT.md).
+**Runtime ready for owner-operated P08; release NOT READY.** Continue one manual step at a time, using explicit dev-only synthetic settings. Do not reseed thresholds, reset data, regenerate keys/journal or repeat installation. See [NEXT.md](NEXT.md).

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.7 — Development runtime recovery
+
+- Restore existing local database, linked dev preview and workers without a reset; apply the existing P09 migration with immediate preservation evidence for 13 tables.
+- Establish first-time dev privacy provisioning from P09/P10B history and owner authorization; preserve original credentials and independent journal custody.
+- Record successful local/HTTPS health checks, owner-reported interface opening and stepwise P08 handoff. Full embedded workflow and all remaining advisory/privacy/provider/live gates stay open.
+- Documentation/operational checkpoint; application, schema, tests and dependencies unchanged. No production deployment or account-setting change.
+
 ## 0.8.6 — P08 live runtime preflight
 
 - Recheck both Shopify domains in Codex In-app Browser; record exact saved-permission refusals without bypassing them.

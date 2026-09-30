@@ -1,11 +1,11 @@
-# Next task — remove browser blocker and prepare dev-runtime safely
+# Next task — complete owner-operated P08
 
-Read [STATUS](STATUS.md) and [DEV-RUNTIME-READINESS.md](DEV-RUNTIME-READINESS.md). Both Shopify domains still have an enforced saved browser denial. Runtime preflight is also not ready; no account or data changes were made.
+Read [STATUS](STATUS.md), [recovery evidence](DEV-RUNTIME-RECOVERY.md) and [merchant workflow](P08-MERCHANT-WORKFLOW.md). Existing database, dev preview and workers are running. Preserve their configuration and stable keys/journal. Only the selected second store preview was restored in this recovery.
 
-Owner action: Settings > Browser -> individual entries for admin.shopify.com and dev.shopify.com. Remove the saved block/permit these sites. If the UI already permits them, resolve the interface/tool inconsistency using the exact error in the report; no alternate-browser/CDP workaround. Retry once only after a meaningful permission correction. No credentials in chat.
+Step 1 is owner-reported: correct shop/interface, no visible error. Step 2 is pending: enable High order value with explicit dev-only threshold 100.00 USD, save and reload. The quantity rule remains untouched. Verify persistence on the server before proceeding to the next single action. These values are test fixtures, not merchant defaults. Existing dev settings were absent at the read-only checkpoint.
 
-Smallest next prompt:
+Next prompt:
 
-> Prepare the dev-runtime plan for outstanding live P08. First inspect existing development schema and legacy privacy-receipt provenance read-only, and locate/preserve the current independent journal and keys. Do not initialize an empty replacement journal, migrate, delete or start the privacy worker before presenting the exact required changes and their data effects. Keep account/questionnaire settings unchanged. After required preparation is authorized and browser access is actually available, execute outstanding P08 only on identified synthetic dev records with explicit test settings; retain all blocked/not-run criteria. Do not repeat passed installation checks.
+> Continue the manual P08 workflow from the current confirmed step, one owner action at a time. Correlate saves, order processing and decisions with server-side evidence without exposing identifiers or credentials. Then verify evidence, Resolve/Ignore semantics, reload, correct order link, failures/conflicts and Console/hydration where available. Keep browser-automation-only checks NOT RUN until actually executable. Do not repeat installation, reset data, invent thresholds, alter account settings or close unrelated advisory/privacy/provider/live blockers.
 
-No new product, account, data-access or dependency decision is made by this preflight. The0.8.5 local auth fix is retained; the independent advisory and P04/P09/provider/production gates remain open. Chat permission to bypass does not remove the browser tool security restriction.
+Browser saved denial is unchanged; chat authorization does not bypass it. Owner-operated browser evidence must remain distinct from direct automation and backend checks. No Shopify deletion or restore test is authorized on the existing development database. Runtime startup instructions are in [LOCAL-SETUP.md](LOCAL-SETUP.md).

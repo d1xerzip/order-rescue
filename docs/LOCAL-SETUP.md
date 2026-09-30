@@ -53,3 +53,33 @@ Safe reproduction here: npm test -- tests/privacy-lifecycle.test.ts, or npm test
 ## Isolated reliability rehearsals
 
 After npm ci and npm run db:generate, run `node scripts/reliability-load.mjs` (new loopback55434 cluster, HTTP3114). For actual backup/restore run `node scripts/reliability-restore.mjs` (new55435 source/target databases); first provide portable PostgreSQL client binaries as documented in [P10B-RESTORE.md](P10B-RESTORE.md) and ensure baseline tagv0.8.1 is locally available. These runners ignore .env.local and never use the existing dev database. Targets, measured results and constraints are in [QA-RELIABILITY.md](QA-RELIABILITY.md). Keep current independent privacy journals outside database backups.
+
+## Recovery follow-up — 2026-09-30
+
+The historical P07/P09 paragraphs above describe their original checkpoints. The existing development database now has all five migrations; immediate migration preservation, independent journal provisioning and worker startup are recorded in [DEV-RUNTIME-RECOVERY.md](DEV-RUNTIME-RECOVERY.md). Do not repeat provisioning or substitute a fresh key/journal. Current restoration covers the selected second dev-store preview; historical two-store CLI examples are not evidence that both previews were refreshed.
+
+In this working checkout, private operator wrappers load the preserved local environment plus the independent, access-restricted privacy environment. With services stopped, start each in its own terminal from the repository root:
+
+```powershell
+node .local/dev-runtime-start-db.mjs
+node .local/dev-runtime-service.mjs dev
+```
+
+Wait for CLI Ready, then record its current app HTTPS URL privately in the runtime URL pointer and run `node .local/dev-runtime-health.mjs`. Never copy the GraphiQL URL or reuse an old tunnel URL. Start separate workers only after health/readiness succeeds:
+
+```powershell
+node .local/dev-runtime-service.mjs orders
+node .local/dev-runtime-service.mjs privacy
+```
+
+The wrappers and private pointer files are intentionally excluded from public source. Do not run duplicate instances when these services are already active. On a different authorized checkout, load both preserved env files explicitly instead (replace placeholders locally; never paste secrets):
+
+```powershell
+node --env-file=.env.local --env-file="<existing-private-privacy-env-file>" node_modules/@shopify/cli/bin/run.js app dev --config local --store "<selected-dev-store>" --no-color
+$env:SHOPIFY_APP_URL = "<current-CLI-app-HTTPS-URL>"
+node --env-file=.env.local --env-file="<existing-private-privacy-env-file>" --import tsx scripts/order-worker.ts
+# In another terminal with the same environment:
+node --env-file=.env.local --env-file="<existing-private-privacy-env-file>" --import tsx scripts/privacy-worker.ts
+```
+
+The primary dev command must allow normal CLI URL synchronization; do not add `--no-update` with a placeholder or expired application URL. Restrict `web_directories` in the ignored linked config when private rehearsal archives contain other web configs; execute the app from its actual root. Preserve the old config before adjustment. Missing private environment/journal is a stop condition, not permission to generate replacements. Privacy worker startup applies the current journal; review provenance first. These commands are runtime operations, not proof of live browser acceptance or privacy delivery.
