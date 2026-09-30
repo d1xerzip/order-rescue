@@ -97,3 +97,7 @@ Fresh access attempts for both Shopify origins were rejected by the saved-user-p
 ## Follow-up 0.8.7 — runtime restored; manual P08 started
 
 [Recovery evidence](DEV-RUNTIME-RECOVERY.md) supersedes the offline database/missing dev-journal prerequisites. Owner reports the correct interface/shop with no visible error. This is not a Console/hydration check or complete P08 acceptance. Explicit settings/save/reload is pending. Browser automation remains unavailable; no bypass, account change or installation repeat occurred. All remaining P04/P08–P10 and advisory/provider gates remain open.
+
+## Follow-up 0.8.8 — bounded actual development evidence
+
+[Manual acceptance matrix](P08-MANUAL-ACCEPTANCE.md) supersedes blanket NOT RUN for the specifically observed settings, ingestion/evidence, Resolve/Ignore reload, correct order link and current manual hydration observation. It preserves historical findings and separates owner screenshots/reports from read-only DB assertions. The form id/name Issue disappeared after the minimal markup fix. Remaining warnings and live failure/conflict/foreign-ID/viewport/provider/privacy/advisory gates remain open; P08 is not complete.

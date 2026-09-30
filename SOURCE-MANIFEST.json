@@ -1,10 +1,9 @@
 {
   "format": 1,
-  "release": "0.8.7",
-  "baseline": "a9d019df0eb1f310140f69b0c464710ba2679fdf",
-  "applicationUnchanged": true,
-  "liveP08": "INCOMPLETE; owner-reported interface opening only",
-  "devRuntime": "READY for owner-operated checks",
+  "release": "0.8.8",
+  "baseline": "ac9a88e87116d6f96e6b5939068df05666d76d32",
+  "applicationChange": "Stable form identifiers only",
+  "liveP08": "PARTIAL; owner-operated observations plus DB assertions",
   "advisoryRemediated": false,
   "files": [
     {
@@ -53,7 +52,7 @@
     },
     {
       "path": "CHANGELOG.md",
-      "sha256": "45006cff5dc6bd9b56e27f557a6009e68d1cde2b4a7777f7a35fdd96f6f4eab9"
+      "sha256": "ffbd225b705b016a53d969965c5994ad82c315ba2eaaa1e1e502185e448fdaf9"
     },
     {
       "path": "LICENSE.md",
@@ -61,7 +60,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "0ef3014a6e46aa37ff9435453b8bac1a8b55ada3c2245fdc5857964baecc0769"
+      "sha256": "6eb8054be58cc19b9f0f76d6599303420e97917970c10660b698398dfa202c04"
     },
     {
       "path": "app/auth-lock.server.ts",
@@ -77,7 +76,7 @@
     },
     {
       "path": "app/components/MerchantWorkspace.tsx",
-      "sha256": "0594a2dd19ab559f3b2d4c82f409be77ea013d8097f34964cda90f43a6149220"
+      "sha256": "a91bb3a75e785272b5fadaf039d5616e4d41da4854e6d11b7ba5fd730b4fbfad"
     },
     {
       "path": "app/components/foundation.css",
@@ -329,7 +328,7 @@
     },
     {
       "path": "docs/NEXT.md",
-      "sha256": "ef4cabf4614264d388a14c7a8993e8ca8e07a4ea28613d322295d44ee60c459c"
+      "sha256": "ed7b28ab67ccb56c38101d40152d36823dffc0e89807ec6e987c04f9fe9014f1"
     },
     {
       "path": "docs/NEXT.pre-P05.md",
@@ -376,6 +375,10 @@
       "sha256": "924d2e58f02ef4016ea6c16283de461b19906035f46e1d484fe856e57725ce7f"
     },
     {
+      "path": "docs/NEXT.pre-p08-manual.md",
+      "sha256": "ef4cabf4614264d388a14c7a8993e8ca8e07a4ea28613d322295d44ee60c459c"
+    },
+    {
       "path": "docs/NEXT.pre-runtime-preflight.md",
       "sha256": "d741e3b9637eeccce707eed55961180d3ce2f8100b712602f12cf5cdf4bdcb24"
     },
@@ -412,8 +415,12 @@
       "sha256": "bb28c01a28a5f60141a5493730887a56f89aa1033df93e6540163b82da588413"
     },
     {
+      "path": "docs/P08-MANUAL-ACCEPTANCE.md",
+      "sha256": "a586500863da0adef88bf47202bdcfedc64783b8975154065ae27b25021b500c"
+    },
+    {
       "path": "docs/P08-MERCHANT-WORKFLOW.md",
-      "sha256": "f455af55dc5099244ac3894916241c5d1966a7c82409f6cf32be4dc1a12daaee"
+      "sha256": "baa332307bd2bed3267253114fd646ca6c45f6b470603a78b7685c8f4403d2c3"
     },
     {
       "path": "docs/P09-PLATFORM-RESEARCH.md",
@@ -449,7 +456,7 @@
     },
     {
       "path": "docs/QA-FUNCTIONAL.md",
-      "sha256": "5baeb80b67effa73f97478f156dbb2eca4c1885c9f9ed0b4fb85dd7c6fb988af"
+      "sha256": "a16c3663218eb9df108b072bcf77ac0f775bee982edfe9246d299ccc56b1766f"
     },
     {
       "path": "docs/QA-RELIABILITY.md",
@@ -469,7 +476,7 @@
     },
     {
       "path": "docs/STATUS.md",
-      "sha256": "4c346e966c8f95d171d6577f5cc037da0fec6b4db2949dc1e82c2c95d76b469c"
+      "sha256": "c2311c2917a2554238368251cab000e7aedf21b398b00a0b4ba2d4cff3523c88"
     },
     {
       "path": "docs/STATUS.pre-P05.md",
@@ -514,6 +521,10 @@
     {
       "path": "docs/STATUS.pre-dependency-review.md",
       "sha256": "eededc508f7b1b34cc98c97881a12aeacfdb3253e53a444ae1a4ff3b64bc60ad"
+    },
+    {
+      "path": "docs/STATUS.pre-p08-manual.md",
+      "sha256": "4c346e966c8f95d171d6577f5cc037da0fec6b4db2949dc1e82c2c95d76b469c"
     },
     {
       "path": "docs/STATUS.pre-runtime-preflight.md",
@@ -617,11 +628,11 @@
     },
     {
       "path": "package-lock.json",
-      "sha256": "84ac701e191609dd084f5dcd7e5ea5ad6ff6a43b550a4d90d64686265e6f5dbe"
+      "sha256": "670779e8aacc35e3ca30e117b34506ce9b2e8a03e946b696d847d2c17498fcf1"
     },
     {
       "path": "package.json",
-      "sha256": "bafd153b346b0ea92d0ea18d352e588afe3df73984b951c9066ede4c5e47776b"
+      "sha256": "94d52d110e83e09258772d68daed21a29060e28fad664b35734c32c5065ea3e8"
     },
     {
       "path": "prisma/migrations/0001_foundation/migration.sql",
