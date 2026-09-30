@@ -6,7 +6,7 @@ import { after, afterEach, before, test } from "node:test";
 import { Session } from "@shopify/shopify-api";
 import prisma, { authLockDb } from "../app/db.server";
 import { activateShop, canRunOrdinaryJob, deactivateShop } from "../app/storage.server";
-import { withAuthLock } from "../app/auth-lock.server";
+import { authOperation, withAuthLock } from "../app/auth-lock.server";
 import { acceptOrderJob, processOneOrderJob, purgeExpiredOrders } from "../app/order-jobs.server";
 import { actOnException, getException, listExceptions, saveRuleSettings } from "../app/exceptions.server";
 import { applyPrivacyJournal, getPrivacyExport, markPrivacyExportDelivered, privacyStatus, processOnePrivacyJob, purgePrivacy } from "../app/privacy.server";
@@ -451,7 +451,9 @@ test("privacy deletion waits for an earlier authenticated credential write and t
   const auth = withAuthLock(shop.domain,async()=>{
     ready(); await resume;
     assert.equal(await storage.storeSession(session),true);
-    assert.equal(await prisma.session.count({where:{shop:shop.domain}}),1);
+    assert.equal(await authOperation(shop.domain)!.tx.session.count({where:{shop:shop.domain}}),1);
+    assert.equal(await storage.loadSession(session.id),undefined,"Pending privacy erasure must already block session reads");
+    assert.equal(await prisma.session.count({where:{shop:shop.domain}}),0,"Uncommitted credential must not escape the auth transaction");
   });
   await locked;
   const request = await receipt(shop,"shop/redact");
@@ -481,14 +483,13 @@ test("privacy worker with an earlier clock purges verified reinstall completed b
     return current;
   });
   await locked;
-  const request = await receipt(shop,"shop/redact");
-  // Explicit synthetic clock fixture: eligibility predates the auth-lock wait,
-  // while the verified installation is newer than that worker clock snapshot.
+  // Activation and credentials now commit with the auth mutex. Intake can wait
+  // on the lifecycle lock; never await it while deliberately holding that lock.
+  const pendingReceipt = receipt(shop,"shop/redact");
+  unlock(); const current=await auth;
+  const request = await pendingReceipt;
   await prisma.privacyReceipt.update({where:{id:request.id},data:{availableAt:earlierClock}});
   const worker = processOnePrivacyJob(earlierClock);
-  let current;
-  try { await awaitPrivacyClaim(request.id); }
-  finally { unlock(); current=await auth; }
   assert.equal((await worker).status,"completed");
   assert.equal(await prisma.shop.count({where:{domain:shop.domain}}),0);
   assert.equal(await blocked(shop.domain,undefined,current.installedAt),true);

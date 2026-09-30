@@ -1,0 +1,9 @@
+# Next task — repair the observed late-refresh race
+
+Read [STATUS](STATUS.md), [actual diagnostic](AUTH-TIMEOUT-DIAGNOSTIC.md), [dependency distinction](DEPENDENCY-REMEDIATION.md) and auth/session/privacy code. The0.8.4 experiment completed with operational **FAIL**: HTTP remains pending at65s; after expired auth lock/uninstall a late response recreates encrypted credentials, then auth throwsP2028. Ordinary access stays blocked. This is separate from deepmerge.
+
+Smallest next prompt:
+
+> Implement the smallest compatible correction for the observed background-refresh race. Preserve Shopify managed auth/session mapping. Use the verified SDK runtime hook for bounded OAuth transport with existing signal composition, including stalled response bodies; do not use only Promise.race. Atomically reject stale session writes after lock expiry, uninstall, generation change or privacy erasure without blocking valid fresh installation. Preserve separate pools, lock ordering, encryption/AAD and the independent privacy journal. Prove cancellation/socket closure, timely lock release, no late credential resurrection, subsequent refresh recovery and uninstall/reinstall/privacy races on a local synthetic server and new disposable databases. Run affected auth/privacy/tenant regressions and required checks. Keep all live/privacy/provider and deepmerge advisory gates open; no forced dependency override, account changes, existing-dev migration, real deletion or install repetition. Publish only the sanitized verified patch using the agreed branch/main/tag workflow.
+
+The correction is proposed, not implemented in0.8.4. Current diagnostic scripts intentionally record FAIL and exit0 only for successfully completed observations; do not interpret runner exit status as app acceptance. No merchant pilot or deployment should proceed while this race and the independent advisory remain unresolved.

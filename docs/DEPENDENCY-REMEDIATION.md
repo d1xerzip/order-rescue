@@ -101,3 +101,7 @@ The smallest independent next engineering slice is a synthetic local test of **a
 ## Follow-up0.8.4: distinct reliability defect observed
 
 [Actual local HTTP diagnostic](AUTH-TIMEOUT-DIAGNOSTIC.md) now records FAIL: refresh survives auth-lock expiry and writes a session after uninstall. This is a separate auth lifecycle defect. No deepmerge input was tested or patched, no dependency version changed, and the advisory remains OPEN. The next auth correction must not be presented as dependency remediation.
+
+## Follow-up0.8.5 — auth reliability correction, advisory unchanged
+
+[OAuth cancellation and atomic session fence](AUTH-REFRESH-FIX.md) now pass the real local HTTP reproducer and240 synthetic tests. No installed dependency changed and no fresh audit was run. The deepmerge advisory remains OPEN; this runtime repair is not evidence of remediation or unreachability. The previous diagnostic next step is complete; use current NEXT.md for remaining gates.

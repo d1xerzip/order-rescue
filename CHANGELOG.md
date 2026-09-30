@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.5 — OAuth cancellation and atomic session fence
+
+- Bound token HTTP transport to10s including body consumption; preserve caller cancellation through the official SDK runtime hook.
+- Bind encrypted official Session storage and installation activation to the auth-lock transaction. Reject stale or foreign contexts; preserve fresh reinstall and privacy ordering.
+- Actual loopback reproducer now PASS; preserve historical0.8.4 FAIL. Add seven regression tests including incomplete bodies, retry, concurrent uninstall and lost-transaction/new-install protection. Full240 tests, typecheck/lint/build PASS.
+- No schema/dependency/account change. Keep advisory, live Shopify and privacy/provider gates open; no deployment or real-data deletion.
+
 ## 0.8.4 — Actual background-auth timeout diagnostic
 
 - Execute real loopback HTTP/official SDK refresh and isolated PostgreSQL experiment with fixed acceptance targets.

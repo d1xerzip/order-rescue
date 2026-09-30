@@ -106,3 +106,7 @@ The independent local P10B slice is complete for this envelope. Full P10A/P10B a
 ## Follow-up0.8.4 — token-refresh gap now has observed FAIL
 
 The earlier injected TimeoutError PASS covered the API wrapper only. [Real loopback SDK refresh](AUTH-TIMEOUT-DIAGNOSTIC.md) remains pending beyond65s and can recreate encrypted session credentials after auth-lock expiry/uninstall; final promise rejectsP2028. This new release blocker supersedes the previous NOT RUN for that specific case. Earlier bounded load/restore results remain historical, not acceptance of the untested stall. Body stalls, privacy-erasure and reinstall-generation variants still need coverage.
+
+## Follow-up0.8.5 — locally reproduced auth race repaired
+
+[Actual loopback rerun and transaction-fence regressions](AUTH-REFRESH-FIX.md) PASS: headers and partial body cancellation, successful subsequent refresh, concurrent refresh/uninstall, reinstall and stale active DB transaction. Final suite240/240; typecheck/lint/build PASS. This closes the specific0.8.4 local failure, not the advisory or external gates. Load/fairness/backup/restore were not rerun; earlier envelope remains dated evidence. No existing journal or database was modified.

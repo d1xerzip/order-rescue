@@ -68,3 +68,7 @@ P08 reconciliation (0.7.0): merchant onboarding/settings/inbox/detail/evidence a
 
 
 P09 reconciliation (0.8.0,2026-09-30): previous intake-only/unimplemented-privacy statements are historical. Scoped privacy processing, cascades, anti-replay/restore journal and retention are locally implemented/tested; actual compliance registration and production controls are NOT RUN/unresolved. Approved order allowlist,30dayoriginalcreatedAt expiry, monitoring boundaries and terminal decisions are unchanged. See [PRIVACY-EVIDENCE.md](PRIVACY-EVIDENCE.md), [policy draft](PRIVACY-POLICY.md) and [support](PRIVACY-SUPPORT.md). No separate financial/fulfillment status or new personal scopes added.
+
+## Auth transaction correction0.8.5
+
+The auth operation now carries the salt1-lock-owning Prisma transaction through AsyncLocalStorage. Official Session storage delegates, shop activation, active checks and uninstall deactivation use that transaction; afterAuth writes jobsEnabled there too. Take salt0 after salt1 and never fall back to another pool from a stale operation. OAuth token transport has a composed10s abort signal through body read. [Contract and executed proof](AUTH-REFRESH-FIX.md). This updates auth boundaries without changing inventory, retention, schema or rule semantics. Earlier phase snapshots remain historical.
