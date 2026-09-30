@@ -50,3 +50,7 @@ All deletion/restore tests ran in new rescue_test_* databases on loopback55433 w
 Dev/live P09 migration, journal provisioning and worker startup: **NOT RUN** in the existing merchant-data database. Actual privacy subscriptions/delivery, production PCD approval, external export handoff, hosted database encryption/backups/logs and legal review: **NOT RUN**. No account setting/questionnaire changed, review submitted, deployment performed, external message sent or live data deleted.
 
 P08 real embedded Shopify Admin journey/App Bridge/order navigation remains **NOT RUN**. The in-app browser hydration issue remains unresolved; clean Opera synthetic evidence does not close it. P04 actual update/cancel deliveries and real multi-page sync remain **NOT RUN**. Installation checks were not repeated.
+
+## Auth/privacy follow-up0.8.5
+
+The full synthetic suite reverified credential-write/erasure ordering and reinstall/privacy-clock races after session writes and activation were bound to the auth-lock transaction. Pending privacy blocks session reads even when the same transaction contains an uncommitted write; final erasure removes current Shop/Session. [Auth-fence evidence](AUTH-REFRESH-FIX.md). No real deletion, existing-dev migration, journal replacement, compliance registration or export delivery was performed; all owner/provider/live gates above remain open.

@@ -92,3 +92,7 @@ Installed source inspected: SDK `lib/auth/oauth/refresh-token.mjs`, fetch-reques
 ## Release decision
 
 **NOT READY.** New local blocker: uncancelled background refresh and late session persistence after lock expiry/uninstall. Existing independent blocker: Prisma/deepmerge advisory. Preserve all P08–P10 Shopify/privacy/provider gates, including actual embedded workflow/hydration evidence, selected compliance subscriptions/delivery, safe dev runtime provisioning, secure export, legal/support identity, production PCD and independently durable journal/backup controls. Next: implement and verify the bounded OAuth transport plus atomic stale-write rejection; neither change may be described as a fix for deepmerge.
+
+## Follow-up0.8.5 — repair verified separately
+
+This report remains the historical0.8.4 failure. [AUTH-REFRESH-FIX.md](AUTH-REFRESH-FIX.md) records the implemented cancellation/atomic transaction fence and passing rerun. The current runner writes fixed.json and now fails unless acceptance is PASS; result.json above remains unchanged. The dependency advisory is still open.

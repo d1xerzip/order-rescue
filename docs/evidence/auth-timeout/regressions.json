@@ -1,0 +1,91 @@
+{
+  "format": 1,
+  "recordedAt": "2026-09-30T09:12:45.606Z",
+  "version": "0.8.5",
+  "baseline": "e2ee3592b5299f644ebb84d8c220ef3171ac3ff9",
+  "branch": "codex/auth-refresh-fence",
+  "environment": {
+    "node": "v22.18.0",
+    "database": "new disposable loopback PostgreSQL on55433; one connection per application/auth pool",
+    "transport": "native loopback HTTP; official SDK; generated fictional shops only",
+    "synthetic": true,
+    "liveShopify": false
+  },
+  "command": "npm test",
+  "result": "PASS",
+  "tests": 240,
+  "passed": 240,
+  "failed": 0,
+  "skipped": 0,
+  "durationMs": 59666.8889,
+  "authCases": [
+    {
+      "name": "OAuth headers stall cancels native HTTP and preserves stored credentials",
+      "result": "PASS",
+      "caseDurationMs": 10187.3615
+    },
+    {
+      "name": "OAuth body stall cancels native HTTP and preserves stored credentials",
+      "result": "PASS",
+      "caseDurationMs": 10136.7331
+    },
+    {
+      "name": "OAuth preserves cancellation from Request and RequestInit signals",
+      "result": "PASS",
+      "caseDurationMs": 79.1643
+    },
+    {
+      "name": "concurrent refreshes of one shop perform one exchange and preserve another shop",
+      "result": "PASS",
+      "caseDurationMs": 69.0174
+    },
+    {
+      "name": "parallel refresh and signed uninstall serialize; fresh reinstall rejects old generation and callback",
+      "result": "PASS",
+      "caseDurationMs": 71.5153
+    },
+    {
+      "name": "terminated auth transaction cannot overwrite a reinstalled session even while callback remains active",
+      "result": "PASS",
+      "caseDurationMs": 81.0806
+    },
+    {
+      "name": "cross-domain auth context and non-test writes without context reject",
+      "result": "PASS",
+      "caseDurationMs": 62.4776
+    }
+  ],
+  "caseDurationIncludesSetupAndAssertions": true,
+  "checks": {
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "build": "PASS",
+    "finalFixtureTsc": "PASS",
+    "finalFixtureLint": "PASS",
+    "reproducer": "PASS",
+    "freshLoadRestore": "NOT RUN",
+    "liveShopify": "NOT RUN",
+    "advisoryRemediated": false
+  },
+  "correctedFixtureFailures": [
+    "Pending privacy correctly blocks loadSession despite transaction-local credential write; assert tx/global visibility separately",
+    "New signed uninstall fixture required x-shopify-api-version; supplied missing header and awaited concurrent promises together"
+  ],
+  "sourceSha256": {
+    "app/auth-lock.server.ts": "dcf289cf4903ffd4e0a7182743c363a5eb02cf91c83660908d88545eadb47429",
+    "app/auth.server.ts": "9a9c5a2c83769e0b627922a5d19663a0365810646e8c995a0c451ef8a13880c4",
+    "app/oauth-fetch.server.ts": "3086f39fcf7875995a4a832a6cef44bccf588046e5dcfdc789b85008bbe9b13e",
+    "app/order-runtime.server.ts": "df278c6b2ddc1df515d227359a095df0e994d767736628a8b2797560100e2402",
+    "app/session-storage.server.ts": "810ddca5d1d67bb99ed6d040adfa8e8630428b8a8d0f11eedbf315225ecbc244",
+    "app/shopify.server.ts": "5d10078082b9c5e0275494294610e6717aff36edea906b3d537a8e5cec29b41a",
+    "app/storage.server.ts": "ca5f4475fb9d81d72cc4e7d72c7954cb38ef9452654423264c59bea0a82f3a71",
+    "package-lock.json": "23c4149a60e76bc95ef71f6aa393b656598acdb570d3d4f87a5969d321fc0e5b",
+    "scripts/auth-timeout-check.mjs": "4279d4de400b3295695d35826ef75735571cbea099a10f5dfe16959214053c7d",
+    "scripts/auth-timeout-fixture.ts": "3ea99ec545691f3196ea2c2c6b82e5952b0bf008c3e8857d9a57f843c7c5be3b",
+    "scripts/test.mjs": "eed1f5c12e3d650b36b1e2b174c95f1d70c56761f2e574efee356f437d484bb6",
+    "tests/auth-refresh-fence.test.ts": "0bacc8a8d4e32d82a433054da1419f3cdba59f81dddf7d9eb196ba7812ab8351",
+    "tests/http.test.ts": "fb8a32902128bb99c127a6ef1a85e34401ea17d7ab38f4406675652c2089212a",
+    "tests/privacy-lifecycle.test.ts": "8e5b6c1d9906e066548788dc0722b9cfa1c14d96a9d1a09eb3ef69405ff38db1",
+    "tests/storage.test.ts": "4c6ca4928a6954029eda8e83b58843619f9d6e85e1cd722a4d228751d412faaa"
+  }
+}

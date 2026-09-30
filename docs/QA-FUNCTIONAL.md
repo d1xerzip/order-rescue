@@ -85,3 +85,7 @@ Keep open: P08 actual Admin/App Bridge/workflow/order-link/embedded Console; P04
 ## P10B follow-up (0.8.2)
 
 [Independent local reliability](QA-RELIABILITY.md) and actual synthetic restore now pass their recorded envelope; final local suite is233/233. Vite production esbuild advisory fixed;4high Prisma/deepmerge entries remain. No P10A current Shopify criterion changed from NOT RUN to PASS. Both protected browser domains still refuse access; all actual UI/privacy/provider gates above remain open.
+
+## Follow-up0.8.5 — auth lifecycle regression supplement
+
+Local/synthetic PASS: full240-test suite, including bounded OAuth headers/body, actual SDK retry, parallel refresh/uninstall, fresh generation preservation and foreign auth-context rejection. See [source-bound evidence](AUTH-REFRESH-FIX.md). Existing real Shopify P08/P09/P10 acceptance remains open; neither loopback OAuth nor a green build closes it. Browser/live lifecycle checks were not repeated.

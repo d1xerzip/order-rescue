@@ -8,7 +8,11 @@ import { LogSeverity, shopifyApi } from "@shopify/shopify-api";
 import { shopifyConfig } from "./config.server";
 import { EncryptedSessionStorage } from "./session-storage.server";
 import { activateShop } from "./storage.server";
-import prisma from "./db.server";
+import { authOperation } from "./auth-lock.server";
+import { setAbstractFetchFunc } from "@shopify/shopify-api/runtime";
+import { oauthFetch } from "./oauth-fetch.server";
+
+setAbstractFetchFunc(oauthFetch);
 
 const config = shopifyConfig();
 // Do not log SDK messages: errors may contain credential-bearing request details.
@@ -27,8 +31,11 @@ const shopify = shopifyApp({
   hooks: {
     afterAuth: async ({ session, admin }) => {
       try {
+        const operation = authOperation(session.shop);
+        if (!operation) throw new Error("AUTH_OPERATION_REQUIRED");
         const response = await admin.graphql(
           "query FoundationShop { shop { id myshopifyDomain } }",
+          { signal: AbortSignal.any([AbortSignal.timeout(10_000), operation.controller.signal]) },
         );
         const body = (await response.json()) as {
           errors?: unknown[];
@@ -42,7 +49,7 @@ const shopify = shopifyApp({
         )
           throw new Error("SHOP_IDENTITY_UNAVAILABLE");
         await activateShop(session.shop, body.data.shop.id);
-        await prisma.shop.update({
+        await operation.tx.shop.update({
           where: { domain: session.shop },
           data: {
             jobsEnabled: (session.scope || "")

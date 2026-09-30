@@ -1,6 +1,12 @@
 import type { Prisma } from "@prisma/client";
 import prisma from "./db.server";
 import { privacyBlocked, privacyHash } from "./privacy-guard.server";
+import { authOperation } from "./auth-lock.server";
+
+function lifecycleTransaction<T>(domain: string, operation: (tx: Prisma.TransactionClient) => Promise<T>) {
+  const auth = authOperation(domain);
+  return auth ? operation(auth.tx) : prisma.$transaction(operation);
+}
 
 export function validateShopDomain(domain: string): string {
   if (!/^[a-z0-9][a-z0-9-]*\.myshopify\.com$/.test(domain)) {
@@ -21,7 +27,7 @@ export async function activateShop(shopDomain: string, shopifyId?: string) {
     !/^gid:\/\/shopify\/Shop\/[1-9]\d*$/.test(shopifyId)
   )
     throw new Error("Invalid Shopify shop identifier");
-  return prisma.$transaction(async (tx) => {
+  return lifecycleTransaction(shopDomain, async (tx) => {
     await lockShop(tx, shopDomain);
     const existing = await tx.shop.findUnique({
       where: { domain: shopDomain },
@@ -68,7 +74,7 @@ export async function activateShop(shopDomain: string, shopifyId?: string) {
 
 export async function requireActiveShop(shopDomain: string) {
   validateShopDomain(shopDomain);
-  return prisma.$transaction(async tx => {
+  return lifecycleTransaction(shopDomain, async tx => {
     await lockShop(tx, shopDomain);
     const shop = await tx.shop.findFirst({ where: { domain: shopDomain, active: true } });
     return shop && !await privacyBlocked(tx, shop.domain, undefined, shop.installedAt) ? shop : null;
@@ -80,7 +86,7 @@ export async function deactivateShop(
   deliveryId: string,
   triggeredAt?: Date,
 ) {
-  return prisma.$transaction(async (tx) => {
+  return lifecycleTransaction(shopDomain, async (tx) => {
     await lockShop(tx, shopDomain);
     const duplicate = await tx.lifecycleDelivery.findUnique({
       where: { shopDomain_deliveryId: { shopDomain, deliveryId } },

@@ -1,0 +1,66 @@
+{
+  "format": 1,
+  "recordedAt": "2026-09-30T09:03:07.338Z",
+  "startedAt": "2026-09-30T09:02:01.814Z",
+  "version": "0.8.5",
+  "synthetic": true,
+  "transport": "real loopback HTTP sockets; official SDK refresh; local destination forwarding only",
+  "database": "new isolated PostgreSQL cluster55436",
+  "targets": {
+    "refreshSettlesWithinMs": 15000,
+    "lateCredentialWriteAfterUninstall": false,
+    "ordinaryAccessAfterUninstall": false
+  },
+  "sourceSha256": {
+    "app/auth.server.ts": "9a9c5a2c83769e0b627922a5d19663a0365810646e8c995a0c451ef8a13880c4",
+    "app/auth-lock.server.ts": "dcf289cf4903ffd4e0a7182743c363a5eb02cf91c83660908d88545eadb47429",
+    "app/oauth-fetch.server.ts": "3086f39fcf7875995a4a832a6cef44bccf588046e5dcfdc789b85008bbe9b13e",
+    "app/storage.server.ts": "ca5f4475fb9d81d72cc4e7d72c7954cb38ef9452654423264c59bea0a82f3a71",
+    "app/order-runtime.server.ts": "df278c6b2ddc1df515d227359a095df0e994d767736628a8b2797560100e2402",
+    "app/session-storage.server.ts": "810ddca5d1d67bb99ed6d040adfa8e8630428b8a8d0f11eedbf315225ecbc244",
+    "app/shopify.server.ts": "5d10078082b9c5e0275494294610e6717aff36edea906b3d537a8e5cec29b41a",
+    "package-lock.json": "23c4149a60e76bc95ef71f6aa393b656598acdb570d3d4f87a5969d321fc0e5b",
+    "scripts/auth-timeout-check.mjs": "4279d4de400b3295695d35826ef75735571cbea099a10f5dfe16959214053c7d",
+    "scripts/auth-timeout-fixture.ts": "3ea99ec545691f3196ea2c2c6b82e5952b0bf008c3e8857d9a57f843c7c5be3b"
+  },
+  "observations": {
+    "delayedRefreshMs": 325,
+    "delayedCredentialEncrypted": true,
+    "refreshSettledMs": 10030,
+    "settledAt16s": true,
+    "socketOpenAt16s": false,
+    "settledAt65s": true,
+    "socketOpenAt65s": false,
+    "observationDurationMs": 65044,
+    "suppliedSignals": 2,
+    "abortedSockets": 1,
+    "requests": 2,
+    "uninstallMs": 19,
+    "sessionsBeforeLateReply": 0,
+    "lateCredentialWriteAfterUninstall": false,
+    "lateCredentialEncrypted": null,
+    "finalAuthPromise": {
+      "errorName": "Error",
+      "errorCode": null
+    },
+    "ordinaryAccessDeniedAfterUninstall": true,
+    "privacyReceiptStatus": 200,
+    "otherShopRecoveryMs": 7
+  },
+  "checks": {
+    "refreshBound": true,
+    "noLateWrite": true,
+    "ordinaryAccessBlocked": true,
+    "privacyIntakeAvailable": true,
+    "otherShopRecovery": true
+  },
+  "acceptance": "PASS",
+  "diagnosticCompleted": true,
+  "advisoryRemediated": false,
+  "limitations": [
+    "No real Shopify, TLS, DNS, production proxy or customer data",
+    "This scenario covers no response headers; partial body and stale transaction tested separately",
+    "Current deepmerge advisory unaffected",
+    "Privacy intake accepted; export/deletion processing not claimed"
+  ]
+}

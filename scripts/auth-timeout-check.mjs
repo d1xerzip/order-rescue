@@ -23,6 +23,6 @@ let running=false;
 try{await pg.initialise();await pg.start();running=true;await pg.createDatabase(name);
  await run(['node_modules/prisma/build/index.js','migrate','deploy']);
  await run(['--import','tsx','scripts/auth-timeout-fixture.ts']);
- console.log('AUTH_TIMEOUT_DIAGNOSTIC_RECORDED: docs/evidence/auth-timeout/result.json (read acceptance status; diagnostic completion is not a fix)');
+ console.log('AUTH_TIMEOUT_FIX_CHECK_PASS: docs/evidence/auth-timeout/fixed.json (deepmerge advisory unaffected)');
 }catch{process.exitCode=1;console.error('AUTH_TIMEOUT_DIAGNOSTIC_FAILED: inspect private log');}
 finally{if(running)await pg.stop();closeSync(log);}

@@ -10,13 +10,14 @@ import {sessionStorage} from '../app/shopify.server';
 import {authenticatedBackground} from '../app/auth.server';
 import {activateShop,canRunOrdinaryJob} from '../app/storage.server';
 import {lifecycleWebhook} from '../app/webhooks.server';
+import {oauthFetch} from '../app/oauth-fetch.server';
 
 const db=new URL(process.env.DATABASE_URL!);
 assert.equal(process.env.AUTH_TIMEOUT_DIAGNOSTIC,'1');assert.equal(process.env.ORDER_RESCUE_DISPOSABLE_TEST_DB,'1');
 assert.equal(db.hostname,'127.0.0.1');assert.equal(db.port,'55436');assert.match(db.pathname,/^\/rescue_auth_timeout_\d+$/);
 // Proposed acceptance fixed before observation; this diagnostic does not alter app timeouts.
 const targets={refreshSettlesWithinMs:15000,lateCredentialWriteAfterUninstall:false,ordinaryAccessAfterUninstall:false};
-const sourceFiles=['app/auth.server.ts','app/auth-lock.server.ts','app/order-runtime.server.ts','app/session-storage.server.ts','app/shopify.server.ts','package-lock.json','scripts/auth-timeout-check.mjs','scripts/auth-timeout-fixture.ts'];
+const sourceFiles=['app/auth.server.ts','app/auth-lock.server.ts','app/oauth-fetch.server.ts','app/storage.server.ts','app/order-runtime.server.ts','app/session-storage.server.ts','app/shopify.server.ts','package-lock.json','scripts/auth-timeout-check.mjs','scripts/auth-timeout-fixture.ts'];
 const fingerprint=()=>Object.fromEntries(sourceFiles.map(f=>[f,createHash('sha256').update(readFileSync(f,'utf8').replaceAll('\r\n','\n').trimEnd()+'\n').digest('hex')]));
 const sourceSha256=fingerprint();
 const a='timeout-a.myshopify.com',b='timeout-b.myshopify.com';
@@ -44,9 +45,9 @@ globalThis.fetch=async(input,init)=>{
  const signal=existing?AbortSignal.any([existing,abortCleanup.signal]):abortCleanup.signal;
  return originalFetch(`http://127.0.0.1:${address.port}/${target.hostname===a?'stall':'delayed'}`,{...init,signal});
 };
-setAbstractFetchFunc(globalThis.fetch);
+setAbstractFetchFunc(oauthFetch);
 const watchdog=setTimeout(()=>abortCleanup.abort(),95000);
-function observe<T>(operation:Promise<T>){let settled=false;const promise=operation.then(value=>{settled=true;return {ok:true as const,value};},error=>{settled=true;return {ok:false as const,errorName:error?.name??'Error',errorCode:error?.code??null};});return {get settled(){return settled;},promise};}
+function observe<T>(operation:Promise<T>){let settled=false,settledMs:number|null=null;const start=performance.now();const done=()=>{settled=true;settledMs=Math.round(performance.now()-start);};const promise=operation.then(value=>{done();return {ok:true as const,value};},error=>{done();return {ok:false as const,errorName:error?.name??'Error',errorCode:error?.code??null};});return {get settled(){return settled;},get settledMs(){return settledMs;},promise};}
 function signed(topic:string,domain:string,payload:unknown){const body=JSON.stringify(payload);return new Request('https://app.example.test/webhooks/test',{method:'POST',body,headers:{'x-shopify-topic':topic,'x-shopify-shop-domain':domain,'x-shopify-api-version':'2026-07','x-shopify-webhook-id':randomUUID(),'x-shopify-hmac-sha256':createHmac('sha256',process.env.SHOPIFY_API_SECRET!).update(body).digest('base64')}});}
 try{
  const shops=[];for(const domain of [a,b]){shops.push(await activateShop(domain));await sessionStorage.storeSession(new Session({id:`offline_${domain}`,shop:domain,state:'',isOnline:false,scope:'read_orders',accessToken:'synthetic-expired',expires:new Date(Date.now()-60000),refreshToken:'synthetic-refresh',refreshTokenExpires:new Date(Date.now()+86400000)}));}
@@ -72,14 +73,15 @@ try{
  const lateWrite=Boolean(late);if(late){assert.match(late.accessToken,/^v1:/);assert.notEqual(late.accessToken,'synthetic-late');}
  let denied=false;try{await authenticatedBackground(a,shops[0].generation);}catch{denied=true;}assert.equal(denied,true);
  const recoveryStart=performance.now();await authenticatedBackground(b,shops[1].generation);const recoveryMs=Math.round(performance.now()-recoveryStart);
- const checks={refreshBound:settledAt16s&&!socketOpenAt16s,noLateWrite:!lateWrite,ordinaryAccessBlocked:denied,privacyIntakeAvailable:privacy.status===200,otherShopRecovery:true};
+ const checks={refreshBound:stalled.settledMs!==null&&stalled.settledMs<=targets.refreshSettlesWithinMs&&!socketOpenAt16s,noLateWrite:!lateWrite,ordinaryAccessBlocked:denied,privacyIntakeAvailable:privacy.status===200,otherShopRecovery:true};
  assert.deepEqual(fingerprint(),sourceSha256,'Source changed during diagnostic');
  const evidence={format:1,recordedAt:new Date().toISOString(),startedAt,version:JSON.parse(readFileSync('package.json','utf8')).version,synthetic:true,
   transport:'real loopback HTTP sockets; official SDK refresh; local destination forwarding only',database:'new isolated PostgreSQL cluster55436',targets,sourceSha256,
-  observations:{delayedRefreshMs:delayedMs,delayedCredentialEncrypted:true,settledAt16s,socketOpenAt16s,settledAt65s,socketOpenAt65s,elapsedUntilManualLateReplyMs:elapsedMs,
+  observations:{delayedRefreshMs:delayedMs,delayedCredentialEncrypted:true,refreshSettledMs:stalled.settledMs,settledAt16s,socketOpenAt16s,settledAt65s,socketOpenAt65s,observationDurationMs:elapsedMs,
    suppliedSignals,abortedSockets,requests,uninstallMs,sessionsBeforeLateReply,lateCredentialWriteAfterUninstall:lateWrite,lateCredentialEncrypted:late?true:null,
    finalAuthPromise:result.ok?'resolved':{errorName:result.errorName,errorCode:result.errorCode},ordinaryAccessDeniedAfterUninstall:denied,privacyReceiptStatus:privacy.status,otherShopRecoveryMs:recoveryMs},
   checks,acceptance:Object.values(checks).every(Boolean)?'PASS':'FAIL',diagnosticCompleted:true,advisoryRemediated:false,
-  limitations:['No real Shopify, TLS, DNS, production proxy or customer data','Manual late server reply ends the stalled request; no proof of autonomous eventual cancellation','Current advisory unaffected; no runtime fix applied','Privacy intake accepted; export/deletion processing not claimed']};
- mkdirSync('docs/evidence/auth-timeout',{recursive:true});writeFileSync('docs/evidence/auth-timeout/result.json',JSON.stringify(evidence,null,2)+'\n');
+  limitations:['No real Shopify, TLS, DNS, production proxy or customer data','This scenario covers no response headers; partial body and stale transaction tested separately','Current deepmerge advisory unaffected','Privacy intake accepted; export/deletion processing not claimed']};
+ mkdirSync('docs/evidence/auth-timeout',{recursive:true});writeFileSync('docs/evidence/auth-timeout/fixed.json',JSON.stringify(evidence,null,2)+'\n');
+ assert.equal(evidence.acceptance,'PASS');
 }finally{clearTimeout(watchdog);abortCleanup.abort();globalThis.fetch=originalFetch;setAbstractFetchFunc(originalFetch);server.closeAllConnections();await new Promise<void>(yes=>server.close(()=>yes()));await Promise.all([prisma.$disconnect(),authLockDb.$disconnect()]);}
