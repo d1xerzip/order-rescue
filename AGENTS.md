@@ -22,3 +22,5 @@ After completion and verification, merge each update branch into main and create
 For P05 contracts/fixtures read docs/P05-RULE-CONTRACT.md. Specifications are not executable rule evidence.
 
 - Exception transitions, persisted rule settings/evaluations, decision audit and P07 API boundaries: [P07-LIFECYCLE.md](docs/P07-LIFECYCLE.md). Keep terminal decisions closed under automatic reevaluation; never invent a merchant threshold.
+
+- P08 merchant workflow, pagination contract, synthetic browser harness and live acceptance limits: [P08-MERCHANT-WORKFLOW.md](docs/P08-MERCHANT-WORKFLOW.md). Never treat harness-supplied synthetic tokens as App Bridge integration proof.

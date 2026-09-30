@@ -1,9 +1,9 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import { exceptionRequest, exactKeys, jsonBody, revision } from "../exception-http.server";
-import { actOnException, ExceptionError, getException } from "../exceptions.server";
+import { actOnException, ExceptionError, getException, pageOptions } from "../exceptions.server";
 
 export function loader({ request, params }: LoaderFunctionArgs) {
-  return exceptionRequest(request, "GET", (principal) => getException(principal, params.id || ""));
+  return exceptionRequest(request, "GET", (principal) => getException(principal, params.id || "", pageOptions(request, "historyCursor")));
 }
 
 export function action({ request, params }: ActionFunctionArgs) {

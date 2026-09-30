@@ -26,3 +26,6 @@ P06B reconciliation (0.5.0): both accepted rules are implemented and tested, pre
 
 
 P07 reconciliation (0.6.0): explicit shop settings, latest evaluations, stable exceptions and encrypted decision history now persist; earlier transient-only statements are historical. Terminal Resolve/Ignore decisions remain closed under automatic reevaluation. See [P07 lifecycle/evidence](P07-LIFECYCLE.md). P08 UI is next; no live migration/deployment or production-readiness claim.
+
+
+P08 reconciliation (0.7.0): merchant onboarding/settings/inbox/detail/evidence and server-confirmed decisions now exist, with bounded API pagination and synthetic browser verification. Previous UI-unimplemented/unmigrated-dev statements are historical; existing dev data was preserved during the additive migration. No real thresholds were saved. See [P08 workflow and evidence](P08-MERCHANT-WORKFLOW.md). Real embedded Shopify acceptance remains NOT RUN; P09 is the next independent slice.
